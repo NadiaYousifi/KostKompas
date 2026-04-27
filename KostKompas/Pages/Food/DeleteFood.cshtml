@@ -1,0 +1,12 @@
+﻿@page
+@model KostKompas.Pages.Food.DeleteFoodModel
+@{
+}
+<h1>Delete Confirmation</h1>
+<div class="alert alert-danger">
+    <h5>Are you sure you want to delete Food - @Model.Food.Name</h5>
+    <form method="post">
+        <button type="submit" class="btn btn-danger">Yes</button>
+        <a class="btn btn-primary" asp-page="/Food/GetAllFoods">No</a>
+    </form>
+</div>
