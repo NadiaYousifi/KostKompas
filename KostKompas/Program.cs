@@ -1,7 +1,10 @@
+using KostKompas.Sevices;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddSingleton<FoodService, FoodService>();
 
 var app = builder.Build();
 
