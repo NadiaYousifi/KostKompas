@@ -1,4 +1,5 @@
-﻿using KostKompas.Models;
+﻿using KostKompas.MockData;
+using KostKompas.Models;
 
 namespace KostKompas.Services
 {
@@ -8,7 +9,7 @@ namespace KostKompas.Services
 
         public UserService()
         {
-
+            _users = MockUsers.GetMockUsers();
         }
 
 
@@ -64,10 +65,10 @@ namespace KostKompas.Services
                     break;
                 }
 
-                if (userToBeDeleted != null)
-                {
-                    _users.Remove(userToBeDeleted);
-                }
+            }
+            if (userToBeDeleted != null)
+            {
+                _users.Remove(userToBeDeleted);
             }
             return userToBeDeleted;
         }

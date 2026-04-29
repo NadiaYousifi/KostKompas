@@ -29,6 +29,34 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Food/GetAllFoods">Fødevarer</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/User/GetAllUsers">Brugere</a>
+                        </li>
+
+                    </ul>
+                        <ul class="navbar-nav">
+                            @{
+                                if (Context.User.Identity == null || !Context.User.Identity.IsAuthenticated)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/LogIn/LogInPage">Login</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item nav-link text-dark me-3">
+                                        User: @Context.User.Identity.Name
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/LogIn/LogOutPage">Logout</a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+
+
+
                     </ul>
                 </div>
             </div>
