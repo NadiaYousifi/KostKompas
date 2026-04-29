@@ -1,4 +1,5 @@
-﻿using KostKompas.Models;
+﻿using KostKompas.MockData;
+using KostKompas.Models;
 
 namespace KostKompas.Sevices
 {
@@ -6,6 +7,20 @@ namespace KostKompas.Sevices
     {
 
         private List<User> users;
+
+
+
+        // constructor
+        public UserService()
+        {
+            users = MockUsers.GetMockUsers();
+            //{
+            //new Models.User("Louise", "louiselr_2@live.dk","0207", 1),
+            //new Models.User("Nadia", "emial@live.dk", "0033", 2),
+            //new Models.User("Emil", "email@live.com", "3030", 3)
+            //};
+        }
+
 
 
 
@@ -30,7 +45,7 @@ namespace KostKompas.Sevices
             {
                 foreach (User u in users)
                 {
-                    if (u.id == u.id)
+                    if (u.Id == user.Id)
                     {
                         u.Name = user.Name;
                         u.Email = user.Email;
@@ -43,11 +58,11 @@ namespace KostKompas.Sevices
 
 
         // GetById
-        public User? GetUser(int id)
+        public User GetUser(int id)
         {
             foreach (User u in users)
             {
-                if (u.id == id)
+                if (u.Id == id)
                     return u;
             }
             throw new ArgumentException("User findes ikke");
@@ -60,12 +75,16 @@ namespace KostKompas.Sevices
             User userToBeDeleted = null;
             foreach (User user in users)
             {
-                if (user.id == id)
+                if (user.Id == id)
                 {
                     userToBeDeleted = user;
                     break;
                 }
 
+            }
+            if (userToBeDeleted != null)
+            {
+                users.Remove(userToBeDeleted);
             }
             return userToBeDeleted;
 

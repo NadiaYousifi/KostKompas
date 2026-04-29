@@ -1,29 +1,14 @@
-﻿@page
-@model KostKompas.Pages.User.CreateUserModel
+﻿@page "{id:int}"
+@model KostKompas.Pages.User.EditUserModel
 @{
 }
 
 <form method="post">
-    @*  <div class="form-group">
-        <label asp-for="@Model.Item.Id" class="control-lable"></label>
-        <input asp-for="@Model.Item.Id" class="form-control"/>
-    </div>
-
     <div class="form-group">
-        <label asp-for="@Model.Item.Name" class="control-lable"></label>
-        <input asp-for="@Model.Item.Name" class="form-control" />
+        <label asp-for="User.Id" class="control-lable"></label>
+        <input asp-for="User.Id" class="form-control" readonly="@(true)" />
+        @*  // der må ikke ændres på værdien emd readonly *@
     </div>
-
-    <div class="form-group">
-        <label asp-for="@Model.Item.Price" class="control-lable"></label>
-        <input asp-for="@Model.Item.Price" class="form-control" />
-    </div> *@
-
-    @*  <div class="form-group">
-        <input type="submit" value=" Create" class="btn btn-primary" />
-    </div> *@
-
-    @*  @Nyt fra opgave 3 *@
 
     <div class="form-group">
         <label asp-for="User.Name"></label>
@@ -46,8 +31,11 @@
     </div>
 
 
-    <div class="form-group">
-        <input type="submit" value=" Create" class="btn btn-primary" />
-    </div>
 
+    <div class="form-group">
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </div>
 </form>
+<div>
+    <a asp-page="/User/GetAllUsers">Back to List</a>
+</div>

@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace KostKompas.Pages.User
 {
-    public class CreateUserModel : PageModel
+    public class EditUserModel : PageModel
     {
+
         // instance fields
         private UserService _userService;
 
@@ -14,28 +15,30 @@ namespace KostKompas.Pages.User
         public Models.User User { get; set; }
 
 
-        // constructor
-        public CreateUserModel(UserService userService)
+        // constructor 
+        public EditUserModel(UserService UserService)
         {
-            _userService = userService;
+            _userService = UserService;
         }
 
         // metode OnGet
-        public IActionResult OnGet()
+        public IActionResult OnGet(int id)
         {
-            return Page(); // genopfrisk siden
+            User = _userService.GetUser(id);
+            if (User == null)
+                return RedirectToPage("/NotFound"); //NotFound er ikke defineret endnu
+
+            return Page();
         }
-
-
 
         // metode OnPost
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid) // tjekker om staten brydes. Passer datatyperne sammen (int først, derefter string = invalid)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
-            _userService.AddUser(User);
+            _userService.UpdateUser(User);
             return RedirectToPage("GetAllUsers");
         }
     }

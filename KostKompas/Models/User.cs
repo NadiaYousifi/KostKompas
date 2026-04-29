@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public int id { get; set; }
+        public int Id { get; set; }
 
         // constructor 
         public User(string name, string email, string password, int id)
@@ -14,7 +14,7 @@
             Name = name;
             Email = email;
             Password = password;
-            id = id;
+            Id = id;
         }
 
         // defaul constructor
