@@ -1,10 +1,16 @@
-﻿using KostKompas.Models;
+﻿using KostKompas.MockData;
+using KostKompas.Models;
 
 namespace KostKompas.Services
 {
     public class UserService
     {
         private List<User> _users;
+
+        public UserService()
+        {
+            _users = MockUsers.GetMockUsers();
+        }
 
         public void AddUser(User user)
         {

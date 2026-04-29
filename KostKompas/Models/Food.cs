@@ -9,6 +9,7 @@
         public double Fat { get; set; }
         public double Carbohydrate { get; set; }
         public double Fibre { get; set; }
+        public double WeightInGrams { get; set; } = 100;
 
         public Food(int id, string name, double kcal, double protein, double fat, double carbohydrate, double fibre)
         {
@@ -27,7 +28,7 @@
 
         public override string ToString()
         {
-            return $"Name: {Name}, Kcal: {Kcal}, Protein: {Protein}, Fat: {Fat}, Carbohydrate: {Carbohydrate}, Fibre: {Fibre}";
+            return $"Name: {Name}, Kcal: {Kcal}, Protein: {Protein}, Fat: {Fat}, Carbohydrate: {Carbohydrate}, Fibre: {Fibre}, Weight in grams: {WeightInGrams}";
         }
     }
 }
