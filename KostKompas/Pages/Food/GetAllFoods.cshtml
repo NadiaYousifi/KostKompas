@@ -2,6 +2,7 @@
 @model KostKompas.Pages.Food.GetAllFoodsModel
 @{
 }
+
 <h1>Fødevarer</h1>
 
 <table class="table">
@@ -26,7 +27,7 @@
                 <td>@food.Kcal</td>
                 <td>@food.Protein</td>
                 <td>@food.Fat</td>
-                <td>@food.CarboHydrate</td>
+                <td>@food.Carbohydrate</td>
                 <td>@food.Fibre</td>
 
                 <td>
@@ -38,6 +39,7 @@
         }
     </tbody>
 </table>
+
 <p>
-    <a class="btn btn-primary" asp-page="/Food/CreateFood"> Opret Fødevare </a>
+    <a class="btn btn-primary" asp-page="CreateFood"> Tilføj en ny fødevare </a>
 </p>

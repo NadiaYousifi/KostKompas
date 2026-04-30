@@ -2,6 +2,7 @@
 @model KostKompas.Pages.FoodLog.GetFoodLogDayModel
 @{
 }
+
 <table>
     <tr>
         <th>Energifordeling</th>
@@ -10,49 +11,77 @@
         <td>Energi:</td>
         <td>kcal</td>
     </tr>
+
     <tr>
         <td>Fedt</td>
         <td>g</td>
     </tr>
+
     <tr>
-        <td>Kulhydrater</td>
+        <td>Kulhydrat</td>
         <td>g</td>
     </tr>
+
     <tr>
         <td>Kostfibre</td>
         <td>g</td>
     </tr>
+
     <tr>
+        <td>Protein</td>
         <td>g</td>
     </tr>
 
 </table>
 
 <table class="table table-bordered table-hover table-striped table-opacity" width="60%">
+  
+    <tr>
+        <td>Morgenmad</td>
+        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
+
+       
+    </tr>
 
     <tr>
-        <th>Morgenmad</th>
-        <td><a href="#" class="btn btn-success">Tilføj</a></td>
-    </tr>
-    <tr>
         <td>Formiddag</td>
-        <td><a href="#" class="btn btn-success">Tilføj</a></td>
+        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
+
+    
     </tr>
+
     <tr>
         <td>Frokost</td>
-        <td><a href="#" class="btn btn-success">Tilføj</a></td>
+        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
+
+       
     </tr>
+
     <tr>
         <td>Eftermiddag</td>
-        <td><a href="#" class="btn btn-success">Tilføj</a></td>
+        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
+
+        
     </tr>
+
     <tr>
         <td>Aftensmad</td>
-        <td><a href="#" class="btn btn-success">Tilføj</a></td>
+        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
+
+       
     </tr>
+
     <tr>
-        <td>Sen aften</td>
-        <td><a href="#" class="btn btn-success">Tilføj</a></td>
+        <td>Sen aften</td> 
+        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
+        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Mogenmad" class="btn btn-success">Tilføj</a>
+        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Formiddag" class="btn btn-success">Tilføj</a>
+        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Frokost" class="btn btn-success">Tilføj</a>
+        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Eftermiddag" class="btn btn-success">Tilføj</a>
+        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Aftensmad" class="btn btn-success">Tilføj</a>
+        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Sen aften" class="btn btn-success">Tilføj</a>
+       
+
     </tr>
 
 </table>

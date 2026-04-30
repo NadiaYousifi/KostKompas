@@ -2,10 +2,11 @@
 {
     public class User
     {
-        public int Id { get; set; }
+        // properties 
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public int Id { get; set; }
 
         
 
@@ -18,11 +19,13 @@
             
         }
 
+        // defaul constructor
         public User()
         {
 
         }
 
+        // method 
         public override string ToString()
         {
             return $"Name: {Name}, Email: {Email}, Password: {Password}";

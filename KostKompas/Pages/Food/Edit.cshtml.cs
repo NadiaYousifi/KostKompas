@@ -1,12 +1,11 @@
-using KostKompas.Services;
+using KostKompas.Sevices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace KostKompas.Pages.Food
 {
-    public class CreateFoodModel : PageModel
+    public class EditModel : PageModel
     {
-
         // instance fields
         private FoodService _foodService;
 
@@ -15,28 +14,30 @@ namespace KostKompas.Pages.Food
         public Models.Food Food { get; set; }
 
 
-        // constructor
-        public CreateFoodModel(FoodService foodService)
+        // constructor 
+        public EditModel(FoodService FoodService)
         {
-            _foodService = foodService;
+            _foodService = FoodService;
         }
 
         // metode OnGet
-        public IActionResult OnGet()
+        public IActionResult OnGet(int id)
         {
-            return Page(); // genopfrisk siden
+            Food = _foodService.GetFood(id);
+            if (Food == null)
+                return RedirectToPage("/NotFound"); //NotFound er ikke defineret endnu
+
+            return Page();
         }
-
-
 
         // metode OnPost
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid) // tjekker om staten brydes. Passer datatyperne sammen (int først, derefter string = invalid)
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
-            _foodService.AddFood(Food);
+            _foodService.UpdateFood(Food);
             return RedirectToPage("GetAllFoods");
         }
     }

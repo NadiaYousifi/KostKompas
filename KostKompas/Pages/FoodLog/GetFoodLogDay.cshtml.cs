@@ -6,18 +6,21 @@ namespace KostKompas.Pages.FoodLog
 {
     public class GetFoodLogDayModel : PageModel
     {
+        // properties 
         private FoodLogService _foodLogService;
 
         public Models.FoodLogDay FoodLogDay { get; set; }
 
-        public GetFoodLogDayModel(FoodLogService foodLogService)
+        // constructor
+        public GetFoodLogDayModel(FoodLogService foodLogService) //dependency injection
         {
             _foodLogService = foodLogService;
         }
 
-        public IActionResult OnGet(int id)
+        // OnGet metode
+        public IActionResult OnGet()
         {
-            FoodLogDay = _foodLogService.GetFoodLogDayById(id);
+            FoodLogDay = _FoodLogService.GetFoodLogDayByDate(DateTime.Today);
             if (FoodLogDay == null)
             {
                 return RedirectToPage("/NotFound");

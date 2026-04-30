@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<FoodService>();
 builder.Services.AddSingleton<UserService>();
-
+builder.Services.AddSingleton<FoodLogService, FoodLogService>();
 
 builder.Services.Configure<CookiePolicyOptions>(options => {
     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -28,6 +28,8 @@ builder.Services.AddMvc().AddRazorPagesOptions(options => {
 
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
