@@ -1,4 +1,4 @@
-using KostKompas.Sevices;
+using KostKompas.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -23,7 +23,7 @@ namespace KostKompas.Pages.Food
         // metode OnGet
         public IActionResult OnGet(int id)
         {
-            Food = _foodService.GetFood(id);
+            Food = _foodService.GetFoodById(id);
             if (Food == null)
                 return RedirectToPage("/NotFound"); //NotFound er ikke defineret endnu
 

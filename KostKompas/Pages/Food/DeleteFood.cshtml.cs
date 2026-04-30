@@ -34,7 +34,7 @@ namespace KostKompas.Pages.Food
             _foodService.DeleteFood(Food.Id);
             if(deletedFood == null)
             {
-                return Pages();
+                return Page();
             }
             return RedirectToPage("GetAllFoods");
         }

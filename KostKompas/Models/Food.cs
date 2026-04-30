@@ -37,7 +37,7 @@
         // method
         public override string ToString()
         {
-            return $"Name: {Name}, Kcal {Kcal}, Protein: {Protein}, Fat: {Fat}, CarboHydrate: {CarboHydrate}, Fibre: {Fibre}, WeightInGrams: {WeightInGrams}";
+            return $"Name: {Name}, Kcal {Kcal}, Protein: {Protein}, Fat: {Fat}, CarboHydrate: {Carbohydrate}, Fibre: {Fibre}, WeightInGrams: {WeightInGrams}";
         }  
         
 

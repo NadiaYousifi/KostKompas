@@ -21,10 +21,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     cookieOptions.LoginPath = "/LogIn/LogInPage";
 
 });
-builder.Services.AddMvc().AddRazorPagesOptions(options => {
+builder.Services.AddMvc().AddRazorPagesOptions(options =>
+{
     options.Conventions.AuthorizeFolder("/Food");
 
-}).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+});
 
 
 var app = builder.Build();

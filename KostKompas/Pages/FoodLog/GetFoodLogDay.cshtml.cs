@@ -9,7 +9,7 @@ namespace KostKompas.Pages.FoodLog
         // properties 
         private FoodLogService _foodLogService;
 
-        public Models.FoodLogDay FoodLogDay { get; set; }
+        [BindProperty] public Models.FoodLogDay FoodLogDay { get; set; }
 
         // constructor
         public GetFoodLogDayModel(FoodLogService foodLogService) //dependency injection
@@ -20,7 +20,7 @@ namespace KostKompas.Pages.FoodLog
         // OnGet metode
         public IActionResult OnGet()
         {
-            FoodLogDay = _FoodLogService.GetFoodLogDayByDate(DateTime.Today);
+            FoodLogDay = _foodLogService.GetFoodLogDayByDate(DateTime.Today);
             if (FoodLogDay == null)
             {
                 return RedirectToPage("/NotFound");

@@ -1,5 +1,5 @@
 using KostKompas.Models;
-using KostKompas.Sevices;
+using KostKompas.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Dynamic;
@@ -13,7 +13,6 @@ namespace KostKompas.Pages.FoodLog
 
         // instance fields
         private FoodService _foodService;
-
         private FoodLogService _foodLogService;
 
     // gemmer adgangen til foodservice (der har listen) og selve madloggen, hvor vi logger maden (foodlogservice)
@@ -22,14 +21,9 @@ namespace KostKompas.Pages.FoodLog
         // listen bruges på LogFood, så fødevarerne vises
         // 
 
-        [BindProperty]
-        public Models.Food LogFood { get; set; }
+        [BindProperty] public Models.Food LogFood { get; set; }
         // ved ikke om der skal BindProperty på 
         // men den fødevare som brugeren vælger, vælges ud fra Id'et (som vi har valgt)
-
-
-        [BindProperty] 
-        public string MealName { get; set; }
 
         // NameSearch
         [BindProperty] public string SearchString { get; set; }
@@ -38,10 +32,10 @@ namespace KostKompas.Pages.FoodLog
         public int FoodId { get; set; }
 
         [BindProperty]
-        public double WeightInGrams { get; set; }
+        public double WeightInGramsInput { get; set; }
 
-
-
+        [BindProperty] public FoodLogDay FoodLogDay { get; set; }
+        [BindProperty] public Meal CurrentMeal { get; set; }
 
         // constructor
         public LogFoodModel(FoodService FoodService, FoodLogService FoodLogService)
@@ -53,9 +47,10 @@ namespace KostKompas.Pages.FoodLog
 
         // methods 
 
-        public void OnGet(string mealName)
+        public void OnGet(int id, string name)
         {
-            MealName = mealName;
+            FoodLogDay = _foodLogService.GetFoodLogDayById(id);
+            CurrentMeal = FoodLogDay.Meals.First(m => m.Name == name);
         }
         // gør, at vi kan få frem, at det er "Morgenmad", der hentydes til
 
@@ -69,7 +64,7 @@ namespace KostKompas.Pages.FoodLog
         public IActionResult OnPost()
         {
             // 1. Find den valgte food
-            Models.Food selectedFood = _foodService.GetFood(FoodId);
+            Models.Food selectedFood = _foodService.GetFoodById(FoodId);
 
             // 2. Lav en "kopi" med brugerens gram
             Models.Food foodToLog = new Models.Food
@@ -81,11 +76,12 @@ namespace KostKompas.Pages.FoodLog
                 Fat = selectedFood.Fat,
                 Carbohydrate = selectedFood.Carbohydrate,
                 Fibre = selectedFood.Fibre,
-                WeightInGrams = selectedFood.WeightInGrams
+                WeightInGrams = WeightInGramsInput
             };
 
             // 3. Log maden i det rigtige måltid
-            _foodLogService.LogFood(DateTime.Today, MealName, foodToLog);
+            _foodLogService.LogFood(FoodLogDay,CurrentMeal, foodToLog);
+
 
             // 4. Gå tilbage til madloggen
             return RedirectToPage("/FoodLog/GetFoodLogDay");

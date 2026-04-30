@@ -44,7 +44,7 @@ namespace KostKompas.Pages.LogIn
 
                 var claims = new List<Claim> { new Claim(ClaimTypes.Name, Email) };
 
-                if (Email == "admin") claims.Add(new Claim(ClaimTypes.Role, "admin"));
+                if (Email == "admin@gmail.com") claims.Add(new Claim(ClaimTypes.Role, "admin"));
 
                 if (Email == user.Email)
                 {

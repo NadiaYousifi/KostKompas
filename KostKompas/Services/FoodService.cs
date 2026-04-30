@@ -37,7 +37,7 @@ namespace KostKompas.Services
                         f.Kcal = food.Kcal;
                         f.Protein = food.Kcal;
                         f.Fat = food.Fat;
-                        f.CarboHydrate = food.CarboHydrate;
+                        f.Carbohydrate = food.Carbohydrate;
                         f.Fibre = food.Fibre;
                     }
                 }
@@ -57,9 +57,9 @@ namespace KostKompas.Services
         }
 
 
-        public Food DeleteFood(int? foodId)
+        public Food? DeleteFood(int? foodId)
         {
-            Food foodToBeDeleted = null;
+            Food? foodToBeDeleted = null;
             foreach (Food f in _foods)
             {
                 if (f.Id == foodId)
@@ -77,6 +77,16 @@ namespace KostKompas.Services
             return foodToBeDeleted;
         }
 
+        //NameSearch 
+        public IEnumerable<Food> NameSearch(string searchString)
+
+        {
+            if (string.IsNullOrEmpty(searchString)) return _foods;
+
+            List<Food> nameSearch = _foods.FindAll(food => food.Name == searchString);
+
+            return nameSearch;
+        }
 
     }
 }
