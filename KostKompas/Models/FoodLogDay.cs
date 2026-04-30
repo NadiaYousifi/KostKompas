@@ -15,10 +15,10 @@
         public double FibreGoal { get; set; } = 35;
 
         // default constructor
-        public FoodLogDay(int id)
+        public FoodLogDay()
         {
             Date = DateTime.Today;
-            Id = id;
+           
 
             Meals = new List<Meal>
             {

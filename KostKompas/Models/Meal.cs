@@ -54,11 +54,11 @@
         }
 
 
-        //// Methods
-        //public void AddFood(Food food)
-        //{
-        //    Foods.Add(food);
-        //}
+        // Methods
+        public void AddFood(Food food)
+        {
+            Foods.Add(food);
+        }
 
         //public void RemoveFood(Food food)
         //{

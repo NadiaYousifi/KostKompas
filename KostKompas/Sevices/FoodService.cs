@@ -9,14 +9,14 @@ namespace KostKompas.Sevices
         private List<Food> foods;
 
         // constructor 
-        public FoodService() 
+        public FoodService()
         {
-            foods = MockData.MockFood.GetMockFoods();   
-            
-           
+            foods = MockData.MockFood.GetMockFoods();
+
+
         }
 
-       
+
 
 
         // Add method
@@ -86,7 +86,19 @@ namespace KostKompas.Sevices
             return foodToBeDeleted;
 
 
-         
+
+        }
+
+        //NameSearch 
+        public IEnumerable<Food> NameSearch(string searchString)
+
+        {
+            if (string.IsNullOrEmpty(searchString)) return foods;
+
+            List<Food> nameSearch = foods.FindAll(food => food.Name == searchString);
+
+            return nameSearch;
         }
     }
 }
+

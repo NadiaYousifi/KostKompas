@@ -7,6 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<FoodService, FoodService>();
 builder.Services.AddSingleton<UserService, UserService>();
+builder.Services.AddSingleton<FoodLogService, FoodLogService>();
+
+
+
 
 
 

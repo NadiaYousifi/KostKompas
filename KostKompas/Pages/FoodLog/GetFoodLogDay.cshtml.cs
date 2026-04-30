@@ -19,9 +19,9 @@ namespace KostKompas.Pages.FoodLog
         }
 
         // OnGet metode
-        public IActionResult OnGet(int id)
+        public IActionResult OnGet()
         {
-            FoodLogDay = _FoodLogService.GetFoodLogDayById(id);
+            FoodLogDay = _FoodLogService.GetFoodLogDayByDate(DateTime.Today);
             if (FoodLogDay == null)
                 return RedirectToPage("/NotFound"); //NotFound er ikke defineret endnu
 

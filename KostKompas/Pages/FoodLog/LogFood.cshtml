@@ -3,7 +3,34 @@
 @{
 }
 
-<table>
+@* <table>
     <tr>
         <th></th>
     </tr>
+    <form method="post" class="form-inline">
+        <input asp-for="SearchString" class="form-control mr-1" placeholder="Enter search term" />
+        <input type="submit" asp-page-handler="NameSearch" value="Search" class="btn btn-primary" />
+    </form>
+
+    <td> <a href="/FoodLog/LoggedInFood" class="btn btn-success">Tilføj</a></td> *@
+
+ 
+
+<h2>Tilføj mad til @Model.MealName</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="MealName" />
+
+    <label>Vælg fødevare</label>
+    <select asp-for="FoodId" class="form-control">
+        @foreach (var food in Model.Foods)
+        {
+            <option value="@food.Id">@food.Name</option>
+        }
+    </select>
+
+    <label>Gram</label>
+    <input asp-for="WeightInGrams" type="number" step="0.1" class="form-control" />
+
+    <button type="submit" class="btn btn-success mt-2">Tilføj</button>
+</form>
