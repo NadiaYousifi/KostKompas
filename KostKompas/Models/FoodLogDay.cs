@@ -10,9 +10,8 @@
         public double CarbohydrateGoal { get; set; } = 150;
         public double FatGoal { get; set; } = 50;
         public double FibreGoal { get; set; } = 35;
-        public FoodLogDay(int id)
+        public FoodLogDay()
         {
-            Id = id;
             Date = DateTime.Now;
             Meals = new List<Meal>() 
             {

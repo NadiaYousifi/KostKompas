@@ -66,5 +66,11 @@ namespace KostKompas.Services
             }
             return foodToBeDeleted;
         }
+        public IEnumerable<Food> NameSearch(string searchString)
+        {
+            if (string.IsNullOrEmpty(searchString)) return _foods;
+            List<Food> nameSearch = _foods.FindAll(food => food.Name.ToLower().Equals(searchString.ToLower()));
+            return nameSearch;
+        }
     }
 }

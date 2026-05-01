@@ -25,7 +25,29 @@ namespace KostKompas.Services
             }
             throw new ArgumentException("Den givne Id findes ikke");
         }
-
-
+        public FoodLogDay GetFoodLogDayByDate(DateTime date)
+        {
+            foreach (FoodLogDay f in FoodLogDays)
+            {
+                if (f.Date == date)
+                {
+                    return f;
+                }
+            }
+            return new FoodLogDay();
+        }
+        public void LogFood(DateTime date, string mealName, Food food)
+        {
+            FoodLogDay day = GetFoodLogDayByDate((DateTime) date);
+            if (day == null)
+            {
+                return;   
+            }
+            Meal meal = day.Meals.FirstOrDefault(m  => m.Name == mealName);
+            if (meal != null)
+            {
+                meal.AddFood(food);
+            }
+        }
     }
 }

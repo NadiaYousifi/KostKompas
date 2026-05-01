@@ -2,3 +2,8 @@
 @model KostKompas.Pages.FoodLog.LogFoodModel
 @{
 }
+<form method="post" class="form-inline">
+    <input asp-for="SearchString" class="form-control mr-1" placeholder="Enter search term" />
+    <input type="submit" asp-page-handler="NameSearch" value="Search" class="btn btn-primary" />
+    <a href="/FoodLog/LoggedinFood" class="btn btn-primary">Tilføj</a>
+</form>

@@ -37,10 +37,10 @@
         {
             Foods = new List<Food>();
         }
-        //public void AddFood(Food food)
-        //{
-        //    Foods.Add(food);
-        //}
+        public void AddFood(Food food)
+        {
+            Foods.Add(food);
+        }
         //public void RemoveFood(Food food)
         //{
         //    Foods.Remove(food);

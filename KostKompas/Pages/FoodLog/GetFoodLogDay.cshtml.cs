@@ -14,9 +14,9 @@ namespace KostKompas.Pages.FoodLog
             _foodLogService = foodLogService;
         }
 
-        public IActionResult OnGet(int id)
+        public IActionResult OnGet()
         {
-            foodLogDay = _foodLogService.GetFoodLogDayById(id);
+            foodLogDay = _foodLogService.GetFoodLogDayByDate(DateTime.Today);
             return Page();
         }
     }
