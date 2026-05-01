@@ -41,9 +41,8 @@ namespace KostKompas.Services
                 if (f.Date == date)
                     return f;
             }
-            return AddFoodLogDay(new FoodLogDay());
+            return AddFoodLogDay(new FoodLogDay(date));
         }
-        // metode - tilføjer en fødevare til et bestemt måltid til en bestemt dag
         //public void LogFood(DateTime date, string mealName, Food food)
         //{
         //    FoodLogDay day = GetFoodLogDayByDate((DateTime)date);
@@ -62,10 +61,12 @@ namespace KostKompas.Services
         //    }
         //}
 
+        // metode - tilføjer en fødevare til et bestemt måltid til en bestemt dag
         public void LogFood(FoodLogDay foodLogDay, Meal meal, Food food)
         {
+            GetFoodLogDayById(foodLogDay.Id).Meals.Find(m => m.Name == meal.Name).AddFood(food);
             //foodLogDay.Meals.Find(m => m.Name == meal.Name).AddFood(food);
-            meal.AddFood(food);
+            //meal.AddFood(food);
             
         }
     }

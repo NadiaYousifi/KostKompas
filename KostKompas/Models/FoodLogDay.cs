@@ -23,7 +23,21 @@
 
             Meals = new List<Meal>
             {
-                new Meal(1, "Morgenmad"){ Foods = {new Food(1,"Tomat", 20, 0.7,0,3.3,1.4)} },
+                new Meal(1, "Morgenmad"),
+                new Meal(2, "Formiddag"),
+                new Meal(3, "Frokost"),
+                new Meal(4, "Eftermiddag"),
+                new Meal(5, "Aftensmad"),
+                new Meal(6, "Sen Aften"),
+            };
+        }
+        public FoodLogDay(DateTime date)
+        {
+            Date = date;
+
+            Meals = new List<Meal>
+            {
+                new Meal(1, "Morgenmad"),
                 new Meal(2, "Formiddag"),
                 new Meal(3, "Frokost"),
                 new Meal(4, "Eftermiddag"),
