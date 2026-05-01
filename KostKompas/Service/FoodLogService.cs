@@ -1,6 +1,6 @@
 ﻿using KostKompas.Models;
 
-namespace KostKompas.Sevices
+namespace KostKompas.Services
 {
     public class FoodLogService
     {
@@ -34,15 +34,15 @@ namespace KostKompas.Sevices
         }
 
         // Søg efter dato metode
-        public FoodLogDay GetFoodLogDayByDate(DateTime date)
-        {
-            foreach (FoodLogDay f in foodlogdays)
-            {
-                if (f.Date == date)
-                    return f;
-            }
-            return new FoodLogDay();
-        }
+        //public FoodLogDay GetFoodLogDayByDate(DateTime date)
+        //{
+        //    foreach (FoodLogDay f in foodlogdays)
+        //    {
+        //        if (f.Date == date)
+        //            return f;
+        //    }
+        //    return new FoodLogDay();
+        //}
 
         // metode - tilføjer en fødevare til et bestemt måltid til en bestemt dag
         public void LogFood(DateTime date, string mealName, Food food)
@@ -62,7 +62,24 @@ namespace KostKompas.Sevices
                 meal.AddFood(food);
             }
         }
-     
+
+
+        // ny metode til at finde dato
+        public FoodLogDay GetFoodLogDayByDate(DateTime date)
+        {
+            foreach (FoodLogDay f in foodlogdays)
+            {
+                if (f.Date.Date == date.Date)
+                    return f;
+            }
+
+            FoodLogDay newDay = new FoodLogDay();
+            newDay.Date = date.Date;
+            foodlogdays.Add(newDay);
+
+            return newDay;
+        }
+
     }
 
 

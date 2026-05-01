@@ -81,7 +81,7 @@ namespace KostKompas.Pages.FoodLog
                 Fat = selectedFood.Fat,
                 Carbohydrate = selectedFood.Carbohydrate,
                 Fibre = selectedFood.Fibre,
-                WeightInGrams = selectedFood.WeightInGrams
+                WeightInGrams = WeightInGrams
             };
 
             // 3. Log maden i det rigtige måltid

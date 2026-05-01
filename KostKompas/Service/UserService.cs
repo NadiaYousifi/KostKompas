@@ -1,7 +1,7 @@
 ﻿using KostKompas.MockData;
 using KostKompas.Models;
 
-namespace KostKompas.Sevices
+namespace KostKompas.Services
 {
     public class UserService
     {

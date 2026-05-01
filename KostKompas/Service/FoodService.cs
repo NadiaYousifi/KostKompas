@@ -1,7 +1,7 @@
 ﻿using KostKompas.Models;
 using KostKompas.Pages.Food;
 
-namespace KostKompas.Sevices
+namespace KostKompas.Services
 {
     public class FoodService
     {

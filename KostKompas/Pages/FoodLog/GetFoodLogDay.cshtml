@@ -3,7 +3,7 @@
 @{
 }
 
-<table>
+@* <table>
     <tr>
         <th>Energifordeling</th>
     </tr>
@@ -38,7 +38,9 @@
   
     <tr>
         <td>Morgenmad</td>
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
+        <td> 
+           
+        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Morgenmad" class="btn btn-success">Tilføj</a>
 
        
     </tr>
@@ -84,6 +86,156 @@
 
     </tr>
 
+</table> *@
+
+@* 
+
+
+<table>
+    <tr>
+        <th>Energifordeling</th>
+    </tr>
+    <tr>
+        <td>Energi</td>
+        <td>kcal</td>
+    </tr>
+    <tr>
+        <td>Fedt</td>
+        <td>g</td>
+    </tr>
+    <tr>
+        <td>Kulhydrat</td>
+        <td>g</td>
+    </tr>
+    <tr>
+        <td>Kostfibre</td>
+        <td>g</td>
+    </tr>
+    <tr>
+        <td>Protein</td>
+        <td>g</td>
+    </tr>
 </table>
 
+<table class="table table-bordered table-hover table-striped" width="60%">
+
+    <tr>
+        <td>Morgenmad</td>
+        <td>
+            <a asp-page="/FoodLog/LogFood"
+               asp-route-mealName="Morgenmad"
+               class="btn btn-success">Tilføj</a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Formiddag</td>
+        <td>
+            <a asp-page="/FoodLog/LogFood"
+               asp-route-mealName="Formiddag"
+               class="btn btn-success">Tilføj</a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Frokost</td>
+        <td>
+            <a asp-page="/FoodLog/LogFood"
+               asp-route-mealName="Frokost"
+               class="btn btn-success">Tilføj</a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Eftermiddag</td>
+        <td>
+            <a asp-page="/FoodLog/LogFood"
+               asp-route-mealName="Eftermiddag"
+               class="btn btn-success">Tilføj</a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Aftensmad</td>
+        <td>
+            <a asp-page="/FoodLog/LogFood"
+               asp-route-mealName="Aftensmad"
+               class="btn btn-success">Tilføj</a>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Sen aften</td>
+        <td>
+            <a asp-page="/FoodLog/LogFood"
+               asp-route-mealName="Sen aften"
+               class="btn btn-success">Tilføj</a>
+        </td>
+    </tr>
+
+</table> *@
+
+
+
+
+<h2>Energifordeling</h2>
+
+<table class="table">
+    <tr>
+        <td>Energi</td>
+        <td>@Model.FoodLogDay.TotalKcal.ToString("0.0") kcal</td>
+    </tr>
+    <tr>
+        <td>Fedt</td>
+        <td>@Model.FoodLogDay.TotalFat.ToString("0.0") g</td>
+    </tr>
+    <tr>
+        <td>Kulhydrat</td>
+        <td>@Model.FoodLogDay.TotalCarbohydrate.ToString("0.0") g</td>
+    </tr>
+    <tr>
+        <td>Kostfibre</td>
+        <td>@Model.FoodLogDay.TotalFibre.ToString("0.0") g</td>
+    </tr>
+    <tr>
+        <td>Protein</td>
+        <td>@Model.FoodLogDay.TotalProtein.ToString("0.0") g</td>
+    </tr>
+</table>
+
+<br />
+
+<table class="table table-bordered table-hover table-striped" width="60%">
+
+    @foreach (var meal in Model.FoodLogDay.Meals)
+    {
+        <tr>
+            <td>
+                <strong>@meal.Name</strong>
+
+                @if (meal.Foods.Count > 0)
+                {
+                    <div class="mt-2">
+                        @foreach (var food in meal.Foods)
+                        {
+                            <div>
+                                @food.WeightInGrams g @food.Name
+                                - @((food.WeightInGrams / 100 * food.Kcal).ToString("0.0")) kcal
+                            </div>
+                        }
+                    </div>
+                }
+            </td>
+
+            <td style="width:150px;">
+                <a asp-page="/FoodLog/LogFood"
+                   asp-route-mealName="@meal.Name"
+                   class="btn btn-success">
+                    Tilføj
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
 
