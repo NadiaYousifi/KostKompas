@@ -5,25 +5,28 @@ namespace KostKompas.Services
 {
     public class UserService
     {
+        // instance fields
         private List<User> _users;
 
+        // constructor 
         public UserService()
         {
             _users = MockUsers.GetMockUsers();
         }
 
-
+        // Add metode
         public void AddUser(User user)
         {
             _users.Add(user);
         }
 
+        // 
         public List<User> GetUsers()
         {
             return _users;
         }
 
-
+        // Update metode
         public void UpdateUser(User user)
         {
             if (user != null)
@@ -41,6 +44,7 @@ namespace KostKompas.Services
             }
         }
 
+        // GetUserById metode
         public User? GetUserById(int id)
         {
             foreach (User u in _users)
@@ -53,7 +57,7 @@ namespace KostKompas.Services
             throw new ArgumentException("Invalid Id");
         }
 
-
+       // DeleteUser metode
         public User DeleteUser(int? userId)
         {
             User userToBeDeleted = null;
