@@ -3,7 +3,7 @@
 @{
 }
 
-@* <table>
+<table>
     <tr>
         <th></th>
     </tr>
@@ -11,12 +11,12 @@
         <input asp-for="SearchString" class="form-control mr-1" placeholder="Enter search term" />
         <input type="submit" asp-page-handler="NameSearch" value="Search" class="btn btn-primary" />
     </form>
-
-    <td> <a href="/FoodLog/LoggedInFood" class="btn btn-success">Tilføj</a></td> *@
+</table>
+    @* <td> <a href="/FoodLog/LoggedInFood" class="btn btn-success">Tilføj</a></td> *@
 
  
 
-<h2>Tilføj mad til @Model.CurrentMeal.Name @DateOnly.FromDateTime@Model.FoodLogDay.Date</h2>
+<h2>Tilføj mad til @Model.CurrentMeal.Name @DateOnly.FromDateTime(Model.FoodLogDay.Date)</h2>
 
 <form method="post">
     @* <input type="hidden" asp-for="CurrentMeal.Name" /> *@

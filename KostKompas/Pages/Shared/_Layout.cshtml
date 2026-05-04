@@ -24,15 +24,25 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Food/GetAllFoods">Fødevarer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/User/GetAllUsers">Brugere</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/FoodLog/GetFoodLogDay">Madlog</a>
-                        </li>
+                        @{
+                            if (Context.User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/Food/GetAllFoods">Fødevarer</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/FoodLog/GetFoodLogDay">Mad Loggen</a>
+                                </li>
+
+                                if (Context.User.Identity.Name == "admin@gmail.com") 
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/User/GetAllUsers">Brugere</a>
+                                    </li>
+                                }
+                            }
+                        }
+
                     </ul>
                         <ul class="navbar-nav">
                             @{
@@ -40,6 +50,9 @@
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link text-dark" asp-area="" asp-page="/LogIn/LogInPage">Login</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/User/CreateUser">Opret Bruger</a>
                                     </li>
                                 }
                                 else

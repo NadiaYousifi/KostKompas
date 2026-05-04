@@ -15,6 +15,7 @@ namespace KostKompas.Pages.Food
         {
             _foodService = foodService;
         }
+
         public IActionResult OnGet(int id)
         {
             Food = _foodService.GetFoodById(id);
@@ -30,5 +31,8 @@ namespace KostKompas.Pages.Food
             _foodService.UpdateFood(Food);
             return RedirectToPage("GetAllFoods");
         }
+
+
+      
     }
 }

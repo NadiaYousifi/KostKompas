@@ -6,8 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<FoodService, FoodService>();
-builder.Services.AddSingleton<UserService, UserService>();
+builder.Services.AddSingleton<FoodService>();
+builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<FoodLogService, FoodLogService>();
 
 builder.Services.Configure<CookiePolicyOptions>(options => {
@@ -18,16 +18,19 @@ builder.Services.Configure<CookiePolicyOptions>(options => {
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(cookieOptions => {
-    cookieOptions.LoginPath = "/Login/LogInPage";
+    cookieOptions.LoginPath = "/LogIn/LogInPage";
 
 });
 builder.Services.AddMvc().AddRazorPagesOptions(options =>
 {
-    options.Conventions.AuthorizeFolder("/Item");
+    options.Conventions.AuthorizeFolder("/Food");
 
-}).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+});
+
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

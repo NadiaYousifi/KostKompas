@@ -6,13 +6,21 @@ namespace KostKompas.Pages.Food
 {
     public class DeleteFoodModel : PageModel
     {
+        // instance fields
         private FoodService _foodService;
+
+        // property
         [BindProperty]
         public Models.Food Food { get; set; }
+
+
+        // constructor 
         public DeleteFoodModel(FoodService foodService)
         {
             _foodService = foodService;
         }
+
+        // metode OnGet
         public IActionResult OnGet(int id)
         {
             Food = _foodService.GetFoodById(id);
@@ -28,6 +36,7 @@ namespace KostKompas.Pages.Food
             }
             return RedirectToPage("GetAllFoods");
         }
+       
     }
 }
 

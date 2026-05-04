@@ -1,12 +1,15 @@
-﻿@page
+﻿@page "{id:int}"
 @model KostKompas.Pages.User.DeleteUserModel
 @{
 }
-<h1>Delete Confirmation</h1>
+<h1>Slet Bruger</h1>
 <div class="alert alert-danger">
-    <h5>Are you sure you want to delete User - @Model.User.Name</h5>
+    <h5>Vil du slette Brugeren - @Model.User.Name</h5>
     <form method="post">
-        <button type="submit" class="btn btn-danger">Yes</button>
-        <a class="btn btn-primary" asp-page="/User/GetAllUsers">No</a>
+        <button type="submit" class="btn btn-success">Ja</button>
+        <a class="btn btn-danger" asp-page="/User/GetAllUsers">Nej</a>
     </form>
+</div>
+<div>
+    <a asp-page="/User/GetAllUsers">Back to List</a>
 </div>

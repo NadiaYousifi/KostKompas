@@ -13,14 +13,17 @@ namespace KostKompas.Services
         
         }
 
+
         public void AddFood(Food food)
         {
             _foods.Add(food);
         }
+
         public List<Food> GetFoods()
         {
             return _foods;
         }
+
 
         public void UpdateFood(Food food)
         {
@@ -53,6 +56,7 @@ namespace KostKompas.Services
             throw new ArgumentException("Invalid Id");
         }
 
+
         public Food? DeleteFood(int? foodId)
         {
             Food? foodToBeDeleted = null;
@@ -72,7 +76,8 @@ namespace KostKompas.Services
                 }
             return foodToBeDeleted;
         }
- 
+
+        //NameSearch 
         public IEnumerable<Food> NameSearch(string searchString)
 
         {
@@ -82,5 +87,6 @@ namespace KostKompas.Services
 
             return nameSearch;
         }
+
     }
 }

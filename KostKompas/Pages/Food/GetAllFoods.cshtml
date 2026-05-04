@@ -2,6 +2,7 @@
 @model KostKompas.Pages.Food.GetAllFoodsModel
 @{
 }
+
 <h1>Fødevarer</h1>
 
 <table class="table">
@@ -17,6 +18,7 @@
         </tr>
     </thead>
     <tbody>
+
         @foreach (Models.Food food in Model.Foods)
         {
             <tr>
@@ -27,9 +29,11 @@
                 <td>@food.Fat</td>
                 <td>@food.Carbohydrate</td>
                 <td>@food.Fibre</td>
+
                 <td>
                     <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit" asp-page="EditFood" asp-route-id="@food.Id"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm" type="button" data-toggle="tooltip" data-placement="top" title="Delete" asp-page="DeleteFood" asp-route-id="@food.Id"><i class="fa fa-trash"></i></a>
+                    <a class="btn btn-danger btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Delete" asp-page="DeleteFood" asp-route-id="@food.Id"><i class="fa fa-trash"></i></a>
+
                 </td>
             </tr>
         }
@@ -37,5 +41,5 @@
 </table>
 
 <p>
-    <a class="btn btn-primary" asp-page="CreateFood"> Opret fødevarer </a>
+    <a class="btn btn-primary" asp-page="CreateFood"> Tilføj en ny fødevare </a>
 </p>

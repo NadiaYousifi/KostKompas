@@ -5,6 +5,7 @@ namespace KostKompas.Services
 
     public class FoodLogService
     {
+        // Field
         private int nextId;
         public List<FoodLogDay> FoodLogDays { get; set; }
 
@@ -32,6 +33,7 @@ namespace KostKompas.Services
             throw new ArgumentException("Kunne ikke findes");
         }
 
+        // Søg efter dato metode
         public FoodLogDay GetFoodLogDayByDate(DateTime date)
         {
             foreach (FoodLogDay f in FoodLogDays)
@@ -39,9 +41,8 @@ namespace KostKompas.Services
                 if (f.Date == date)
                     return f;
             }
-            return AddFoodLogDay(new FoodLogDay());
+            return AddFoodLogDay(new FoodLogDay(date));
         }
-        // metode - tilføjer en fødevare til et bestemt måltid til en bestemt dag
         //public void LogFood(DateTime date, string mealName, Food food)
         //{
         //    FoodLogDay day = GetFoodLogDayByDate((DateTime)date);
@@ -59,11 +60,14 @@ namespace KostKompas.Services
         //        meal.AddFood(food);
         //    }
         //}
+
+        // metode - tilføjer en fødevare til et bestemt måltid til en bestemt dag
         public void LogFood(FoodLogDay foodLogDay, Meal meal, Food food)
         {
             GetFoodLogDayById(foodLogDay.Id).Meals.Find(m => m.Name == meal.Name).AddFood(food);
             //foodLogDay.Meals.Find(m => m.Name == meal.Name).AddFood(food);
             //meal.AddFood(food);
+            
         }
     }
 

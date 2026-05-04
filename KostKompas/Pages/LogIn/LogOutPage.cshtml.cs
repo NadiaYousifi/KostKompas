@@ -14,6 +14,5 @@ namespace KostKompas.Pages.LogIn
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToPage("/index");
         }
-
     }
 }

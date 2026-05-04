@@ -12,6 +12,7 @@ namespace KostKompas.Services
             _users = MockUsers.GetMockUsers();
         }
 
+
         public void AddUser(User user)
         {
             _users.Add(user);
@@ -21,6 +22,7 @@ namespace KostKompas.Services
         {
             return _users;
         }
+
 
         public void UpdateUser(User user)
         {
@@ -50,6 +52,7 @@ namespace KostKompas.Services
             }
             throw new ArgumentException("Invalid Id");
         }
+
 
         public User DeleteUser(int? userId)
         {

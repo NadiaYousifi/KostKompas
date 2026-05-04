@@ -1,4 +1,4 @@
-﻿@page "{id:int}"
+﻿@page
 @model KostKompas.Pages.Food.EditFoodModel
 @{
 }
@@ -10,7 +10,7 @@
     <div class="form-group">
         <label asp-for="Food.Name" class="control-lable"></label>
         <input asp-for="Food.Name" class="form-control" />
-        <<span asp-validation-for="Food.Name" class="text-danger"></span>
+        <span asp-validation-for="Food.Name" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Food.Kcal" class="control-lable"></label>
@@ -21,30 +21,29 @@
         <label asp-for="Food.Protein" class="control-lable"></label>
         <input asp-for="Food.Protein" class="form-control" />
         <span asp-validation-for="Food.Protein" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Food.Fat" class="control-lable"></label>
-        <input asp-for="Food.Fat" class="form-control" />
-        <span asp-validation-for="Food.Fat" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Food.Carbohydrate" class="control-lable"></label>
-        <input asp-for="Food.Carbohydrate" class="form-control" />
-        <span asp-validation-for="Food.Carbohydrate" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Food.Fibre" class="control-lable"></label>
-        <input asp-for="Food.Fibre" class="form-control" />
-        <span asp-validation-for="Food.Fibre" class="text-danger"></span>
+        <div class="form-group">
+
+            <label asp-for="Food.Fat" class="control-lable"></label>
+            <input asp-for="Food.Fat" class="form-control" />
+            <span asp-validation-for="Food.Fat" class="text-danger"></span>
+            <div class="form-group">
+
+                <label asp-for="Food.Carbohydrate" class="control-lable"></label>
+                <input asp-for="Food.Carbohydrate" class="form-control" />
+                <span asp-validation-for="Food.Carbohydrate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Food.Fibre" class="control-lable"></label>
+                <input asp-for="Food.Fibre" class="form-control" />
+                <span asp-validation-for="Food.Fibre" class="text-danger"></span>
+            </div>
+        </div>
     </div>
 
-    
-
     <div class="form-group">
-        <input type="submit" value="Update" class="btn btn-primary" />
+        <input type="submit" value="Opdater" class="btn btn-primary" />
     </div>
 </form>
-
 <div>
-    <a asp-page="/Food/GetAllFoods">Back to List</a>
+    <a asp-page="GetAllFoods">Tilbage</a>
 </div>

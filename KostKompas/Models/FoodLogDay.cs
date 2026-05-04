@@ -2,21 +2,42 @@
 {
     public class FoodLogDay
     {
-        public int Id { get; set; }
+        // properties
         public DateTime Date { get; set; }
+        public int Id { get; set; } = -1;
+
         public List<Meal> Meals { get; set; }
+
         public double KcalGoal { get; set; } = 1800;
+
         public double ProteinGoal { get; set; } = 160;
         public double CarbohydrateGoal { get; set; } = 150;
         public double FatGoal { get; set; } = 50;
+
         public double FibreGoal { get; set; } = 35;
 
+        // default constructor
+        public FoodLogDay()
+        {
+            Date = DateTime.Today;
+
+            Meals = new List<Meal>
+            {
+                new Meal(1, "Morgenmad"),
+                new Meal(2, "Formiddag"),
+                new Meal(3, "Frokost"),
+                new Meal(4, "Eftermiddag"),
+                new Meal(5, "Aftensmad"),
+                new Meal(6, "Sen Aften"),
+            };
+        }
         public FoodLogDay(DateTime date)
         {
             Date = date;
+
             Meals = new List<Meal>
             {
-                new Meal(1, "Morgenmad"){ Foods = {new Food(1,"Tomat", 20, 0.7,0,3.3,1.4)} },
+                new Meal(1, "Morgenmad"),
                 new Meal(2, "Formiddag"),
                 new Meal(3, "Frokost"),
                 new Meal(4, "Eftermiddag"),
@@ -25,40 +46,37 @@
             };
         }
 
-        public FoodLogDay()
-        {
-            Date = DateTime.Now;
-            Meals = new List<Meal>() 
-            {
-                new(1,"Morgenmad"), 
-                new(2,"Frokost"), 
-                new(3,"Aftensmad"),
-                new(4,"Mellemmåltid"),
-            };
-        }
         public double TotalKcal
         {
-            get { return Meals.Sum(f => f.TotalKcal); }
+            get { return Meals.Sum(m => m.TotalKcal); }
         }
+
         public double TotalProtein
         {
-            get { return Meals.Sum(f =>f.TotalProtein); }
+            get { return Meals.Sum(m => m.TotalProtein); }
         }
+
         public double TotalCarbohydrate
         {
-            get { return Meals.Sum(f => f.TotalCarbohydrate);}
+            get { return Meals.Sum(m => m.TotalCarbohydrate); }
         }
+
         public double TotalFat
         {
-            get { return Meals.Sum(f => f.TotalFat); }
+            get { return Meals.Sum(m => m.TotalFat); }
         }
+
         public double TotalFibre
         {
-            get { return Meals.Sum(f => f.TotalFibre);}
+            get { return Meals.Sum(m => m.TotalFibre); }
         }
+
+
+        // tilbage af mål
         public double KcalLeft
         {
             get { return KcalGoal - TotalKcal; }
         }
     }
 }
+
