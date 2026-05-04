@@ -1,11 +1,14 @@
 using KostKompas.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace KostKompas.Pages.User
 {
+    [Authorize(Roles = "admin")]
     public class GetAllUsersModel : PageModel
     {
+
         // instance fields 
         private UserService _userService;
         public List<Models.User> Users { get; set; }

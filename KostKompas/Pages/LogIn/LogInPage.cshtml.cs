@@ -37,9 +37,6 @@ namespace KostKompas.Pages.LogIn
             List<Models.User> users = _userService.GetUsers();
             foreach (Models.User user in users)
             {
-
-
-
                 //LoggedInUser = user;
 
                 var claims = new List<Claim> { new Claim(ClaimTypes.Name, Email) };
@@ -50,12 +47,12 @@ namespace KostKompas.Pages.LogIn
                 {
                     var passwordHasher = new PasswordHasher<string>();
                     if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
-                    { }
-                    ;
+                    { 
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    return RedirectToPage("/Food/GetAllFoods");
+                        }
+                    return RedirectToPage("/FoodLog/GetFoodLogDay");
 
                 }
 
