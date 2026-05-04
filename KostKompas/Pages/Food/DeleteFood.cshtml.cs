@@ -9,27 +9,25 @@ namespace KostKompas.Pages.Food
         private FoodService _foodService;
         [BindProperty]
         public Models.Food Food { get; set; }
-
         public DeleteFoodModel(FoodService foodService)
         {
             _foodService = foodService;
         }
-
         public IActionResult OnGet(int id)
         {
             Food = _foodService.GetFoodById(id);
-            return Page();
+                return Page();
         }
         public IActionResult OnPost()
         {
             Models.Food deletedFood = _foodService.GetFoodById(Food.Id);
             _foodService.DeleteFood(Food.Id);
-            if (deletedFood == null)
+            if(deletedFood == null)
             {
-                return RedirectToPage("/NotFound");
+                return Page();
             }
             return RedirectToPage("GetAllFoods");
         }
-
     }
 }
+

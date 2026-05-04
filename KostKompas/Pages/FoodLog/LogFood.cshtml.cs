@@ -1,6 +1,10 @@
+using KostKompas.Models;
 using KostKompas.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Dynamic;
+using System.Runtime.CompilerServices;
+
 
 namespace KostKompas.Pages.FoodLog
 {
@@ -8,35 +12,46 @@ namespace KostKompas.Pages.FoodLog
     {
         private FoodService _foodService;
         private FoodLogService _foodLogService;
+
+        public List<Models.Food> Foods { get; set; }
+        [BindProperty] 
+        public Models.Food LogFood { get; set; }
         [BindProperty]
         public string SearchString { get; set; }
         [BindProperty]
-        public string MealName { get; set; }
+        public int FoodId { get; set; }
         [BindProperty]
-        public List<Models.Food> Foods { get; private set; }
-        [BindProperty]
-        public Models.Food FoodLog { get; set; }
+        public double WeightInGramsInput { get; set; }
+        [BindProperty] 
+        public FoodLogDay FoodLogDay { get; set; }
+        [BindProperty] 
+        public Meal CurrentMeal { get; set; }
 
-        public LogFoodModel(FoodService foodService, FoodLogService foodLogService)
+        public LogFoodModel(FoodService FoodService, FoodLogService FoodLogService)
         {
-            _foodService = foodService;
-            _foodLogService = foodLogService;
+            _foodService = FoodService;
+            _foodLogService = FoodLogService;
             Foods = _foodService.GetFoods();
         }
 
-        public void OnGet(string mealName)
+        public void OnGet(int id, string name)
         {
-            MealName = mealName;
+            FoodLogDay = _foodLogService.GetFoodLogDayById(id);
+            CurrentMeal = FoodLogDay.Meals.First(m => m.Name == name);
         }
         public IActionResult OnPostNameSearch()
         {
             Foods = _foodService.NameSearch(SearchString).ToList();
             return Page();
         }
+
         public IActionResult OnPost()
         {
-            Models.Food selectedFood = _foodService.GetFoodById(FoodLog.Id);
-            Models.Food foodToLog = new Models.Food()
+            // 1. Find den valgte food
+            Models.Food selectedFood = _foodService.GetFoodById(FoodId);
+
+            // 2. Lav en "kopi" med brugerens gram
+            Models.Food foodToLog = new Models.Food
             {
                 Id = selectedFood.Id,
                 Name = selectedFood.Name,
@@ -45,10 +60,14 @@ namespace KostKompas.Pages.FoodLog
                 Fat = selectedFood.Fat,
                 Carbohydrate = selectedFood.Carbohydrate,
                 Fibre = selectedFood.Fibre,
-                WeightInGrams = selectedFood.WeightInGrams
+                WeightInGrams = WeightInGramsInput
             };
-            _foodLogService.LogFood(DateTime.Today, MealName, foodToLog);
-            return RedirectToPage("GetFoodLogDay");
+
+            // 3. Log maden i det rigtige måltid
+            _foodLogService.LogFood(FoodLogDay,CurrentMeal, foodToLog);
+
+            // 4. Gå tilbage til madloggen
+            return RedirectToPage("/FoodLog/GetFoodLogDay");
         }
     }
 }

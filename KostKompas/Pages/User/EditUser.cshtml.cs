@@ -7,9 +7,9 @@ namespace KostKompas.Pages.User
     public class EditUserModel : PageModel
     {
         private UserService _userService;
+
         [BindProperty]
         public Models.User User { get; set; }
-
         public EditUserModel(UserService userService)
         {
             _userService = userService;
@@ -20,6 +20,7 @@ namespace KostKompas.Pages.User
             User = _userService.GetUserById(id);
             return Page();
         }
+
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)

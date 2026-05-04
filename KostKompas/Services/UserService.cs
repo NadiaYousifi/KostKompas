@@ -16,10 +16,12 @@ namespace KostKompas.Services
         {
             _users.Add(user);
         }
+
         public List<User> GetUsers()
         {
             return _users;
         }
+
         public void UpdateUser(User user)
         {
             if (user != null)
@@ -31,21 +33,24 @@ namespace KostKompas.Services
                         u.Name = user.Name;
                         u.Email = user.Email;
                         u.Password = user.Password;
+                        
                     }
                 }
             }
         }
-        public User GetUserById(int id)
+
+        public User? GetUserById(int id)
         {
             foreach (User u in _users)
             {
-                if (id == u.Id)
+                if (u.Id == id)
                 {
                     return u;
                 }
             }
-            throw new ArgumentException("The given Id doesn't exist");
+            throw new ArgumentException("Invalid Id");
         }
+
         public User DeleteUser(int? userId)
         {
             User userToBeDeleted = null;
@@ -56,6 +61,7 @@ namespace KostKompas.Services
                     userToBeDeleted = u;
                     break;
                 }
+
             }
             if (userToBeDeleted != null)
             {

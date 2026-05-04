@@ -7,6 +7,7 @@ namespace KostKompas.Pages.User
     public class DeleteUserModel : PageModel
     {
         private UserService _userService;
+
         [BindProperty]
         public Models.User User { get; set; }
 
@@ -20,6 +21,7 @@ namespace KostKompas.Pages.User
             User = _userService.GetUserById(id);
             return Page();
         }
+
         public IActionResult OnPost()
         {
             Models.User deletedUser = _userService.GetUserById(User.Id);
@@ -32,3 +34,4 @@ namespace KostKompas.Pages.User
         }
     }
 }
+

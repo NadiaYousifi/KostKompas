@@ -10,6 +10,7 @@ namespace KostKompas.Services
         public FoodService()
         {
             _foods = MockFoods.GetMockFoods();
+        
         }
 
         public void AddFood(Food food)
@@ -20,17 +21,18 @@ namespace KostKompas.Services
         {
             return _foods;
         }
+
         public void UpdateFood(Food food)
         {
-            if (food != null)
+            if(food != null)
             {
                 foreach (Food f in _foods)
                 {
-                    if (f.Id == food.Id)
+                    if(f.Id == food.Id)
                     {
                         f.Name = food.Name;
                         f.Kcal = food.Kcal;
-                        f.Protein = food.Protein;
+                        f.Protein = food.Kcal;
                         f.Fat = food.Fat;
                         f.Carbohydrate = food.Carbohydrate;
                         f.Fibre = food.Fibre;
@@ -38,38 +40,46 @@ namespace KostKompas.Services
                 }
             }
         }
-        public Food GetFoodById(int id)
+
+        public Food? GetFoodById(int id)
         {
             foreach (Food f in _foods)
+            {     
+             if(f.Id == id)
             {
-                if (id == f.Id)
-                {
                     return f;
-                }
+             }    
             }
-            throw new ArgumentException("The given Id doesn't exist");
+            throw new ArgumentException("Invalid Id");
         }
-        public Food DeleteFood(int? foodId)
+
+        public Food? DeleteFood(int? foodId)
         {
-            Food foodToBeDeleted = null;
+            Food? foodToBeDeleted = null;
             foreach (Food f in _foods)
             {
                 if (f.Id == foodId)
                 {
                     foodToBeDeleted = f;
+                    Console.WriteLine(f.Name);
                     break;
                 }
+
             }
-            if (foodToBeDeleted != null)
-            {
-                _foods.Remove(foodToBeDeleted);
-            }
+                if (foodToBeDeleted != null)
+                {
+                    _foods.Remove(foodToBeDeleted);
+                }
             return foodToBeDeleted;
         }
+ 
         public IEnumerable<Food> NameSearch(string searchString)
+
         {
             if (string.IsNullOrEmpty(searchString)) return _foods;
-            List<Food> nameSearch = _foods.FindAll(food => food.Name.ToLower().Equals(searchString.ToLower()));
+
+            List<Food> nameSearch = _foods.FindAll(food => food.Name == searchString);
+
             return nameSearch;
         }
     }

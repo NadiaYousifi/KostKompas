@@ -22,10 +22,13 @@
             Fibre = fibre;
         }
 
+
+        //default constructor 
         public Food()
         {
         }
 
+        // method
         public override string ToString()
         {
             return $"Name: {Name}, Kcal: {Kcal}, Protein: {Protein}, Fat: {Fat}, Carbohydrate: {Carbohydrate}, Fibre: {Fibre}, Weight in grams: {WeightInGrams}";

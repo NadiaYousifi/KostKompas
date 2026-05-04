@@ -1,13 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using KostKompas.Pages.LogIn
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - KostKompas</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/KostKompas.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body>
     <header>
@@ -24,36 +25,41 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Food/GetAllFoods">Fødevarer</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/User/GetAllUsers">Bruger</a>
+                            <a class="nav-link text-dark" asp-area="" asp-page="/User/GetAllUsers">Brugere</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/FoodLog/GetFoodLogDay">Madlog</a>
                         </li>
                     </ul>
+                        <ul class="navbar-nav">
+                            @{
+                                if (Context.User.Identity == null || !Context.User.Identity.IsAuthenticated)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/LogIn/LogInPage">Login</a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="nav-item nav-link text-dark me-3">
+                                        User: @Context.User.Identity.Name
+                                    </li>
 
-                    <ul class="navbar-nav">
-                        @{
-                            if (Context.User.Identity.Name == null)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/LogIn/LogInPage">Login</a>
-                                </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-page="/LogIn/LogOutPage">Logout</a>
+                                    </li>
+                                }
                             }
-                            else
-                            {
-                                <li class="nav-item nav-link text-dark me-3">
-                                    User: @Context.User.Identity.Name
-                                </li>
+                        </ul>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/LogIn/LogOutPage">Logout</a>
-                                </li>
-                            }
-                        }
+
+
                     </ul>
+
+
 
                 </div>
             </div>
@@ -67,7 +73,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2026 - KostKompas - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            &copy; 2026 - KostKompas - <a asp-area="" asp-page="/Food">Fødevarer</a>
         </div>
     </footer>
 

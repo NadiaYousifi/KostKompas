@@ -2,33 +2,38 @@
 @model KostKompas.Pages.User.EditUserModel
 @{
 }
+
 <form method="post">
     <div class="form-group">
         <label asp-for="User.Id" class="control-lable"></label>
         <input asp-for="User.Id" class="form-control" readonly="@(true)" />
+        @* der må ikke ændres på værdien med readonly *@
     </div>
+
     <div class="form-group">
-        <label asp-for="User.Name" class="control-lable"></label>
+        <label asp-for="User.Name"></label>
         <input asp-for="User.Name" class="form-control" />
-        <<span asp-validation-for="User.Name" class="text-danger"></span>
+        <span asp-validation-for="User.Name" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="User.Email" class="control-lable"></label>
         <input asp-for="User.Email" class="form-control" />
         <span asp-validation-for="User.Email" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label asp-for="User.Password" class="control-lable"></label>
         <input asp-for="User.Password" class="form-control" />
         <span asp-validation-for="User.Password" class="text-danger"></span>
+        <div class="form-group">
+        </div>
     </div>
-    
 
     <div class="form-group">
-        <input type="submit" value="Update" class="btn btn-primary" />
+        <input type="submit" value="Opdater" class="btn btn-primary" />
     </div>
 </form>
-
 <div>
-    <a asp-page="/User/GetAllUsers">Back to List</a>
+    <a asp-page="GetAllUsers">Tilbage</a>
 </div>

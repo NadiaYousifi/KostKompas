@@ -2,52 +2,70 @@
 
 namespace KostKompas.Services
 {
+
     public class FoodLogService
     {
+        private int nextId;
         public List<FoodLogDay> FoodLogDays { get; set; }
 
         public FoodLogService()
         {
             FoodLogDays = new List<FoodLogDay>();
         }
-        public void AddFoodLogDay(FoodLogDay foodLogDay)
+
+        public FoodLogDay AddFoodLogDay(FoodLogDay foodLogDay)
         {
+            foodLogDay.Id = nextId++;
             FoodLogDays.Add(foodLogDay);
+            return foodLogDay;
         }
+
         public FoodLogDay GetFoodLogDayById(int id)
         {
             foreach (FoodLogDay f in FoodLogDays)
             {
                 if (f.Id == id)
                 {
-                 return f;   
+                    return f;
                 }
             }
-            throw new ArgumentException("Den givne Id findes ikke");
+            throw new ArgumentException("Kunne ikke findes");
         }
+
         public FoodLogDay GetFoodLogDayByDate(DateTime date)
         {
             foreach (FoodLogDay f in FoodLogDays)
             {
                 if (f.Date == date)
-                {
                     return f;
-                }
             }
-            return new FoodLogDay();
+            return AddFoodLogDay(new FoodLogDay());
         }
-        public void LogFood(DateTime date, string mealName, Food food)
+        // metode - tilføjer en fødevare til et bestemt måltid til en bestemt dag
+        //public void LogFood(DateTime date, string mealName, Food food)
+        //{
+        //    FoodLogDay day = GetFoodLogDayByDate((DateTime)date);
+        //    if (day == null)
+        //    {
+        //        day = new FoodLogDay();
+        //        day.Date = date.Date;
+        //        FoodLogDays.Add(day);
+        //        return;
+        //    }
+        //    Meal meal = day.Meals.FirstOrDefault(m => m.Name == mealName);
+
+        //    if (meal != null)
+        //    {
+        //        meal.AddFood(food);
+        //    }
+        //}
+        public void LogFood(FoodLogDay foodLogDay, Meal meal, Food food)
         {
-            FoodLogDay day = GetFoodLogDayByDate((DateTime) date);
-            if (day == null)
-            {
-                return;   
-            }
-            Meal meal = day.Meals.FirstOrDefault(m  => m.Name == mealName);
-            if (meal != null)
-            {
-                meal.AddFood(food);
-            }
+            GetFoodLogDayById(foodLogDay.Id).Meals.Find(m => m.Name == meal.Name).AddFood(food);
+            //foodLogDay.Meals.Find(m => m.Name == meal.Name).AddFood(food);
+            //meal.AddFood(food);
         }
     }
+
+
 }

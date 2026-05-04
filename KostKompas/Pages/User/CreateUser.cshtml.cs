@@ -9,7 +9,6 @@ namespace KostKompas.Pages.User
         private UserService _userService;
         [BindProperty]
         public Models.User User { get; set; }
-
         public CreateUserModel(UserService userService)
         {
             _userService = userService;
@@ -21,7 +20,7 @@ namespace KostKompas.Pages.User
         }
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) 
             {
                 return Page();
             }

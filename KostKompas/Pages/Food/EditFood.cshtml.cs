@@ -7,6 +7,7 @@ namespace KostKompas.Pages.Food
     public class EditFoodModel : PageModel
     {
         private FoodService _foodService;
+
         [BindProperty]
         public Models.Food Food { get; set; }
 
@@ -14,12 +15,12 @@ namespace KostKompas.Pages.Food
         {
             _foodService = foodService;
         }
-
         public IActionResult OnGet(int id)
         {
             Food = _foodService.GetFoodById(id);
             return Page();
         }
+
         public IActionResult OnPost()
         {
             if (!ModelState.IsValid)
@@ -29,6 +30,5 @@ namespace KostKompas.Pages.Food
             _foodService.UpdateFood(Food);
             return RedirectToPage("GetAllFoods");
         }
-        
     }
 }
