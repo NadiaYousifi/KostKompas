@@ -55,7 +55,7 @@ namespace KostKompas.Pages.LogIn
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                    return RedirectToPage("/Food/GetAllFoods");
+                    return RedirectToPage("/FoodLog/GetFoodLogDay");
 
                 }
 

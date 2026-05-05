@@ -9,23 +9,23 @@
     </tr>
     <tr>
         <td>Energi:</td>
-        <td>@Model.FoodLogDay.TotalKcal kcal</td>
+        <td>@Model.FoodLogDay.TotalKcal.ToString("0.0") kcal</td>
     </tr>
     <tr>
         <td>Fedt</td>
-        <td>@Model.FoodLogDay.TotalFat g</td>
+        <td>@Model.FoodLogDay.TotalFat.ToString("0.0") g</td>
     </tr>
     <tr>
         <td>Kulhydrat</td>
-        <td>@Model.FoodLogDay.TotalCarbohydrate g</td>
+        <td>@Model.FoodLogDay.TotalCarbohydrate.ToString("0.0") g</td>
     </tr>
     <tr>
         <td>Kostfibre</td>
-        <td>@Model.FoodLogDay.TotalFibre g</td>
+        <td>@Model.FoodLogDay.TotalFibre.ToString("0.0") g</td>
     </tr>
     <tr>
         <td>Protein</td>
-        <td>@Model.FoodLogDay.TotalProtein g</td>
+        <td>@Model.FoodLogDay.TotalProtein.ToString("0.0") g</td>
     </tr>
 </table>
 <div class="accordion" id="MealsAccordion">
@@ -53,12 +53,12 @@
                         {
                             <tr>
                                 <td>@f.Name</td>
-                                <td>@f.WeightInGrams</td>
-                                <td>@f.Kcal</td>
-                                <td>@f.Fat</td>
-                                <td>@f.Carbohydrate</td>
-                                <td>@f.Fibre</td>
-                                <td>@f.Protein</td>
+                                <td>@f.WeightInGrams.ToString("0.0")</td>
+                                <td>@f.Kcal.ToString("0.0")</td>
+                                <td>@f.Fat.ToString("0.0")</td>
+                                <td>@f.Carbohydrate.ToString("0.0")</td>
+                                <td>@f.Fibre.ToString("0.0")</td>
+                                <td>@f.Protein.ToString("0.0")</td>
                             </tr>
                         }
                     </table>
@@ -70,56 +70,4 @@
         </div>
     }
 </div>
-@* 
-<table class="table table-bordered table-hover table-striped table-opacity" width="60%">
-  
-    <tr>
-        <td>Morgenmad</td>
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-
-       
-    </tr>
-
-    <tr>
-        <td>Formiddag</td>
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-
-    
-    </tr>
-
-    <tr>
-        <td>Frokost</td>
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-
-       
-    </tr>
-
-    <tr>
-        <td>Eftermiddag</td>
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-
-        
-    </tr>
-
-    <tr>
-        <td>Aftensmad</td>
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-
-       
-    </tr>
-
-    <tr>
-        <td>Sen aften</td> 
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Mogenmad" class="btn btn-success">Tilføj</a>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Formiddag" class="btn btn-success">Tilføj</a>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Frokost" class="btn btn-success">Tilføj</a>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Eftermiddag" class="btn btn-success">Tilføj</a>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Aftensmad" class="btn btn-success">Tilføj</a>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Sen aften" class="btn btn-success">Tilføj</a>
-       
-
-    </tr>
-
-</table>
- *@
+ 

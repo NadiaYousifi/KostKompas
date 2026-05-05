@@ -6,7 +6,7 @@
     public class Meal
     {
 
-        // Properties
+        
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -39,22 +39,22 @@
         }
 
 
-        // Constructors
+        
         public Meal(int id, string name)
         {
             Id = id;
             Name = name;
-            Foods = new List<Food>(); // gemmer listen til constructoren, når der laves et nyt meal
+            Foods = new List<Food>(); 
         }
 
-        // default constructor 
+        
         public Meal()
         {
-            Foods = new List<Food>(); // vi har en liste fordi vi gerne vil kunne oprette en ny liste
+            Foods = new List<Food>(); 
         }
 
 
-        // Methods
+        
         public void AddFood(Food food)
         {
             Foods.Add(food);

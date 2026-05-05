@@ -16,7 +16,7 @@
 
  
 
-<h2>Tilføj mad til @Model.CurrentMeal.Name @Model.FoodLogDay.Date.Day</h2>
+<h2>Tilføj mad til @Model.CurrentMeal.Name @DateOnly.FromDateTime(Model.FoodLogDay.Date)</h2>
 
 <form method="post">
     @* <input type="hidden" asp-for="CurrentMeal.Name" /> *@

@@ -2,7 +2,7 @@
 {
     public class Food
     {
-        // properties 
+        
         public int Id { get; set; }
         public string Name { get; set; }
         public double Kcal { get; set; }
@@ -13,7 +13,7 @@
 
         public double WeightInGrams { get; set; } = 100;
 
-        // constructor 
+        
         public Food(int id,string name, double kcal, double protein, double fat, double carbohydrate, double fibre)
         {
             Id = id;
@@ -28,13 +28,13 @@
         }
 
 
-        //default constructor 
+        
         public Food()
         {
 
         }
 
-        // method
+        
         public override string ToString()
         {
             return $"Name: {Name}, Kcal {Kcal}, Protein: {Protein}, Fat: {Fat}, CarboHydrate: {Carbohydrate}, Fibre: {Fibre}, WeightInGrams: {WeightInGrams}";

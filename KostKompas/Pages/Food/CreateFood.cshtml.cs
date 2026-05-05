@@ -7,32 +7,32 @@ namespace KostKompas.Pages.Food
     public class CreateFoodModel : PageModel
     {
 
-        // instance fields
+        
         private FoodService _foodService;
 
-        // property
+       
         [BindProperty]
         public Models.Food Food { get; set; }
 
 
-        // constructor
+        
         public CreateFoodModel(FoodService foodService)
         {
             _foodService = foodService;
         }
 
-        // metode OnGet
+        
         public IActionResult OnGet()
         {
-            return Page(); // genopfrisk siden
+            return Page(); 
         }
 
 
 
-        // metode OnPost
+        
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid) // tjekker om staten brydes. Passer datatyperne sammen (int først, derefter string = invalid)
+            if (!ModelState.IsValid) 
             {
                 return Page();
             }

@@ -1,43 +1,42 @@
 using KostKompas.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace KostKompas.Pages.User
 {
+    
     public class CreateUserModel : PageModel
     {
-        // instance fields
         private UserService _userService;
+        private PasswordHasher<string> passwordHasher;
 
-        // property
         [BindProperty]
         public Models.User User { get; set; }
 
 
-        // constructor
         public CreateUserModel(UserService userService)
         {
             _userService = userService;
+            passwordHasher = new PasswordHasher<string>();
         }
 
-        // metode OnGet
         public IActionResult OnGet()
         {
-            return Page(); // genopfrisk siden
+            return Page(); 
         }
 
-
-
-        // metode OnPost
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid) // tjekker om staten brydes. Passer datatyperne sammen (int først, derefter string = invalid)
+            if (!ModelState.IsValid) 
             {
                 return Page();
             }
+            User.Password = passwordHasher.HashPassword(null, User.Password);
             _userService.AddUser(User);
             return RedirectToPage("GetAllUsers");
         }
-
     }
 }

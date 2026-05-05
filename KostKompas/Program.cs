@@ -4,14 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddSingleton<FoodService>();
-builder.Services.AddSingleton<UserService>();
+builder.Services.AddScoped<FoodService>();
+builder.Services.AddScoped<UserService>();
 builder.Services.AddSingleton<FoodLogService, FoodLogService>();
 
+builder.Services.AddScoped<DBServiceFood>();
+builder.Services.AddScoped<DBServiceUser>();
+
+
+
 builder.Services.Configure<CookiePolicyOptions>(options => {
-    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
     options.CheckConsentNeeded = context => true;
     options.MinimumSameSitePolicy = SameSiteMode.None;
 
@@ -24,6 +27,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddMvc().AddRazorPagesOptions(options =>
 {
     options.Conventions.AuthorizeFolder("/Food");
+   
 
 });
 

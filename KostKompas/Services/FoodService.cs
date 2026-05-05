@@ -6,17 +6,26 @@ namespace KostKompas.Services
     public class FoodService
     {
         private List<Food> _foods;
+        private DBServiceFood _dBServiceFood;
 
-        public FoodService()
+        public FoodService( DBServiceFood dBServiceFood)
         {
-            _foods = MockFoods.GetMockFoods();
-        
+            //_foods = MockFoods.GetMockFoods();
+            _dBServiceFood = dBServiceFood;
+            //foreach (var food in _foods)
+            //{
+            //    dBServiceFood.Create(food);   
+            //}
+            _foods = dBServiceFood.GetAllFoods();
+
+
         }
 
 
         public void AddFood(Food food)
         {
             _foods.Add(food);
+            _dBServiceFood.Create(food);
         }
 
         public List<Food> GetFoods()
@@ -41,7 +50,9 @@ namespace KostKompas.Services
                         f.Fibre = food.Fibre;
                     }
                 }
+                _dBServiceFood.Update(food);
             }
+            
         }
 
         public Food? GetFoodById(int id)
@@ -57,7 +68,7 @@ namespace KostKompas.Services
         }
 
 
-        public Food? DeleteFood(int? foodId)
+        public Food? DeleteFood(int foodId)
         {
             Food? foodToBeDeleted = null;
             foreach (Food f in _foods)
@@ -72,12 +83,11 @@ namespace KostKompas.Services
             }
                 if (foodToBeDeleted != null)
                 {
+                    _dBServiceFood.Delete(foodId);
                     _foods.Remove(foodToBeDeleted);
                 }
             return foodToBeDeleted;
         }
-
-        //NameSearch 
         public IEnumerable<Food> NameSearch(string searchString)
 
         {

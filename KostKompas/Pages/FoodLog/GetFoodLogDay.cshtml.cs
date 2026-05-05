@@ -6,18 +6,15 @@ namespace KostKompas.Pages.FoodLog
 {
     public class GetFoodLogDayModel : PageModel
     {
-        // properties 
         private FoodLogService _foodLogService;
 
         [BindProperty] public Models.FoodLogDay FoodLogDay { get; set; }
 
-        // constructor
-        public GetFoodLogDayModel(FoodLogService foodLogService) //dependency injection
+        public GetFoodLogDayModel(FoodLogService foodLogService)
         {
             _foodLogService = foodLogService;
         }
 
-        // OnGet metode
         public IActionResult OnGet()
         {
             FoodLogDay = _foodLogService.GetFoodLogDayByDate(DateTime.Today);
@@ -27,5 +24,7 @@ namespace KostKompas.Pages.FoodLog
             }
             return Page();
         }
+
+
     }
 }

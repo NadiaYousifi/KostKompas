@@ -7,9 +7,12 @@ namespace KostKompas.Services
     {
         private List<User> _users;
 
-        public UserService()
+        private DBServiceUser _dBServiceUser;
+
+        public UserService(DBServiceUser dBServiceUser)
         {
             _users = MockUsers.GetMockUsers();
+            _dBServiceUser = dBServiceUser;
         }
 
 
