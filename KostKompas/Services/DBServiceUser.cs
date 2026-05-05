@@ -85,14 +85,14 @@ namespace KostKompas.Services
         protected void AddParameterValues(SqlCommand cmd, User user)
         {
             cmd.Parameters.AddWithValue("@Id", user.Id);
-            cmd.Parameters.AddWithValue("@Id", user.Name);
-            cmd.Parameters.AddWithValue("@Id", user.Email);
-            cmd.Parameters.AddWithValue("@Id", user.Password);
-            cmd.Parameters.AddWithValue("@Id", user.Kcal_goal);
-            cmd.Parameters.AddWithValue("@Id", user.Protein_goal);
-            cmd.Parameters.AddWithValue("@Id", user.Fat_goal);
-            cmd.Parameters.AddWithValue("@Id", user.Carbohydrate_goal);
-            cmd.Parameters.AddWithValue("@Id", user.Fibre_goal);
+            cmd.Parameters.AddWithValue("@Name", user.Name);
+            cmd.Parameters.AddWithValue("@Email", user.Email);
+            cmd.Parameters.AddWithValue("@Password", user.Password);
+            cmd.Parameters.AddWithValue("@Kcal", user.Kcal_goal);
+            cmd.Parameters.AddWithValue("@Protein", user.Protein_goal);
+            cmd.Parameters.AddWithValue("@Fat", user.Fat_goal);
+            cmd.Parameters.AddWithValue("@Carbohydrate", user.Carbohydrate_goal);
+            cmd.Parameters.AddWithValue("@Fibre", user.Fibre_goal);
 
 
 
