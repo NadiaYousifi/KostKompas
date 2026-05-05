@@ -16,9 +16,6 @@ namespace KostKompas.Pages.User
         [BindProperty]
         public Models.User User { get; set; }
 
-        [BindProperty, DataType(DataType.Password)]
-        public string Password { get; set; }
-
         // constructor
         public CreateUserModel(UserService userService)
         {
@@ -32,8 +29,6 @@ namespace KostKompas.Pages.User
             return Page(); // genopfrisk siden
         }
 
-
-
         // metode OnPost
         public IActionResult OnPost()
         {
@@ -41,7 +36,9 @@ namespace KostKompas.Pages.User
             {
                 return Page();
             }
+            User.Password = passwordHasher.HashPassword(null, User.Password);
             _userService.AddUser(User);
+
             return RedirectToPage("GetAllUsers");
         }
 
