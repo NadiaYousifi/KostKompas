@@ -23,7 +23,7 @@ namespace KostKompas.Services
 
         public FoodLogDay GetFoodLogDayById(int id)
         {
-            foreach (FoodLogDay f in FoodLogDays)
+            foreach (FoodLogDay f in FoodLogDays) 
             {
                 if (f.Id == id)
                 {

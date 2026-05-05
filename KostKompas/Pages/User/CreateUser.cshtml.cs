@@ -16,14 +16,13 @@ namespace KostKompas.Pages.User
         [BindProperty]
         public Models.User User { get; set; }
 
-        [BindProperty, DataType(DataType.Password)]
-        public string Password { get; set; }
 
         // constructor
         public CreateUserModel(UserService userService)
         {
             _userService = userService;
             passwordHasher = new PasswordHasher<string>();
+
         }
 
         // metode OnGet
@@ -41,6 +40,7 @@ namespace KostKompas.Pages.User
             {
                 return Page();
             }
+            User.Password = passwordHasher.HashPassword(null, User.Password);
             _userService.AddUser(User);
             return RedirectToPage("GetAllUsers");
         }
