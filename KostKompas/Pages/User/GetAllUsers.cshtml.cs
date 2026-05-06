@@ -23,9 +23,9 @@ namespace KostKompas.Pages.User
 
 
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            Users = _userService.GetUsers();
+            Users = await _userService.GetUsersAsync();
         }
     }
 }

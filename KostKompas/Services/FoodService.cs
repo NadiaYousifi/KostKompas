@@ -3,35 +3,41 @@ using KostKompas.Models;
 
 namespace KostKompas.Services
 {
-    public class FoodService
+    public class FoodService 
     {
         private List<Food> _foods;
+        private DbGenericService<Food> _dbService;
 
-        public FoodService()
+        public FoodService(DbGenericService<Food> dbService)
         {
             _foods = MockFoods.GetMockFoods();
-        
+            _dbService = dbService;
+            _dbService.SaveObjects(_foods);
+            //_foods = _dbService.GetObjectsAsync().Result.ToList();
         }
 
 
-        public void AddFood(Food food)
+        public async Task AddFoodAsync(Food food)
         {
             _foods.Add(food);
+            await _dbService.AddObjectAsync(food);
+            //_dbService.SaveObjects(_foods);
         }
 
-        public List<Food> GetFoods()
+        public async Task<List<Food>> GetFoodsAsync()
         {
+            await _dbService.GetObjectsAsync();
             return _foods;
         }
 
 
-        public void UpdateFood(Food food)
+        public async Task UpdateFoodAsync(Food food)
         {
-            if(food != null)
+            if (food != null)
             {
                 foreach (Food f in _foods)
                 {
-                    if(f.Id == food.Id)
+                    if (f.Id == food.Id)
                     {
                         f.Name = food.Name;
                         f.Kcal = food.Kcal;
@@ -41,23 +47,26 @@ namespace KostKompas.Services
                         f.Fibre = food.Fibre;
                     }
                 }
+                await _dbService.UpdateObjectAsync(food);
+                //_dbService.SaveObjects(_foods);
             }
         }
 
-        public Food? GetFoodById(int id)
+        public async Task<Food?> GetFoodByIdAsync(int id)
         {
             foreach (Food f in _foods)
-            {     
-             if(f.Id == id)
             {
+                if (f.Id == id)
+                {
+                    await _dbService.GetObjectByIdAsync(id);
                     return f;
-             }    
+                }
             }
             throw new ArgumentException("Invalid Id");
         }
 
 
-        public Food? DeleteFood(int? foodId)
+        public async Task<Food?> DeleteFoodAsync(int? foodId)
         {
             Food? foodToBeDeleted = null;
             foreach (Food f in _foods)
@@ -70,10 +79,12 @@ namespace KostKompas.Services
                 }
 
             }
-                if (foodToBeDeleted != null)
-                {
-                    _foods.Remove(foodToBeDeleted);
-                }
+            if (foodToBeDeleted != null)
+            {
+                _foods.Remove(foodToBeDeleted);
+                await _dbService.DeleteObjectAsync(foodToBeDeleted);
+                //_dbService.SaveObjects(_foods);
+            }
             return foodToBeDeleted;
         }
 

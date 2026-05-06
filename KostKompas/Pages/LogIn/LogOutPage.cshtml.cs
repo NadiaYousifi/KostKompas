@@ -7,7 +7,7 @@ namespace KostKompas.Pages.LogIn
 {
     public class LogOutPageModel : PageModel
     {
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             //LogInPageModel.LoggedInUser = null;
 
