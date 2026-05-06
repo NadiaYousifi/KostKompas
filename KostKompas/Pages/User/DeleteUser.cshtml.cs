@@ -20,17 +20,17 @@ namespace KostKompas.Pages.User
         }
 
         // metode OnGet
-        public IActionResult OnGet(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            User = _userService.GetUserById(id);
+            User = await _userService.GetUserByIdAsync(id);
             return Page();
         }
 
         // metode OnPost
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            Models.User deletedUser = _userService.GetUserById(User.Id);
-            _userService.DeleteUser(User.Id);
+            Models.User deletedUser = await _userService.GetUserByIdAsync(User.Id);
+            _userService.DeleteUserAsync(User.Id);
             if (deletedUser == null)
             {
                 return RedirectToPage("/NotFound");

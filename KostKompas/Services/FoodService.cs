@@ -1,31 +1,41 @@
 ﻿using KostKompas.MockData;
 using KostKompas.Models;
+using System.Threading.Tasks;
 
 namespace KostKompas.Services
 {
     public class FoodService
     {
         private List<Food> _foods;
+        private DbService<Food> _dbService;
 
-        public FoodService()
+        public FoodService(DbService<Food> dbService)
         {
             _foods = MockFoods.GetMockFoods();
+            _dbService = dbService;
+            //_dbService.SaveObjectsAsync(_foods);
+            _foods = dbService.GetObjectsAsync().Result.ToList();
         
         }
 
 
-        public void AddFood(Food food)
+        public async Task AddFoodAsync(Food food)
         {
             _foods.Add(food);
+            await _dbService.AddObjectAsync(food);
+            //_dbService.SaveObjectsAsync(_foods);
         }
 
-        public List<Food> GetFoods()
+        public async Task<List<Food>> GetFoodsAsync()
         {
+            await _dbService.GetObjectsAsync();
+
             return _foods;
+
         }
 
 
-        public void UpdateFood(Food food)
+        public async Task UpdateFoodAsync(Food food)
         {
             if(food != null)
             {
@@ -42,22 +52,27 @@ namespace KostKompas.Services
                     }
                 }
             }
+            await _dbService.UpdateObjectAsync(food);
+            //_dbService.SaveObjectsAsync(_foods);
         }
 
-        public Food? GetFoodById(int id)
+        public async Task<Food?> GetFoodByIdAsync(int id)
         {
+
             foreach (Food f in _foods)
             {     
              if(f.Id == id)
             {
+                    await _dbService.GetObjectByIdAsync(id);
                     return f;
-             }    
+
+                }
             }
             throw new ArgumentException("Invalid Id");
         }
 
 
-        public Food? DeleteFood(int? foodId)
+        public async Task<Food?> DeleteFood(int? foodId)
         {
             Food? foodToBeDeleted = null;
             foreach (Food f in _foods)
@@ -73,7 +88,9 @@ namespace KostKompas.Services
                 if (foodToBeDeleted != null)
                 {
                     _foods.Remove(foodToBeDeleted);
-                }
+                await _dbService.DeleteObjectAsync(foodToBeDeleted);
+                //await _dbService.SaveObjectsAsync(_foods);
+            }
             return foodToBeDeleted;
         }
 

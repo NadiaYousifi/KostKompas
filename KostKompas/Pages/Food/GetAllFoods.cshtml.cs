@@ -18,9 +18,9 @@ namespace KostKompas.Pages.Food
             _foodService = foodService;
         }
 
-        public void OnGet()
+        public async Task OnGetAsync()
         {
-            Foods = _foodService.GetFoods();
+            Foods = await _foodService.GetFoodsAsync();
         }
     }
 }

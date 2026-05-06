@@ -31,10 +31,10 @@ namespace KostKompas.Pages.LogIn
 
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
 
-            List<Models.User> users = _userService.GetUsers();
+            List<Models.User> users = await _userService.GetUsersAsync();
             foreach (Models.User user in users)
             {
 

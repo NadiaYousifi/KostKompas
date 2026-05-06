@@ -1,6 +1,9 @@
+using KostKompas.Data;
+using KostKompas.Models;
 using KostKompas.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,15 @@ builder.Services.AddRazorPages();
 builder.Services.AddSingleton<FoodService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<FoodLogService, FoodLogService>();
+builder.Services.AddDbContext<KostKompasDbContext>();
+
+builder.Services.AddTransient<DbService<Food>, DbService<Food>>();
+builder.Services.AddTransient<DbService<User>, DbService<User>>();
+builder.Services.AddTransient<DbService<FoodLogDay>, DbService<FoodLogDay>>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<FoodService>();
+builder.Services.AddScoped<FoodLogService>();
+
 
 builder.Services.Configure<CookiePolicyOptions>(options => {
     // This lambda determines whether user consent for non-essential cookies is needed for a given request.

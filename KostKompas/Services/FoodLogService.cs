@@ -1,4 +1,5 @@
 ﻿using KostKompas.Models;
+using System.Threading.Tasks;
 
 namespace KostKompas.Services
 {
@@ -9,24 +10,31 @@ namespace KostKompas.Services
         private int nextId;
         public List<FoodLogDay> FoodLogDays { get; set; }
 
-        public FoodLogService()
+        private DbService<FoodLogDay> _dbService;
+
+        public FoodLogService(DbService<FoodLogDay> dbService)
         {
             FoodLogDays = new List<FoodLogDay>();
+            _dbService = dbService;
+            _dbService.SaveObjectsAsync(FoodLogDays);
+            FoodLogDays = dbService.GetObjectsAsync().Result.ToList();
         }
 
-        public FoodLogDay AddFoodLogDay(FoodLogDay foodLogDay)
+        public async Task<FoodLogDay> AddFoodLogDayAsync(FoodLogDay foodLogDay)
         {
             foodLogDay.Id = nextId++;
             FoodLogDays.Add(foodLogDay);
+            await _dbService.AddObjectAsync(foodLogDay);
             return foodLogDay;
         }
 
-        public FoodLogDay GetFoodLogDayById(int id)
+        public async Task<FoodLogDay> GetFoodLogDayByIdAsync(int id)
         {
             foreach (FoodLogDay f in FoodLogDays)
             {
                 if (f.Id == id)
                 {
+                    await _dbService.GetObjectByIdAsync(id);
                     return f;
                 }
             }
@@ -34,14 +42,16 @@ namespace KostKompas.Services
         }
 
         // Søg efter dato metode
-        public FoodLogDay GetFoodLogDayByDate(DateTime date)
+        public async Task<FoodLogDay> GetFoodLogDayByDateAsync(DateTime date)
         {
             foreach (FoodLogDay f in FoodLogDays)
             {
                 if (f.Date == date)
-                    return f;
+                    await _dbService.GetObjectByDateAsync(date);
+                return f;
             }
-            return AddFoodLogDay(new FoodLogDay());
+
+            return await AddFoodLogDayAsync(new FoodLogDay());
         }
         // metode - tilføjer en fødevare til et bestemt måltid til en bestemt dag
         //public void LogFood(DateTime date, string mealName, Food food)
@@ -64,11 +74,11 @@ namespace KostKompas.Services
 
         public void LogFood(FoodLogDay foodLogDay, Meal meal, Food food)
         {
+            GetFoodLogDayByIdAsync(foodLogDay.Id).Result.Meals.Find(m => m.Name == meal.Name).AddFood(food);
             //foodLogDay.Meals.Find(m => m.Name == meal.Name).AddFood(food);
-            meal.AddFood(food);
-            
+            //meal.AddFood(food);
         }
+
+
     }
-
-
 }

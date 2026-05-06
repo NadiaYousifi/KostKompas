@@ -22,7 +22,7 @@ namespace KostKompas.Pages.Food
         }
 
         // metode OnGet
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
             return Page(); // genopfrisk siden
         }
@@ -30,13 +30,13 @@ namespace KostKompas.Pages.Food
 
 
         // metode OnPost
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) // tjekker om staten brydes. Passer datatyperne sammen (int først, derefter string = invalid)
             {
                 return Page();
             }
-            _foodService.AddFood(Food);
+            await _foodService.AddFoodAsync(Food);
             return RedirectToPage("GetAllFoods");
         }
     }

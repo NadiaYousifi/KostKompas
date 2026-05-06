@@ -1,4 +1,6 @@
-﻿namespace KostKompas.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace KostKompas.Models
 {
 
 
@@ -9,6 +11,7 @@
         // Properties
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Der skal angives et navn")]
         public string Name { get; set; }
 
         public List<Food> Foods {get; set; }

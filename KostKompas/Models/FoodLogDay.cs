@@ -1,20 +1,24 @@
-﻿namespace KostKompas.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace KostKompas.Models
 {
     public class FoodLogDay
     {
         // properties
+        [Key]
+        public int Id { get; set; }
+        [Required(ErrorMessage = "Der skal angives et id")]
+        public int UserId { get; set; }
+        public User User { get; set; }
+        public int MealId { get; set; }
+        public Meal Meal { get; set; }
+
+        [Required(ErrorMessage = "Der skal angives en dato")]
         public DateTime Date { get; set; }
-        public int Id { get; set; } = -1;
 
         public List<Meal> Meals { get; set; }
 
-        public double KcalGoal { get; set; } = 1800;
-
-        public double ProteinGoal { get; set; } = 160;
-        public double CarbohydrateGoal { get; set; } = 150;
-        public double FatGoal { get; set; } = 50;
-
-        public double FibreGoal { get; set; } = 35;
+       
 
         // default constructor
         public FoodLogDay()
@@ -23,7 +27,7 @@
 
             Meals = new List<Meal>
             {
-                new Meal(1, "Morgenmad"){ Foods = {new Food(1,"Tomat", 20, 0.7,0,3.3,1.4)} },
+                new Meal(1, "Morgenmad"),
                 new Meal(2, "Formiddag"),
                 new Meal(3, "Frokost"),
                 new Meal(4, "Eftermiddag"),
@@ -59,10 +63,10 @@
 
 
         // tilbage af mål
-        public double KcalLeft
-        {
-            get { return KcalGoal - TotalKcal; }
-        }
+        //public double KcalLeft
+        //{
+        //    get { return KcalGoal - TotalKcal; }
+        //}
     }
 }
 

@@ -1,4 +1,5 @@
 using KostKompas.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -8,6 +9,9 @@ namespace KostKompas.Pages.User
     {
         // instance fields
         private UserService _userService;
+
+        private PasswordHasher<string> passwordHasher;
+
 
         // property
         [BindProperty]
@@ -29,13 +33,14 @@ namespace KostKompas.Pages.User
 
 
         // metode OnPost
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid) // tjekker om staten brydes. Passer datatyperne sammen (int først, derefter string = invalid)
             {
                 return Page();
             }
-            _userService.AddUser(User);
+            User.Password = passwordHasher.HashPassword(null, User.Password);
+            await _userService.AddUserAsync(User);
             return RedirectToPage("GetAllUsers");
         }
 

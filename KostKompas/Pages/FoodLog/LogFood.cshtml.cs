@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Dynamic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 
 namespace KostKompas.Pages.FoodLog
@@ -42,14 +43,14 @@ namespace KostKompas.Pages.FoodLog
         {
             _foodService = FoodService;
             _foodLogService = FoodLogService;
-            Foods = _foodService.GetFoods();
+            //Foods = _foodService.GetFoodsAsync();
         }
 
         // methods 
 
-        public void OnGet(int id, string name)
+        public async Task OnGetAsync(int id, string name)
         {
-            FoodLogDay = _foodLogService.GetFoodLogDayById(id);
+            FoodLogDay = await _foodLogService.GetFoodLogDayByIdAsync(id);
             CurrentMeal = FoodLogDay.Meals.First(m => m.Name == name);
         }
         // gør, at vi kan få frem, at det er "Morgenmad", der hentydes til
@@ -61,10 +62,10 @@ namespace KostKompas.Pages.FoodLog
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             // 1. Find den valgte food
-            Models.Food selectedFood = _foodService.GetFoodById(FoodId);
+            Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
 
             // 2. Lav en "kopi" med brugerens gram
             Models.Food foodToLog = new Models.Food
