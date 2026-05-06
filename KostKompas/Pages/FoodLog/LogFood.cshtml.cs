@@ -42,31 +42,72 @@ namespace KostKompas.Pages.FoodLog
         {
             _foodService = FoodService;
             _foodLogService = FoodLogService;
-            Foods = _foodService.GetFoods();
+            
         }
 
         // methods 
 
-        public void OnGet(int id, string name)
+        //public void OnGet(int id, string name)
+        //{
+        //    FoodLogDay = _foodLogService.GetFoodLogDayById(id);
+        //    CurrentMeal = FoodLogDay.Meals.First(m => m.Name == name);
+        //}
+        public async Task OnGetAsync(int id, string name)
         {
             FoodLogDay = _foodLogService.GetFoodLogDayById(id);
             CurrentMeal = FoodLogDay.Meals.First(m => m.Name == name);
+
+            Foods = await _foodService.GetFoodsAsync();
         }
         // gør, at vi kan få frem, at det er "Morgenmad", der hentydes til
 
+
+
         // NameSearch 
-        public IActionResult OnPostNameSearch()
+        //public IActionResult OnPostNameSearch()
+        //{
+        //    Foods = _foodService.NameSearch(SearchString).ToList();
+        //    return Page();
+        //}
+        public async Task<IActionResult> OnPostNameSearchAsync()
         {
-            Foods = _foodService.NameSearch(SearchString).ToList();
+            Foods = await _foodService.NameSearchAsync(SearchString);
             return Page();
         }
 
-        public IActionResult OnPost()
-        {
-            // 1. Find den valgte food
-            Models.Food selectedFood = _foodService.GetFoodById(FoodId);
+        // OnPost metode
+        //public IActionResult OnPost()
+        //{
+        //    // 1. Find den valgte food
+        //    Models.Food selectedFood = _foodService.GetFoodById(FoodId);
 
-            // 2. Lav en "kopi" med brugerens gram
+        //    // 2. Lav en "kopi" med brugerens gram
+        //    Models.Food foodToLog = new Models.Food
+        //    {
+        //        Id = selectedFood.Id,
+        //        Name = selectedFood.Name,
+        //        Kcal = selectedFood.Kcal,
+        //        Protein = selectedFood.Protein,
+        //        Fat = selectedFood.Fat,
+        //        Carbohydrate = selectedFood.Carbohydrate,
+        //        Fibre = selectedFood.Fibre,
+        //        WeightInGrams = WeightInGramsInput
+        //    };
+
+
+
+        //    // 3. Log maden i det rigtige måltid
+        //    _foodLogService.LogFood(FoodLogDay,CurrentMeal, foodToLog);
+
+
+        //    // 4. Gå tilbage til madloggen
+        //    return RedirectToPage("/FoodLog/GetFoodLogDay");
+        //}
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
+
             Models.Food foodToLog = new Models.Food
             {
                 Id = selectedFood.Id,
@@ -79,11 +120,8 @@ namespace KostKompas.Pages.FoodLog
                 WeightInGrams = WeightInGramsInput
             };
 
-            // 3. Log maden i det rigtige måltid
-            _foodLogService.LogFood(FoodLogDay,CurrentMeal, foodToLog);
+            _foodLogService.LogFood(FoodLogDay, CurrentMeal, foodToLog);
 
-
-            // 4. Gå tilbage til madloggen
             return RedirectToPage("/FoodLog/GetFoodLogDay");
         }
 

@@ -1,9 +1,18 @@
-﻿namespace KostKompas.Models
-{
+﻿using System.ComponentModel.DataAnnotations;
+namespace KostKompas.Models;
+using System.ComponentModel.DataAnnotations.Schema;
+
     public class Food
     {
         // properties 
+        [Key]
         public int Id { get; set; }
+        public int User_id { get; set; } // fordi det skal passe til Er-diagrammet
+        [ForeignKey("User_id")]
+        public User user { get; set; } // fordi noget med databasen 
+
+        [Required]
+        [StringLength(100)]
         public string Name { get; set; }
         public double Kcal { get; set; }
         public double Protein { get; set; }
@@ -41,5 +50,4 @@
         }  
         
 
-    }
-}
+   }

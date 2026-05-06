@@ -6,39 +6,42 @@ namespace KostKompas.Pages.Food
 {
     public class DeleteFoodModel : PageModel
     {
-        // instance fields
         private FoodService _foodService;
 
-        // property
         [BindProperty]
         public Models.Food Food { get; set; }
 
-
-        // constructor 
         public DeleteFoodModel(FoodService foodService)
         {
             _foodService = foodService;
         }
 
-        // metode OnGet
-        public IActionResult OnGet(int id)
+
+        // onget metode
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            Food = _foodService.GetFoodById(id);
-                return Page();
+            Food = await _foodService.GetFoodByIdAsync(id);
+
+            if (Food == null)
+            {
+                return RedirectToPage("/NotFound");
+            }
+
+            return Page();
         }
 
-        // metode OnPost
-        public IActionResult OnPost()
+        // onpost metode
+        public async Task<IActionResult> OnPostAsync()
         {
-            Models.Food deletedFood = _foodService.GetFoodById(Food.Id);
-            _foodService.DeleteFood(Food.Id);
-            if(deletedFood == null)
+            Models.Food? deletedFood = await _foodService.DeleteFoodAsync(Food.Id);
+
+            if (deletedFood == null)
             {
                 return Page();
             }
+
             return RedirectToPage("GetAllFoods");
         }
-       
     }
 }
 

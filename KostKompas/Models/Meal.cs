@@ -1,4 +1,6 @@
-﻿namespace KostKompas.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace KostKompas.Models
 {
 
 
@@ -7,10 +9,11 @@
     {
 
         // Properties
+
         public int Id { get; set; }
-
+        [Required]
         public string Name { get; set; }
-
+        
         public List<Food> Foods {get; set; }
 
         public double TotalKcal
