@@ -26,17 +26,17 @@ namespace KostKompas.Services
 
             // Methods
             public List<ChatMessage> GetMessages() // Denne metode returnerer alle beskeder sorteret efter tidspunktet, de blev sendt
-        {
+            {
                 return messages.OrderBy(m => m.SentAt).ToList(); // Beskederne sorteres i stigende rækkefølge baseret på SentAt, så de ældste beskeder kommer først
-        }
+            }
 
             public void SendMessage(ChatMessage message) // Denne metode bruges til at sende en ny besked. Den tager en ChatMessage som parameter
-        {
+            {
                 message.Id = messages.Count + 1; // Id'et for den nye besked sættes til antallet af eksisterende beskeder plus 1, så hver besked får et unikt id
                 message.SentAt = DateTime.Now; // SentAt sættes til det aktuelle tidspunkt, så beskeden vises som en ny besked
 
             messages.Add(message); // Den nye besked tilføjes til listen over beskeder
-        }
-        }
+            }
+         }
     }
 

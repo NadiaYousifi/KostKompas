@@ -63,12 +63,12 @@ namespace KostKompas.Services
         //}
 
         // metode - tilføjer en fødevare til et bestemt måltid til en bestemt dag
-        public void LogFood(FoodLogDay foodLogDay, Meal meal, Food food)
+        public void LogFood(FoodLogDay foodLogDay, FoodMeal foodMeal)
         {
-            GetFoodLogDayById(foodLogDay.Id).Meals.Find(m => m.Name == meal.Name).AddFood(food);
+            GetFoodLogDayById(foodLogDay.Id).Meals.Find(m => m.Id == foodMeal.Meal_id).FoodMeals.Add(foodMeal);  
             //foodLogDay.Meals.Find(m => m.Name == meal.Name).AddFood(food);
             //meal.AddFood(food);
-            
+
         }
     }
 

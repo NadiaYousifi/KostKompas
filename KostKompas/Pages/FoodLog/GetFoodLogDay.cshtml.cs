@@ -18,9 +18,12 @@ namespace KostKompas.Pages.FoodLog
         }
 
         // OnGet metode
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            FoodLogDay = _foodLogService.GetFoodLogDayByDate(DateTime.Today);
+            string email = HttpContext.User.Identity.Name;
+
+            User = _userService.GetUsersAsync().Result.FirstOrDefault(u => u.Email == email);
+            FoodLogDay = await _foodLogService.GetFoodLogDayByDateAsync(DateTime.Today);
             if (FoodLogDay == null)
             {
                 return RedirectToPage("/NotFound");

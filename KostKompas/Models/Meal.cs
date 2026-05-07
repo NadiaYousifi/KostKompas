@@ -14,31 +14,31 @@ namespace KostKompas.Models
         [Required]
         public string Name { get; set; }
         
-        public List<Food> Foods {get; set; }
+        public List<FoodMeal> FoodMeals {get; set; }
 
         public double TotalKcal
         {
-            get { return Foods.Sum(f => ((f.WeightInGrams / 100) * f.Kcal)); }
+            get { return FoodMeals.Sum(f => ((f.WeightInGrams / 100) * f.Food.Kcal)); }
         }
 
         public double TotalProtein
         {
-            get { return Foods.Sum(f => ((f.WeightInGrams / 100) * f.Protein)); }
+            get { return FoodMeals.Sum(f => ((f.WeightInGrams / 100) * f.Food.Protein)); }
         }
 
         public double TotalFat
         {
-            get { return Foods.Sum(f => ((f.WeightInGrams / 100) * f.Fat)); }
+            get { return FoodMeals.Sum(f => ((f.WeightInGrams / 100) * f.Food.Fat)); }
         }
 
         public double TotalCarbohydrate
         {
-            get { return Foods.Sum(f => ((f.WeightInGrams / 100) * f.Carbohydrate)); }
+            get { return FoodMeals.Sum(f => ((f.WeightInGrams / 100) * f.Food.Carbohydrate)); }
         }
 
         public double TotalFibre
         {
-            get { return Foods.Sum(f => ((f.WeightInGrams / 100) * f.Fibre)); }
+            get { return FoodMeals.Sum(f => ((f.WeightInGrams / 100) * f.Food.Fibre)); }
         }
 
 
@@ -47,21 +47,21 @@ namespace KostKompas.Models
         {
             Id = id;
             Name = name;
-            Foods = new List<Food>(); // gemmer listen til constructoren, når der laves et nyt meal
+            FoodMeals = new List<FoodMeal>(); // gemmer listen til constructoren, når der laves et nyt meal
         }
 
         // default constructor 
         public Meal()
         {
-            Foods = new List<Food>(); // vi har en liste fordi vi gerne vil kunne oprette en ny liste
+            FoodMeals = new List<FoodMeal>(); // vi har en liste fordi vi gerne vil kunne oprette en ny liste
         }
 
 
-        // Methods
-        public void AddFood(Food food)
-        {
-            Foods.Add(food);
-        }
+        //// Methods
+        //public void AddFood(Food food)
+        //{
+        //    FoodMeals.Add(food);
+        //}
 
         //public void RemoveFood(Food food)
         //{

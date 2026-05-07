@@ -31,9 +31,27 @@ namespace KostKompas.Models
         [Required]
         public double FibreGoal { get; set; } = 35;
 
+        // Tilføjelse til Harris-Benedict
+        public string Gender { get; set; }
+
+        public double Weight { get; set; } 
+        public double Height { get; set; } 
+        public int Age { get; set; }
+
+        // konstanter 
+        public double MaleBaseConstant { get; set; } = 66.5;
+        public double MaleWeightConstant { get; set; } = 13.75;
+        public double MaleHeightConstant { get; set; } = 5.003;
+        public double MaleAgeConstant { get; set; } = 6.755;
+
+        public double FemaleBaseConstant { get; set; } = 655;
+        public double FemaleWeightConstant { get; set; } = 9.563;
+        public double FemaleHeightConstant { get; set; } = 1.850;
+        public double FemaleAgeConstant { get; set; } = 4.676;
 
 
-        public User(int id, string name, string email, string password, double kcalgoal, double proteingoal, double carbohydrategoal, double fatgoal)
+
+        public User(int id, string name, string email, string password, double kcalgoal, double proteingoal, double carbohydrategoal, double fatgoal, string gender, double weight, double height, int age)
         {
             Id = id;
             Name = name;
@@ -43,6 +61,10 @@ namespace KostKompas.Models
             ProteinGoal = proteingoal;
             CarbohydrateGoal = carbohydrategoal;
             FatGoal = fatgoal;
+            Gender = gender;
+            Weight = weight;
+            Height = height;
+            Age = age;
 
 
         }
@@ -57,6 +79,31 @@ namespace KostKompas.Models
         public override string ToString()
         {
             return $"Name: {Name}, Email: {Email}, Password: {Password}";
+        }
+
+
+
+        // Harris Benedict metode
+        public double CalculateBmr()
+        {
+            double bmr = 0;
+
+            if (Gender == "Kvinde")
+            {
+                bmr = FemaleBaseConstant
+                      + (FemaleWeightConstant * Weight)
+                      + (FemaleHeightConstant * Height)
+                      - (FemaleAgeConstant * Age);
+            }
+            else
+            {
+                bmr = MaleBaseConstant
+                      + (MaleWeightConstant * Weight)
+                      + (MaleHeightConstant * Height)
+                      - (MaleAgeConstant * Age);
+            }
+
+            return bmr * 1.5; // Multiplicér med aktivitetsniveau (1.5 for moderat aktivitet)
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@page
+﻿@* @page
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
@@ -8,3 +8,62 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+ *@
+
+
+@page
+@model IndexModel
+@{
+    // ViewData["Title"] = "Forside";
+}
+
+
+<section class="hero-section">
+    <div class="hero-content">
+        <p class="eyebrow">KostKompas</p>
+
+        <h1>Find din vej til en sundere hverdag</h1>
+
+        <p class="hero-text">
+            Hold styr på dine måltider, kalorier og næringsstoffer på en nem og overskuelig måde.
+        </p>
+
+        <div class="hero-actions">
+            <a asp-page="/LogIn/LogInPage" class="btn-primary-custom">Kom i gang</a>
+            <a asp-page="/FoodLog/GetFoodLogDay" class="btn-secondary-custom">Gå til madlog</a>
+        </div>
+    </div>
+
+    <div class="hero-card">
+        <h3>Dagens overblik</h3>
+        <p>1800 kcal mål</p>
+
+        <div class="progress-line"></div>
+
+        <ul>
+            <li>Track måltider</li>
+            <li>Se makroer</li>
+            <li>Følg din udvikling</li>
+        </ul>
+    </div>
+</section>
+
+<section class="feature-section">
+    <div class="feature-card">
+        <div class="feature-icon">🍽️</div>
+        <h3>Track mad</h3>
+        <p>Log dine måltider og få overblik over kalorier, protein, kulhydrat, fedt og fibre.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>Se fremskridt</h3>
+        <p>Følg dine mål og se hvordan dine daglige valg påvirker din udvikling over tid.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>Få støtte</h3>
+        <p>Få vejledning og struktur, så det bliver lettere at holde fast i gode vaner.</p>
+    </div>
+</section>

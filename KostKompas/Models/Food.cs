@@ -20,7 +20,7 @@ using System.ComponentModel.DataAnnotations.Schema;
         public double Carbohydrate  { get; set; }
         public double Fibre { get; set; }
 
-        public double WeightInGrams { get; set; } = 100;
+       
 
         // constructor 
         public Food(int id,string name, double kcal, double protein, double fat, double carbohydrate, double fibre)
@@ -46,7 +46,7 @@ using System.ComponentModel.DataAnnotations.Schema;
         // method
         public override string ToString()
         {
-            return $"Name: {Name}, Kcal {Kcal}, Protein: {Protein}, Fat: {Fat}, CarboHydrate: {Carbohydrate}, Fibre: {Fibre}, WeightInGrams: {WeightInGrams}";
+            return $"Name: {Name}, Kcal {Kcal}, Protein: {Protein}, Fat: {Fat}, CarboHydrate: {Carbohydrate}, Fibre: {Fibre}";
         }  
         
 

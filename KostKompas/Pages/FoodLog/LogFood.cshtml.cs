@@ -93,37 +93,45 @@ namespace KostKompas.Pages.FoodLog
         //        Fibre = selectedFood.Fibre,
         //        WeightInGrams = WeightInGramsInput
         //    };
+        //      Food = selectedFood; // den fødevare, som brugeren har valgt, skal vises på siden, når den er logget
+        //      MealId = CurrentMeal.Id; // det måltid, som brugeren har valgt, skal vises på siden, når den er logget
+        //      WeightInGrams = WeightInGramsInput; // den vægt, som brugeren har indtastet, skal vises på siden, når den er logget
+
+
 
 
 
         //    // 3. Log maden i det rigtige måltid
-        //    _foodLogService.LogFood(FoodLogDay,CurrentMeal, foodToLog);
+        //    _foodLogService.LogFood(FoodLogDay, selectedFoodMeal);
 
 
         //    // 4. Gå tilbage til madloggen
         //    return RedirectToPage("/FoodLog/GetFoodLogDay");
         //}
 
-        public async Task<IActionResult> OnPostAsync()
-        {
-            Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
 
-            Models.Food foodToLog = new Models.Food
-            {
-                Id = selectedFood.Id,
-                Name = selectedFood.Name,
-                Kcal = selectedFood.Kcal,
-                Protein = selectedFood.Protein,
-                Fat = selectedFood.Fat,
-                Carbohydrate = selectedFood.Carbohydrate,
-                Fibre = selectedFood.Fibre,
-                WeightInGrams = WeightInGramsInput
-            };
 
-            _foodLogService.LogFood(FoodLogDay, CurrentMeal, foodToLog);
+        //---- Metode selv lavet med EF ---------
+        //public async Task<IActionResult> OnPostAsync()
+        //{
+        //    Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
 
-            return RedirectToPage("/FoodLog/GetFoodLogDay");
-        }
+        //    Models.Food foodToLog = new Models.Food
+        //    {
+        //        Id = selectedFood.Id,
+        //        Name = selectedFood.Name,
+        //        Kcal = selectedFood.Kcal,
+        //        Protein = selectedFood.Protein,
+        //        Fat = selectedFood.Fat,
+        //        Carbohydrate = selectedFood.Carbohydrate,
+        //        Fibre = selectedFood.Fibre,
+        //        WeightInGrams = WeightInGramsInput
+        //    };
+
+        //    _foodLogService.LogFood(FoodLogDay, CurrentMeal, foodToLog);
+
+        //    return RedirectToPage("/FoodLog/GetFoodLogDay");
+        //}
 
 
     }
