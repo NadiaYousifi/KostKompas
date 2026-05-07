@@ -6,9 +6,8 @@ namespace KostKompas.Services
     public class FoodLogService
     {
         // Field
-        private int nextId;
-        public List<FoodLogDay> FoodLogDays { get; set; }
         private DbGenericService<FoodLogDay> _dbService;
+        public List<FoodLogDay> FoodLogDays { get; set; }
 
         public FoodLogService(DbGenericService<FoodLogDay> dbService)
         {
@@ -17,12 +16,12 @@ namespace KostKompas.Services
             FoodLogDays = _dbService.GetObjectsAsync().Result.ToList();
         }
 
-        public async Task<FoodLogDay> AddFoodLogDayAsync(FoodLogDay foodLogDay)
+        public async Task<FoodLogDay> AddFoodLogDayAsync(FoodLogDay foodLogDay, User user)
         {
-            foodLogDay.Id = nextId++;
+            foodLogDay.User = user;
+            foodLogDay.UserId = user.Id;
             FoodLogDays.Add(foodLogDay);
             await _dbService.AddObjectAsync(foodLogDay);
-            //_dbService.SaveObjects(foodLogDay);
             return foodLogDay;
         }
 
@@ -40,16 +39,17 @@ namespace KostKompas.Services
         }
 
         // Søg efter dato metode
-        public async Task<FoodLogDay> GetFoodLogDayByDateAsync(DateTime date)
+        public async Task<FoodLogDay> GetFoodLogDayByDateAsync(User user, DateTime date)
         {
             foreach (FoodLogDay f in FoodLogDays)
             {
-                if (f.Date == date)
+                if (f.Date == date && f.UserId == user.Id)
                     await _dbService.GetObjectByDateAsync(date);
                 return f;
             }
-            return await AddFoodLogDayAsync(new FoodLogDay(date));
+            return await AddFoodLogDayAsync(new FoodLogDay(date), user);
         }
+
         //public void LogFood(DateTime date, string mealName, Food food)
         //{
         //    FoodLogDay day = GetFoodLogDayByDate((DateTime)date);
@@ -69,11 +69,11 @@ namespace KostKompas.Services
         //}
 
         // metode - tilføjer en fødevare til et bestemt måltid til en bestemt dag
-        public void LogFood(FoodLogDay foodLogDay, Meal meal, Food food)
+        public void LogFood(FoodLogDay foodLogDay, FoodMeal foodMeal)
         {
-            GetFoodLogDayByIdAsync(foodLogDay.Id).Result.Meals.Find(m => m.Name == meal.Name).AddFood(food);
-            //foodLogDay.Meals.Find(m => m.Name == meal.Name).AddFood(food);
-            //meal.AddFood(food);
+            GetFoodLogDayByIdAsync(foodLogDay.Id).Result
+                .Meals.Find(m => m.Id == foodMeal.MealId)
+                .FoodMeals.Add(foodMeal);
 
         }
     }

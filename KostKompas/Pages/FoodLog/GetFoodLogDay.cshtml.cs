@@ -6,21 +6,27 @@ namespace KostKompas.Pages.FoodLog
 {
     public class GetFoodLogDayModel : PageModel
     {
-        // properties 
+        // fields
         private FoodLogService _foodLogService;
+        private UserService _userService;
+        // properties 
 
         [BindProperty] public Models.FoodLogDay FoodLogDay { get; set; }
+        [BindProperty] public Models.User User { get; set; }
 
         // constructor
-        public GetFoodLogDayModel(FoodLogService foodLogService) //dependency injection
+        public GetFoodLogDayModel(FoodLogService foodLogService, UserService userService) //dependency injection
         {
             _foodLogService = foodLogService;
+            _userService = userService;
         }
 
         // OnGet metode
         public async Task<IActionResult> OnGetAsync()
         {
-            FoodLogDay = await _foodLogService.GetFoodLogDayByDateAsync(DateTime.Today);
+            string email = HttpContext.User.Identity.Name;
+            User = _userService.GetUsersAsync().Result.FirstOrDefault(u => u.Email == email);
+            FoodLogDay = await _foodLogService.GetFoodLogDayByDateAsync( User ,DateTime.Today);
             if (FoodLogDay == null)
             {
                 return RedirectToPage("/NotFound");

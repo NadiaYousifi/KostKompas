@@ -7,12 +7,13 @@ namespace KostKompas.EFDbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer(@"Data Source=NADIA\SQLEXPRESS;Initial Catalog=KostKompasEfDb; Integrated Security=True; Connect Timeout=30; Encrypt=False");
+            options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=KostKompasEfDb; Integrated Security=True; Connect Timeout=30; Encrypt=False");
         }
 
         public DbSet<Food> Foods { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Meal> Meals { get; set; }
+        public DbSet<FoodMeal> FoodMeals { get; set; }
         public DbSet<FoodLogDay> FoodLogDays { get; set; }
 
     }

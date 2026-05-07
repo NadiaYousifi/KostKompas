@@ -66,20 +66,28 @@ namespace KostKompas.Pages.FoodLog
             Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
 
             // 2. Lav en "kopi" med brugerens gram
-            Models.Food foodToLog = new Models.Food
+            //Models.Food foodToLog = new Models.Food
+            //{
+            //    Id = selectedFood.Id,
+            //    Name = selectedFood.Name,
+            //    Kcal = selectedFood.Kcal,
+            //    Protein = selectedFood.Protein,
+            //    Fat = selectedFood.Fat,
+            //    Carbohydrate = selectedFood.Carbohydrate,
+            //    Fibre = selectedFood.Fibre,
+            //    WeightInGrams = WeightInGramsInput
+            //};
+            Models.FoodMeal selectedFoodMeal = new FoodMeal()
             {
-                Id = selectedFood.Id,
-                Name = selectedFood.Name,
-                Kcal = selectedFood.Kcal,
-                Protein = selectedFood.Protein,
-                Fat = selectedFood.Fat,
-                Carbohydrate = selectedFood.Carbohydrate,
-                Fibre = selectedFood.Fibre,
+                FoodId = selectedFood.Id,
+                Food = selectedFood,
+                MealId = CurrentMeal.Id,
                 WeightInGrams = WeightInGramsInput
+
             };
 
             // 3. Log maden i det rigtige måltid
-            _foodLogService.LogFood(FoodLogDay,CurrentMeal, foodToLog);
+            _foodLogService.LogFood(FoodLogDay, selectedFoodMeal);
 
 
             // 4. Gå tilbage til madloggen

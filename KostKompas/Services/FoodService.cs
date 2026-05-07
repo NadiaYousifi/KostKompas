@@ -21,7 +21,6 @@ namespace KostKompas.Services
         {
             _foods.Add(food);
             await _dbService.AddObjectAsync(food);
-            //_dbService.SaveObjects(_foods);
         }
 
         public async Task<List<Food>> GetFoodsAsync()
@@ -48,7 +47,6 @@ namespace KostKompas.Services
                     }
                 }
                 await _dbService.UpdateObjectAsync(food);
-                //_dbService.SaveObjects(_foods);
             }
         }
 
@@ -83,7 +81,6 @@ namespace KostKompas.Services
             {
                 _foods.Remove(foodToBeDeleted);
                 await _dbService.DeleteObjectAsync(foodToBeDeleted);
-                //_dbService.SaveObjects(_foods);
             }
             return foodToBeDeleted;
         }

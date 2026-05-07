@@ -13,14 +13,14 @@ namespace KostKompas.Services
             _users = MockUsers.GetMockUsers();
             _dbService = dbService;
             _dbService.SaveObjects(_users);
-            _users = _dbService.GetObjectsAsync().Result.ToList();
+            //_users = _dbService.GetObjectsAsync().Result.ToList();
         }
 
 
         public async Task AddUserAsync(User user)
         {
             _users.Add(user);
-            await _dbService.AddObjectAsync(user);
+            await _dbService.AddObjectAsync(user); // Bør vi bruge create 2 gange
             //_dbService.SaveObjects(_users);
         }
 

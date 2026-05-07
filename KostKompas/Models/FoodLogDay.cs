@@ -5,14 +5,12 @@ namespace KostKompas.Models
     public class FoodLogDay
     {
         // properties
-        public int Id { get; set; } = -1;
+        public int Id { get; set; }
         [Required(ErrorMessage = "Der skal angives en dato")]
         public DateTime Date { get; set; }
         [Required(ErrorMessage = "Der skal angives et Id")]
         public int UserId { get; set; }
         public User User { get; set; }
-        public int MealId { get; set; }
-        public Meal Meal { get; set; }
 
         public List<Meal> Meals { get; set; }
 

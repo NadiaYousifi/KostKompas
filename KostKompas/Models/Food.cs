@@ -22,7 +22,6 @@ namespace KostKompas.Models
         public double Carbohydrate  { get; set; }
         [Required(ErrorMessage = "Der skal angives fibre")]
         public double Fibre { get; set; }
-        public double WeightInGrams { get; set; } = 100;
 
         // constructor 
         public Food(int id, string name, double kcal, double protein, double fat, double carbohydrate, double fibre)
@@ -48,7 +47,7 @@ namespace KostKompas.Models
         // method
         public override string ToString()
         {
-            return $"Name: {Name}, Kcal {Kcal}, Protein: {Protein}, Fat: {Fat}, CarboHydrate: {Carbohydrate}, Fibre: {Fibre}, WeightInGrams: {WeightInGrams}";
+            return $"Name: {Name}, Kcal {Kcal}, Protein: {Protein}, Fat: {Fat}, CarboHydrate: {Carbohydrate}, Fibre: {Fibre}";
         }  
         
 
