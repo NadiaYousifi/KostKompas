@@ -34,7 +34,7 @@ namespace KostKompas.Pages.LogIn
         public async Task<IActionResult> OnPost()
         {
 
-            List<Models.User> users = _userService.GetUsers();
+            List<Models.User> users = await _userService.GetUsersAsync();
             foreach (Models.User user in users)
             {
                 //LoggedInUser = user;

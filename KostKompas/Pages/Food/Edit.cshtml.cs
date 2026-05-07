@@ -21,9 +21,9 @@ namespace KostKompas.Pages.Food
         }
 
         // metode OnGet
-        public IActionResult OnGet(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            Food = _foodService.GetFoodById(id);
+            Food = await _foodService.GetFoodByIdAsync(id);
             if (Food == null)
                 return RedirectToPage("/NotFound"); //NotFound er ikke defineret endnu
 
@@ -31,13 +31,13 @@ namespace KostKompas.Pages.Food
         }
 
         // metode OnPost
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-            _foodService.UpdateFood(Food);
+            await _foodService.UpdateFoodAsync(Food);
             return RedirectToPage("GetAllFoods");
         }
     }

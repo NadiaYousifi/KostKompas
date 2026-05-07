@@ -6,25 +6,32 @@ namespace KostKompas.Services
     public class UserService
     {
         private List<User> _users;
+        private DbGenericService<User> _dbService;
 
-        public UserService()
+        public UserService(DbGenericService<User> dbService)
         {
             _users = MockUsers.GetMockUsers();
+            _dbService = dbService;
+            _dbService.SaveObjects(_users);
+            _users = _dbService.GetObjectsAsync().Result.ToList();
         }
 
 
-        public void AddUser(User user)
+        public async Task AddUserAsync(User user)
         {
             _users.Add(user);
+            await _dbService.AddObjectAsync(user);
+            //_dbService.SaveObjects(_users);
         }
 
-        public List<User> GetUsers()
+        public async Task<List<User>> GetUsersAsync()
         {
+            await _dbService.GetObjectsAsync();
             return _users;
         }
 
 
-        public void UpdateUser(User user)
+        public async Task UpdateUserAsync(User user)
         {
             if (user != null)
             {
@@ -38,15 +45,18 @@ namespace KostKompas.Services
                         
                     }
                 }
+                await _dbService.UpdateObjectAsync(user);
+                //_dbService.SaveObjects(_users);
             }
         }
 
-        public User? GetUserById(int id)
+        public async Task<User?> GetUserByIdAsync(int id)
         {
             foreach (User u in _users)
             {
                 if (u.Id == id)
                 {
+                    await _dbService.GetObjectByIdAsync(id);
                     return u;
                 }
             }
@@ -54,7 +64,7 @@ namespace KostKompas.Services
         }
 
 
-        public User DeleteUser(int? userId)
+        public async Task<User> DeleteUserAsync(int? userId)
         {
             User userToBeDeleted = null;
             foreach (User u in _users)
@@ -69,6 +79,8 @@ namespace KostKompas.Services
             if (userToBeDeleted != null)
             {
                 _users.Remove(userToBeDeleted);
+                await _dbService.DeleteObjectAsync(userToBeDeleted);
+                //_dbService.SaveObjects(_users);
             }
             return userToBeDeleted;
         }
