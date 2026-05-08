@@ -72,11 +72,10 @@ namespace KostKompas.Services
         //    }
         //}
 
-        public void LogFood(FoodLogDay foodLogDay, Meal meal, Food food)
+        public void LogFood(FoodLogDay foodLogDay, FoodMeal foodMeal)
         {
-            GetFoodLogDayByIdAsync(foodLogDay.Id).Result.Meals.Find(m => m.Name == meal.Name).AddFood(food);
-            //foodLogDay.Meals.Find(m => m.Name == meal.Name).AddFood(food);
-            //meal.AddFood(food);
+            GetFoodLogDayByIdAsync(foodLogDay.Id).Result.Meals.Find(m => m.Id == foodMeal.MealId).FoodMeals.Add(foodMeal);
+           
         }
 
 
