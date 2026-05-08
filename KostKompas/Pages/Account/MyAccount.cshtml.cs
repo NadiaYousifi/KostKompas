@@ -16,25 +16,20 @@ namespace KostKompas.Pages.Account
 
         // constructor 
         public MyAccountModel(UserService userService)
-         {
-                _userService = userService;
-         }
-
-        // metode OnGet
-        public void OnGet()
-         {
-            string email = HttpContext.User.Identity.Name;
-
-            User = _userService.GetUsers().FirstOrDefault(u => u.Email == email);
+        {
+            _userService = userService;
         }
 
-        // metode OnPost
-         public IActionResult OnPost()
-           {
-              _userService.UpdateUser(User);
-
-              return RedirectToPage("/Account/MyAccount");
-            }
+        public async Task OnGetAsync()
+        {
+            string email = HttpContext.User.Identity.Name;
+            User = _userService.GetUsersAsync().Result.FirstOrDefault(u=> u.Email == email);
+        }
+        public async Task<IActionResult> OnPostAsync()
+        {
+            _userService.UpdateUserAsync(User);
+            return RedirectToPage("/Account/MyAccount");
         }
     }
+}
     

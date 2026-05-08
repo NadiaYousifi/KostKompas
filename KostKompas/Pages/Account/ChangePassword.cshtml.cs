@@ -1,4 +1,5 @@
 using KostKompas.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
@@ -58,14 +59,11 @@ namespace KostKompas.Pages.Account
             var user = _userService
                 .GetUsers()
                 .FirstOrDefault(u => u.Email == email);
+            var user = _userService.GetUsersAsync().Result.FirstOrDefault(u => u.Email == email);
 
             var passwordHasher = new PasswordHasher<string>();
 
-            var result = passwordHasher.VerifyHashedPassword(
-                null,
-                user.Password,
-                OldPassword
-            );
+            var result = passwordHasher.VerifyHashedPassword(null, user.Password, OldPassword);
 
             if (result != PasswordVerificationResult.Success)
             {
@@ -81,7 +79,7 @@ namespace KostKompas.Pages.Account
 
             user.Password = passwordHasher.HashPassword(null, NewPassword);
 
-            _userService.UpdateUser(user);
+            _userService.UpdateUserAsync(user);
 
             return RedirectToPage("/Account/MyAccount");
         }

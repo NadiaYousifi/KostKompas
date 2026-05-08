@@ -16,26 +16,17 @@ namespace KostKompas.Pages.Food
             _foodService = foodService;
         }
 
-
-        // onget metode
+        // metode OnGet
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Food = await _foodService.GetFoodByIdAsync(id);
-
-            if (Food == null)
-            {
-                return RedirectToPage("/NotFound");
-            }
-
-            return Page();
+                return Page();
         }
-
-        // onpost metode
         public async Task<IActionResult> OnPostAsync()
         {
-            Models.Food? deletedFood = await _foodService.DeleteFoodAsync(Food.Id);
-
-            if (deletedFood == null)
+            Models.Food deletedFood = await _foodService.GetFoodByIdAsync(Food.Id);
+            _foodService.DeleteFoodAsync(Food.Id);
+            if(deletedFood == null)
             {
                 return Page();
             }

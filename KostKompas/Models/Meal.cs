@@ -9,12 +9,11 @@ namespace KostKompas.Models
     {
 
         // Properties
-
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Der skal angives et navn")]
         public string Name { get; set; }
-        
-        public List<FoodMeal> FoodMeals {get; set; }
+
+        public List<FoodMeal> FoodMeals { get; set; }
 
         public double TotalKcal
         {
@@ -63,10 +62,6 @@ namespace KostKompas.Models
         //    FoodMeals.Add(food);
         //}
 
-        //public void RemoveFood(Food food)
-        //{
-        //    Foods.Remove(food);
-        //}
     }
 }
 

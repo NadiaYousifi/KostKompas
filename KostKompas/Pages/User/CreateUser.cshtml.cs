@@ -16,29 +16,30 @@ namespace KostKompas.Pages.User
         [BindProperty]
         public Models.User User { get; set; }
 
+
         // constructor
         public CreateUserModel(UserService userService)
         {
             _userService = userService;
             passwordHasher = new PasswordHasher<string>();
+
         }
 
         // metode OnGet
         public IActionResult OnGet()
         {
-            return Page(); // genopfrisk siden
+            return Page();
         }
 
         // metode OnPost
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) // tjekker om staten brydes. Passer datatyperne sammen (int først, derefter string = invalid)
+            if (!ModelState.IsValid) 
             {
                 return Page();
             }
             User.Password = passwordHasher.HashPassword(null, User.Password);
-            _userService.AddUser(User);
-
+            await _userService.AddUserAsync(User);
             return RedirectToPage("GetAllUsers");
         }
 

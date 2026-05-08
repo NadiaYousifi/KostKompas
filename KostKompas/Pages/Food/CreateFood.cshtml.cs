@@ -30,23 +30,12 @@ namespace KostKompas.Pages.Food
 
 
         // metode OnPost
-        //public IActionResult OnPost()
-        //{
-        //    if (!ModelState.IsValid) // tjekker om staten brydes. Passer datatyperne sammen (int først, derefter string = invalid)
-        //    {
-        //        return Page();
-        //    }
-        //    _foodService.AddFood(Food);
-        //    return RedirectToPage("GetAllFoods");
-        //}
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
             await _foodService.AddFoodAsync(Food);
             return RedirectToPage("GetAllFoods");
         }

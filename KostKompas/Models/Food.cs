@@ -1,29 +1,33 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace KostKompas.Models;
-using System.ComponentModel.DataAnnotations.Schema;
 
+namespace KostKompas.Models
+{
     public class Food
     {
         // properties 
         [Key]
         public int Id { get; set; }
-        public int User_id { get; set; } // fordi det skal passe til Er-diagrammet
-        [ForeignKey("User_id")]
-        public User user { get; set; } // fordi noget med databasen 
-
-        [Required]
-        [StringLength(100)]
+        [Key]
+        [Required(ErrorMessage = "Der skal angives et Id til bruger")]
+        public int UserId { get; set; }
+        public User User { get; set; }
+        [Required(ErrorMessage = "Der skal angives et navn")]
         public string Name { get; set; }
+        [Required(ErrorMessage = "Der skal angives Kcal")]
         public double Kcal { get; set; }
+        [Required(ErrorMessage = "Der skal angives protein")]
         public double Protein { get; set; }
+        [Required(ErrorMessage = "Der skal angives fedt")]
         public double Fat { get; set; }
+        [Required(ErrorMessage = "Der skal angives kulhydrater")]
         public double Carbohydrate  { get; set; }
+        [Required(ErrorMessage = "Der skal angives fibre")]
         public double Fibre { get; set; }
 
        
 
         // constructor 
-        public Food(int id,string name, double kcal, double protein, double fat, double carbohydrate, double fibre)
+        public Food(int id, string name, double kcal, double protein, double fat, double carbohydrate, double fibre)
         {
             Id = id;
             Name = name;

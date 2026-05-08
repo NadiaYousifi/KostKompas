@@ -42,19 +42,13 @@ namespace KostKompas.Pages.FoodLog
         {
             _foodService = FoodService;
             _foodLogService = FoodLogService;
-            
         }
 
         // methods 
 
-        //public void OnGet(int id, string name)
-        //{
-        //    FoodLogDay = _foodLogService.GetFoodLogDayById(id);
-        //    CurrentMeal = FoodLogDay.Meals.First(m => m.Name == name);
-        //}
-        public async Task OnGetAsync(int id, string name)
+        public void OnGet(int id, string name)
         {
-            FoodLogDay = _foodLogService.GetFoodLogDayById(id);
+            FoodLogDay = await _foodLogService.GetFoodLogDayByIdAsync(id);
             CurrentMeal = FoodLogDay.Meals.First(m => m.Name == name);
 
             Foods = await _foodService.GetFoodsAsync();
@@ -75,58 +69,34 @@ namespace KostKompas.Pages.FoodLog
             return Page();
         }
 
-        // OnPost metode
-        //public IActionResult OnPost()
-        //{
-        //    // 1. Find den valgte food
-        //    Models.Food selectedFood = _foodService.GetFoodById(FoodId);
+        public async Task <IActionResult> OnPostAsync()
+        {
+            // 1. Find den valgte food
+            Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
 
-        //    // 2. Lav en "kopi" med brugerens gram
-        //    Models.Food foodToLog = new Models.Food
-        //    {
-        //        Id = selectedFood.Id,
-        //        Name = selectedFood.Name,
-        //        Kcal = selectedFood.Kcal,
-        //        Protein = selectedFood.Protein,
-        //        Fat = selectedFood.Fat,
-        //        Carbohydrate = selectedFood.Carbohydrate,
-        //        Fibre = selectedFood.Fibre,
-        //        WeightInGrams = WeightInGramsInput
-        //    };
-        //      Food = selectedFood; // den fødevare, som brugeren har valgt, skal vises på siden, når den er logget
-        //      MealId = CurrentMeal.Id; // det måltid, som brugeren har valgt, skal vises på siden, når den er logget
-        //      WeightInGrams = WeightInGramsInput; // den vægt, som brugeren har indtastet, skal vises på siden, når den er logget
+            // 2. Lav en "kopi" med brugerens gram
+            //Models.Food foodToLog = new Models.Food
+            //{
+            //    Id = selectedFood.Id,
+            //    Name = selectedFood.Name,
+            //    Kcal = selectedFood.Kcal,
+            //    Protein = selectedFood.Protein,
+            //    Fat = selectedFood.Fat,
+            //    Carbohydrate = selectedFood.Carbohydrate,
+            //    Fibre = selectedFood.Fibre,
+            //    WeightInGrams = WeightInGramsInput
+            //};
+            Models.FoodMeal selectedFoodMeal = new FoodMeal()
+            {
+                FoodId = selectedFood.Id,
+                Food = selectedFood,
+                MealId = CurrentMeal.Id,
+                WeightInGrams = WeightInGramsInput
 
+            };
 
-
-
-
-        //    // 3. Log maden i det rigtige måltid
-        //    _foodLogService.LogFood(FoodLogDay, selectedFoodMeal);
-
-
-        //    // 4. Gå tilbage til madloggen
-        //    return RedirectToPage("/FoodLog/GetFoodLogDay");
-        //}
-
-
-
-        //---- Metode selv lavet med EF ---------
-        //public async Task<IActionResult> OnPostAsync()
-        //{
-        //    Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
-
-        //    Models.Food foodToLog = new Models.Food
-        //    {
-        //        Id = selectedFood.Id,
-        //        Name = selectedFood.Name,
-        //        Kcal = selectedFood.Kcal,
-        //        Protein = selectedFood.Protein,
-        //        Fat = selectedFood.Fat,
-        //        Carbohydrate = selectedFood.Carbohydrate,
-        //        Fibre = selectedFood.Fibre,
-        //        WeightInGrams = WeightInGramsInput
-        //    };
+            // 3. Log maden i det rigtige måltid
+            _foodLogService.LogFood(FoodLogDay, selectedFoodMeal);
 
         //    _foodLogService.LogFood(FoodLogDay, CurrentMeal, foodToLog);
 

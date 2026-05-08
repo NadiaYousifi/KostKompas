@@ -5,13 +5,13 @@ namespace KostKompas.Models
     public class User
     {
         // properties 
-        [Required]
+        public int Id { get; set; }
+        [Required(ErrorMessage = "Der skal angives et navn")]
         public string Name { get; set; }
 
         [Required]
         public string Email { get; set; }
-
-        [Required]
+        [Required(ErrorMessage = "Der skal angives en password")]
         public string Password { get; set; }
      
         public int Id { get; set; }
@@ -53,7 +53,6 @@ namespace KostKompas.Models
 
         public User(int id, string name, string email, string password, double kcalgoal, double proteingoal, double carbohydrategoal, double fatgoal, string gender, double weight, double height, int age)
         {
-            Id = id;
             Name = name;
             Email = email;
             Password = password;

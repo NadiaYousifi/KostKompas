@@ -9,7 +9,7 @@ namespace KostKompas.Pages.Food
         // instance fields 
         private FoodService _foodService;
         // property
-        public List<Models.Food> Foods { get; set; }
+        public List<Models.Food> Foods { get; set; } 
 
 
         // constructor
@@ -17,11 +17,6 @@ namespace KostKompas.Pages.Food
         {
             _foodService = foodService;
         }
-
-        //public void OnGet()
-        //{
-        //    Foods = _foodService.GetFoods();
-        //}
 
         public async Task OnGetAsync()
         {
