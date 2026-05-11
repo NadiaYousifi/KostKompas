@@ -51,14 +51,9 @@ namespace KostKompas.Pages.Account
         //    return RedirectToPage("/Account/MyAccount");
         //}
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-
             string email = HttpContext.User.Identity.Name;
-
-            var user = _userService
-                .GetUsers()
-                .FirstOrDefault(u => u.Email == email);
             var user = _userService.GetUsersAsync().Result.FirstOrDefault(u => u.Email == email);
 
             var passwordHasher = new PasswordHasher<string>();
@@ -85,5 +80,6 @@ namespace KostKompas.Pages.Account
         }
     }
 }
+
 
   

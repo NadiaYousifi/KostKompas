@@ -1,15 +1,23 @@
-﻿using KostKompas.Data;
+﻿
+using KostKompas.EFDbContext;
 using KostKompas.MockData;
 using KostKompas.Models;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace KostKompas.Services
 {
     public class FoodService 
     {
+
+        // instance fields 
         private List<Food> _foods;
+
         private DbGenericService<Food> _dbService;
 
+        private KostKompasDbContext _context;
+
+        // constructor 
         public FoodService(DbGenericService<Food> dbService)
         {
             _foods = MockFoods.GetMockFoods();

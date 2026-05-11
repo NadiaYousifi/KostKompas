@@ -46,12 +46,10 @@ namespace KostKompas.Pages.FoodLog
 
         // methods 
 
-        public void OnGet(int id, string name)
+        public async Task OnGetAsync(int id, string name)
         {
             FoodLogDay = await _foodLogService.GetFoodLogDayByIdAsync(id);
             CurrentMeal = FoodLogDay.Meals.First(m => m.Name == name);
-
-            Foods = await _foodService.GetFoodsAsync();
         }
         // gør, at vi kan få frem, at det er "Morgenmad", der hentydes til
 
@@ -63,13 +61,16 @@ namespace KostKompas.Pages.FoodLog
         //    Foods = _foodService.NameSearch(SearchString).ToList();
         //    return Page();
         //}
+
         public async Task<IActionResult> OnPostNameSearchAsync()
         {
             Foods = await _foodService.NameSearchAsync(SearchString);
             return Page();
         }
 
-        public async Task <IActionResult> OnPostAsync()
+
+        // OnPost metode
+        public async Task<IActionResult> OnPostAsync()
         {
             // 1. Find den valgte food
             Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
@@ -88,9 +89,9 @@ namespace KostKompas.Pages.FoodLog
             //};
             Models.FoodMeal selectedFoodMeal = new FoodMeal()
             {
-                FoodId = selectedFood.Id,
+                Food_id = selectedFood.Id,
                 Food = selectedFood,
-                MealId = CurrentMeal.Id,
+                Meal_id = CurrentMeal.Id,
                 WeightInGrams = WeightInGramsInput
 
             };
@@ -98,10 +99,10 @@ namespace KostKompas.Pages.FoodLog
             // 3. Log maden i det rigtige måltid
             _foodLogService.LogFood(FoodLogDay, selectedFoodMeal);
 
-        //    _foodLogService.LogFood(FoodLogDay, CurrentMeal, foodToLog);
 
-        //    return RedirectToPage("/FoodLog/GetFoodLogDay");
-        //}
+            // 4. Gå tilbage til madloggen
+            return RedirectToPage("/FoodLog/GetFoodLogDay");
+        }
 
 
     }

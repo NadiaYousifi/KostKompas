@@ -45,7 +45,7 @@ namespace KostKompas.Services
             foreach (FoodLogDay f in FoodLogDays)
             {
                 if (f.Date == date && f.UserId == user.Id)
-                    await _dbService.GetObjectByDateAsync(date);
+                    await _dbService.GetObjectByIdAsync(f.Id); // hvad betyder dette?
                 return f;
             }
             return await AddFoodLogDayAsync(new FoodLogDay(date), user);
@@ -73,11 +73,9 @@ namespace KostKompas.Services
         public void LogFood(FoodLogDay foodLogDay, FoodMeal foodMeal)
         {
             GetFoodLogDayByIdAsync(foodLogDay.Id).Result
-                .Meals.Find(m => m.Id == foodMeal.MealId)
+                .Meals.Find(m => m.Id == foodMeal.Meal_id)
                 .FoodMeals.Add(foodMeal);
 
         }
     }
-
-
 }

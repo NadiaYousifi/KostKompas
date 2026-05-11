@@ -14,7 +14,7 @@ namespace KostKompas.Models
         [Required(ErrorMessage = "Der skal angives en password")]
         public string Password { get; set; }
      
-        public int Id { get; set; }
+      
 
         [Required]
         public double KcalGoal { get; set; } = 1800;
@@ -51,7 +51,7 @@ namespace KostKompas.Models
 
 
 
-        public User(int id, string name, string email, string password, double kcalgoal, double proteingoal, double carbohydrategoal, double fatgoal, string gender, double weight, double height, int age)
+        public User(string name, string email, string password, double kcalgoal, double proteingoal, double carbohydrategoal, double fatgoal, string gender, double weight, double height, int age)
         {
             Name = name;
             Email = email;

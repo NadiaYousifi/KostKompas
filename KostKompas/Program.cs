@@ -3,26 +3,25 @@ using KostKompas.Models;
 using KostKompas.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using KostKompas.Data;
 using Microsoft.EntityFrameworkCore;
-using KostKompas.Data;
 using KostKompas.MockData;
 
 
+
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<KostKompasDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+//builder.Services.AddDbContext<KostKompasDbContext>(options =>
+//    options.UseSqlServer(
+//        builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<FoodService>();
+builder.Services.AddSingleton<FoodService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<FoodLogService, FoodLogService>();
-builder.Services.AddDbContext<KostKompasDbContext>();
 builder.Services.AddTransient<DbGenericService<Food>, DbGenericService<Food>>();
 builder.Services.AddTransient<DbGenericService<User>, DbGenericService<User>>();
 builder.Services.AddTransient<DbGenericService<FoodLogDay>, DbGenericService<FoodLogDay>>();
+//builder.Services.AddDbContext<KostKompasDbContext>();
 
 
 builder.Services.Configure<CookiePolicyOptions>(options => {
@@ -64,58 +63,58 @@ app.UseAuthorization(); // sørger for at brugeren er logget ind, før den får adg
 
 app.MapRazorPages();
 
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<KostKompasDbContext>();
+//using (var scope = app.Services.CreateScope())
+//{
+//    var context = scope.ServiceProvider.GetRequiredService<KostKompasDbContext>();
 
-    // Seed users
-    if (!context.Users.Any())
-    {
-        var mockUsers = KostKompas.MockData.MockUsers.GetMockUsers();
+//    // Seed users
+//    if (!context.Users.Any())
+//    {
+//        var mockUsers = KostKompas.MockData.MockUsers.GetMockUsers();
 
-        foreach (var user in mockUsers)
-        {
-            context.Users.Add(new KostKompas.Models.User
-            {
-                Name = user.Name,
-                Email = user.Email,
-                Password = user.Password,
-                KcalGoal = user.KcalGoal,
-                ProteinGoal = user.ProteinGoal,
-                CarbohydrateGoal = user.CarbohydrateGoal,
-                FatGoal = user.FatGoal,
-                FibreGoal = user.FibreGoal
-            });
-        }
+//        foreach (var user in mockUsers)
+//        {
+//            context.Users.Add(new KostKompas.Models.User
+//            {
+//                Name = user.Name,
+//                Email = user.Email,
+//                Password = user.Password,
+//                KcalGoal = user.KcalGoal,
+//                ProteinGoal = user.ProteinGoal,
+//                CarbohydrateGoal = user.CarbohydrateGoal,
+//                FatGoal = user.FatGoal,
+//                FibreGoal = user.FibreGoal
+//            });
+//        }
 
-        context.SaveChanges();
-    }
+//        context.SaveChanges();
+//    }
 
     // Seed foods
-    if (!context.Foods.Any())
-    {
-        var adminUser = context.Users.First();
+    //if (!context.Foods.Any())
+    //{
+    //    var adminUser = context.Users.First();
 
-        var mockFoods = KostKompas.MockData.MockFoods.GetMockFoods();
+    //    var mockFoods = KostKompas.MockData.MockFoods.GetMockFoods();
 
-        foreach (var food in mockFoods)
-        {
-            context.Foods.Add(new KostKompas.Models.Food
-            {
-                User_id = adminUser.Id,
-                Name = food.Name,
-                Kcal = food.Kcal,
-                Protein = food.Protein,
-                Fat = food.Fat,
-                Carbohydrate = food.Carbohydrate,
-                Fibre = food.Fibre,
-                WeightInGrams = food.WeightInGrams
-            });
-        }
+    //    foreach (var food in mockFoods)
+    //    {
+    //        context.Foods.Add(new KostKompas.Models.Food
+    //        {
+    //            User_id = adminUser.Id,
+    //            Name = food.Name,
+    //            Kcal = food.Kcal,
+    //            Protein = food.Protein,
+    //            Fat = food.Fat,
+    //            Carbohydrate = food.Carbohydrate,
+    //            Fibre = food.Fibre,
+    //            WeightInGrams = food.WeightInGrams
+    //        });
+    //    }
 
-        context.SaveChanges();
-    }
-}
+    //    context.SaveChanges();
+    //}
+
 
 
 

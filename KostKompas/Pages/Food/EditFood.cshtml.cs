@@ -16,6 +16,8 @@ namespace KostKompas.Pages.Food
             _foodService = foodService;
         }
 
+        // OnGet metode
+
         public async Task<IActionResult> OnGetAsync(int id)
         {
             Food = await _foodService.GetFoodByIdAsync(id);
@@ -30,8 +32,6 @@ namespace KostKompas.Pages.Food
             }
             await _foodService.UpdateFoodAsync(Food);
             return RedirectToPage("GetAllFoods");
-        }
-
             await _foodService.UpdateFoodAsync(Food);
 
             return RedirectToPage("GetAllFoods");
