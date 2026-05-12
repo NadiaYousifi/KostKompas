@@ -4,6 +4,26 @@ namespace KostKompas.Models
 {
     public class User
     {
+
+
+        // instance fields
+        // konstanter 
+        public const double MaleBaseConstant = 66.5;
+
+        public const double MaleWeightConstant = 13.75;
+
+        public const double MaleHeightConstant = 5.003;
+
+        public const double MaleAgeConstant = 6.755;
+
+        public const double FemaleBaseConstant = 655;
+
+        public const double FemaleWeightConstant = 9.563;
+
+        public const double FemaleHeightConstant = 1.850;
+
+        public const double FemaleAgeConstant = 4.676;
+
         // properties 
         public int Id { get; set; }
         [Required(ErrorMessage = "Der skal angives et navn")]
@@ -11,10 +31,9 @@ namespace KostKompas.Models
 
         [Required]
         public string Email { get; set; }
+
         [Required(ErrorMessage = "Der skal angives en password")]
         public string Password { get; set; }
-     
-      
 
         [Required]
         public double KcalGoal { get; set; } = 1800;
@@ -34,23 +53,14 @@ namespace KostKompas.Models
         // Tilføjelse til Harris-Benedict
         public string Gender { get; set; }
 
-        public double Weight { get; set; } 
-        public double Height { get; set; } 
+        public double Weight { get; set; }
+        public double Height { get; set; }
         public int Age { get; set; }
 
-        // konstanter 
-        public double MaleBaseConstant { get; set; } = 66.5;
-        public double MaleWeightConstant { get; set; } = 13.75;
-        public double MaleHeightConstant { get; set; } = 5.003;
-        public double MaleAgeConstant { get; set; } = 6.755;
-
-        public double FemaleBaseConstant { get; set; } = 655;
-        public double FemaleWeightConstant { get; set; } = 9.563;
-        public double FemaleHeightConstant { get; set; } = 1.850;
-        public double FemaleAgeConstant { get; set; } = 4.676;
 
 
 
+        // constructor
         public User(string name, string email, string password, double kcalgoal, double proteingoal, double carbohydrategoal, double fatgoal, string gender, double weight, double height, int age)
         {
             Name = name;

@@ -1,4 +1,5 @@
 using KostKompas.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,7 +11,7 @@ namespace KostKompas.Pages.User
     {
         // instance fields
         private UserService _userService;
-        private PasswordHasher<string> passwordHasher;
+        private PasswordHasher<string> _passwordHasher;
 
         // property
         [BindProperty]
@@ -21,8 +22,7 @@ namespace KostKompas.Pages.User
         public CreateUserModel(UserService userService)
         {
             _userService = userService;
-            passwordHasher = new PasswordHasher<string>();
-
+            _passwordHasher = new PasswordHasher<string>();
         }
 
         // metode OnGet

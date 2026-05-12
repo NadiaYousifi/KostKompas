@@ -16,12 +16,12 @@ namespace KostKompas.Services
             //_users = _dbService.GetObjectsAsync().Result.ToList();
         }
 
-
+        // AddUser metode
         public async Task AddUserAsync(User user)
         {
             _users.Add(user);
-            await _dbService.AddObjectAsync(user); // Bør vi bruge create 2 gange
-            //_dbService.SaveObjects(_users);
+            await _dbService.AddObjectAsync(user);
+            
         }
 
         public async Task<List<User>> GetUsersAsync()
