@@ -1,13 +1,12 @@
 ﻿namespace KostKompas.Services
 {
-    public interface IService<T>
+    public interface IService<T, V>
     {
         Task<IEnumerable<T>> GetObjectsAsync();
         Task AddObjectAsync(T obj);
-        Task SaveObjects(List<T> objs);
+        Task SaveObjectsAsync(List<T> objs);
         Task DeleteObjectAsync(T obj);
         Task UpdateObjectAsync(T obj);
-        Task<T> GetObjectByIdAsync(int id);
-        Task<T> GetObjectByDateAsync(DateTime date);
+        Task<T> GetObjectByIdAsync(V pk);
     }
 }

@@ -30,34 +30,28 @@ namespace KostKompas.Pages.LogIn
             _userService = userService;
 
         }
-
-        public async Task<IActionResult> OnPost()
+        public async Task OnGetAsync()
         {
 
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
             List<Models.User> users = await _userService.GetUsersAsync();
+            var passwordHasher = new PasswordHasher<string>();
             foreach (Models.User user in users)
             {
-                //LoggedInUser = user;
-
-                var claims = new List<Claim> { new Claim(ClaimTypes.Name, Email) };
-
-                if (Email == "admin@gmail.com") claims.Add(new Claim(ClaimTypes.Role, "admin"));
-
                 if (Email == user.Email)
                 {
-                    var passwordHasher = new PasswordHasher<string>();
+                    var claims = new List<Claim> { new Claim(ClaimTypes.Name, Email) };
                     if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
                     { 
-
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                        }
+                        if (Email == "admin@gmail.com") claims.Add(new Claim(ClaimTypes.Role, "admin"));
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                    }
                     return RedirectToPage("/FoodLog/GetFoodLogDay");
-
                 }
-
-
-
             }
             Message = "Invalid attempt";
             return Page();

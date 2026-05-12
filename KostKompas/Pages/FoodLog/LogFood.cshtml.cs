@@ -18,7 +18,7 @@ namespace KostKompas.Pages.FoodLog
     // gemmer adgangen til foodservice (der har listen) og selve madloggen, hvor vi logger maden (foodlogservice)
 
         public List<Models.Food> Foods { get; set; }
-        // listen bruges på LogFood, så fødevarerne vises
+        // listen bruges på LogFoodAsync, så fødevarerne vises
         // 
 
         [BindProperty] public Models.Food LogFood { get; set; }
@@ -34,7 +34,6 @@ namespace KostKompas.Pages.FoodLog
         [BindProperty]
         public double WeightInGramsInput { get; set; }
 
-        [BindProperty] public FoodLogDay FoodLogDay { get; set; }
         [BindProperty] public Meal CurrentMeal { get; set; }
 
         // constructor
@@ -46,10 +45,10 @@ namespace KostKompas.Pages.FoodLog
 
         // methods 
 
-        public async Task OnGetAsync(int id, string name)
+        public async Task OnGetAsync(int id)
         {
-            FoodLogDay = await _foodLogService.GetFoodLogDayByIdAsync(id);
-            CurrentMeal = FoodLogDay.Meals.First(m => m.Name == name);
+            Foods = await _foodService.GetFoodsAsync();
+            CurrentMeal = await _foodLogService.GetMealByIdAsync(id);
         }
         // gør, at vi kan få frem, at det er "Morgenmad", der hentydes til
 
@@ -63,38 +62,19 @@ namespace KostKompas.Pages.FoodLog
         public async Task <IActionResult> OnPostAsync()
         {
             // 1. Find den valgte food
-            Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
+            //Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
 
             // 2. Lav en "kopi" med brugerens gram
-            //Models.Food foodToLog = new Models.Food
-            //{
-            //    Id = selectedFood.Id,
-            //    Name = selectedFood.Name,
-            //    Kcal = selectedFood.Kcal,
-            //    Protein = selectedFood.Protein,
-            //    Fat = selectedFood.Fat,
-            //    Carbohydrate = selectedFood.Carbohydrate,
-            //    Fibre = selectedFood.Fibre,
-            //    WeightInGrams = WeightInGramsInput
-            //};
-            Models.FoodMeal selectedFoodMeal = new FoodMeal()
-            {
-                FoodId = selectedFood.Id,
-                Food = selectedFood,
-                MealId = CurrentMeal.Id,
-                WeightInGrams = WeightInGramsInput
 
-            };
+            FoodMeal selectedFoodMeal = new FoodMeal(FoodId, CurrentMeal.Id, WeightInGramsInput);
 
             // 3. Log maden i det rigtige måltid
-            _foodLogService.LogFood(FoodLogDay, selectedFoodMeal);
+            await _foodLogService.LogFoodAsync(selectedFoodMeal);
 
 
             // 4. Gå tilbage til madloggen
             return RedirectToPage("/FoodLog/GetFoodLogDay");
         }
-
-
     }
 
 }

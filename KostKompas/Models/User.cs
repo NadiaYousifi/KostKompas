@@ -1,13 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KostKompas.Models
 {
     public class User
     {
         // properties 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required(ErrorMessage = "Der skal angives et navn")]
         public string Name { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Email { get; set; }
         [Required(ErrorMessage = "Der skal angives en password")]
         public string Password { get; set; }
@@ -22,12 +26,11 @@ namespace KostKompas.Models
         [Required]
         public double FibreGoal { get; set; } = 35;
 
-        public User(int id, string name, string email, string password, double kcalGoal, double proteinGoal, double carbohydrateGoal, double fatGoal, double fibreGoal)
+        public User(string name, string email, string password, double kcalGoal, double proteinGoal, double carbohydrateGoal, double fatGoal, double fibreGoal)
         {
             Name = name;
             Email = email;
             Password = password;
-            Id = id;
             KcalGoal = kcalGoal;
             ProteinGoal = proteinGoal;
             CarbohydrateGoal = carbohydrateGoal;

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace KostKompas.Migrations
 {
     /// <inheritdoc />
-    public partial class KostKompas : Migration
+    public partial class KostKompasDbv1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,10 +15,10 @@ namespace KostKompas.Migrations
                 name: "Users",
                 columns: table => new
                 {
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KcalGoal = table.Column<double>(type: "float", nullable: false),
                     ProteinGoal = table.Column<double>(type: "float", nullable: false),
@@ -28,7 +28,7 @@ namespace KostKompas.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
@@ -38,18 +38,41 @@ namespace KostKompas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    MealId = table.Column<int>(type: "int", nullable: false)
+                    UserEmail = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FoodLogDays", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FoodLogDays_Users_UserId",
-                        column: x => x.UserId,
+                        name: "FK_FoodLogDays_Users_UserEmail",
+                        column: x => x.UserEmail,
                         principalTable: "Users",
-                        principalColumn: "Id",
+                        principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Foods",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserEmail = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Kcal = table.Column<double>(type: "float", nullable: false),
+                    Protein = table.Column<double>(type: "float", nullable: false),
+                    Fat = table.Column<double>(type: "float", nullable: false),
+                    Carbohydrate = table.Column<double>(type: "float", nullable: false),
+                    Fibre = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Foods", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Foods_Users_UserEmail",
+                        column: x => x.UserEmail,
+                        principalTable: "Users",
+                        principalColumn: "Email");
                 });
 
             migrationBuilder.CreateTable(
@@ -59,7 +82,7 @@ namespace KostKompas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FoodLogDayId = table.Column<int>(type: "int", nullable: true)
+                    FoodLogDayId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,82 +91,68 @@ namespace KostKompas.Migrations
                         name: "FK_Meals_FoodLogDays_FoodLogDayId",
                         column: x => x.FoodLogDayId,
                         principalTable: "FoodLogDays",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Foods",
+                name: "FoodMeals",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Kcal = table.Column<double>(type: "float", nullable: false),
-                    Protein = table.Column<double>(type: "float", nullable: false),
-                    Fat = table.Column<double>(type: "float", nullable: false),
-                    Carbohydrate = table.Column<double>(type: "float", nullable: false),
-                    Fibre = table.Column<double>(type: "float", nullable: false),
-                    WeightInGrams = table.Column<double>(type: "float", nullable: false),
-                    MealId = table.Column<int>(type: "int", nullable: true)
+                    FoodId = table.Column<int>(type: "int", nullable: false),
+                    MealId = table.Column<int>(type: "int", nullable: false),
+                    WeightInGrams = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Foods", x => x.UserId);
+                    table.PrimaryKey("PK_FoodMeals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Foods_Meals_MealId",
+                        name: "FK_FoodMeals_Foods_FoodId",
+                        column: x => x.FoodId,
+                        principalTable: "Foods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FoodMeals_Meals_MealId",
                         column: x => x.MealId,
                         principalTable: "Meals",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Foods_Users_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FoodLogDays_MealId",
+                name: "IX_FoodLogDays_UserEmail",
                 table: "FoodLogDays",
+                column: "UserEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FoodMeals_FoodId",
+                table: "FoodMeals",
+                column: "FoodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FoodMeals_MealId",
+                table: "FoodMeals",
                 column: "MealId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FoodLogDays_UserId",
-                table: "FoodLogDays",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Foods_MealId",
+                name: "IX_Foods_UserEmail",
                 table: "Foods",
-                column: "MealId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Foods_UserId1",
-                table: "Foods",
-                column: "UserId1");
+                column: "UserEmail");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Meals_FoodLogDayId",
                 table: "Meals",
                 column: "FoodLogDayId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_FoodLogDays_Meals_MealId",
-                table: "FoodLogDays",
-                column: "MealId",
-                principalTable: "Meals",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_FoodLogDays_Meals_MealId",
-                table: "FoodLogDays");
+            migrationBuilder.DropTable(
+                name: "FoodMeals");
 
             migrationBuilder.DropTable(
                 name: "Foods");

@@ -6,14 +6,14 @@ namespace KostKompas.Services
     public class FoodService 
     {
         private List<Food> _foods;
-        private DbGenericService<Food> _dbService;
+        private DbGenericService<Food, int> _dbService;
 
-        public FoodService(DbGenericService<Food> dbService)
+        public FoodService(DbGenericService<Food, int> dbService)
         {
-            _foods = MockFoods.GetMockFoods();
             _dbService = dbService;
-            _dbService.SaveObjects(_foods);
-            //_foods = _dbService.GetObjectsAsync().Result.ToList();
+            //_foods = MockFoods.GetMockFoods();
+            //_dbService.SaveObjectsAsync(_foods);
+            _foods = _dbService.GetObjectsAsync().Result.ToList();
         }
 
 

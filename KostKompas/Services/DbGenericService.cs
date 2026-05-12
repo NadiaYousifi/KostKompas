@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KostKompas.Services
 {
-    public class DbGenericService<T> : IService<T> where T : class
+    public class DbGenericService<T, V> : IService<T, V> where T : class
     {
         public async Task<IEnumerable<T>> GetObjectsAsync()
         {
@@ -22,7 +22,7 @@ namespace KostKompas.Services
             }
         }
 
-        public async Task SaveObjects(List<T> objs)
+        public async Task SaveObjectsAsync(List<T> objs)
         {
             using (var context = new KostKompasDbContext())
             {
@@ -54,19 +54,11 @@ namespace KostKompas.Services
             }
         }
 
-        public async Task<T> GetObjectByIdAsync(int id)
+        public async Task<T> GetObjectByIdAsync(V pk)
         {
             using (var context = new KostKompasDbContext())
             {
-                return await context.Set<T>().FindAsync(id);
-            }
-        }
-
-        public async Task<T> GetObjectByDateAsync(DateTime date)
-        {
-            using (var context = new KostKompasDbContext())
-            {
-                return await context.Set<T>().FindAsync(date);
+                return await context.Set<T>().FindAsync(pk);
             }
         }
 
