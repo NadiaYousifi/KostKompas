@@ -1,4 +1,3 @@
-using KostKompas.Models;
 using KostKompas.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -47,11 +46,11 @@ namespace KostKompas.Pages.LogIn
                 {
                     var passwordHasher = new PasswordHasher<string>();
                     if (passwordHasher.VerifyHashedPassword(null, user.Password, Password) == PasswordVerificationResult.Success)
-                    { 
+                    {
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
-                        }
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+                    }
                     return RedirectToPage("/FoodLog/GetFoodLogDay");
 
                 }
@@ -62,5 +61,6 @@ namespace KostKompas.Pages.LogIn
             Message = "Invalid attempt";
             return Page();
         }
+
     }
 }

@@ -31,8 +31,6 @@ namespace KostKompas.Pages.Food
             await _foodService.UpdateFoodAsync(Food);
             return RedirectToPage("GetAllFoods");
         }
-
-
-      
+ 
     }
 }

@@ -6,30 +6,28 @@ namespace KostKompas.Services
     public class UserService
     {
         private List<User> _users;
-        private DbGenericService<User> _dbService;
+        private DbGenericService<User, string> _dbService;
 
-        public UserService(DbGenericService<User> dbService)
+        public UserService(DbGenericService<User, string> dbService)
         {
             _users = MockUsers.GetMockUsers();
             _dbService = dbService;
-            _dbService.SaveObjects(_users);
-            _users = _dbService.GetObjectsAsync().Result.ToList();
+            _dbService.SaveObjectsAsync(_users);
+            //_users = _dbService.GetObjectsAsync().Result.ToList();
         }
-
 
         public async Task AddUserAsync(User user)
         {
             _users.Add(user);
             await _dbService.AddObjectAsync(user);
-            //_dbService.SaveObjects(_users);
         }
 
         public async Task<List<User>> GetUsersAsync()
         {
             await _dbService.GetObjectsAsync();
             return _users;
+            //_dbService.SaveObjects(_users);
         }
-
 
         public async Task UpdateUserAsync(User user)
         {
@@ -56,14 +54,25 @@ namespace KostKompas.Services
             {
                 if (u.Id == id)
                 {
-                    await _dbService.GetObjectByIdAsync(id);
+                    await _dbService.GetObjectByIdAsync(u.Email);
                     return u;
                 }
             }
             throw new ArgumentException("Invalid Id");
         }
 
-
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            foreach (User u in _users)
+            {
+                if (u.Email == email)
+                {
+                    await _dbService.GetObjectByIdAsync(u.Email);
+                    return u;
+                }
+            }
+            throw new ArgumentException("Invalid Id");
+        }
         public async Task<User> DeleteUserAsync(int? userId)
         {
             User userToBeDeleted = null;
@@ -84,5 +93,6 @@ namespace KostKompas.Services
             }
             return userToBeDeleted;
         }
+
     }
 }

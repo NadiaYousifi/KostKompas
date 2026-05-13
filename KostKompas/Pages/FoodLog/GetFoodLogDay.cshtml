@@ -49,16 +49,16 @@
                             <th>Kostfibre</th>
                             <th>Protein</th>
                         </tr>
-                        @foreach(Models.Food f in m.Foods)
+                        @foreach(Models.FoodMeal fm in m.FoodMeals)
                         {
                             <tr>
-                                <td>@f.Name</td>
-                                <td>@f.WeightInGrams.ToString("0.0")</td>
-                                <td>@f.Kcal.ToString("0.0")</td>
-                                <td>@f.Fat.ToString("0.0")</td>
-                                <td>@f.Carbohydrate.ToString("0.0")</td>
-                                <td>@f.Fibre.ToString("0.0")</td>
-                                <td>@f.Protein.ToString("0.0")</td>
+                                <td>@fm.Food.Name</td>
+                                <td>@fm.WeightInGrams.ToString("0.0")</td>
+                                <td>@fm.Food.Kcal.ToString("0.0")</td>
+                                <td>@fm.Food.Fat.ToString("0.0")</td>
+                                <td>@fm.Food.Carbohydrate.ToString("0.0")</td>
+                                <td>@fm.Food.Fibre.ToString("0.0")</td>
+                                <td>@fm.Food.Protein.ToString("0.0")</td>
                             </tr>
                         }
                     </table>

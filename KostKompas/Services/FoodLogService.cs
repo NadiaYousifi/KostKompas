@@ -2,28 +2,33 @@
 
 namespace KostKompas.Services
 {
-
     public class FoodLogService
     {
         // Field
-        private int nextId;
+        private DbGenericService<FoodLogDay,int> _foodLogDbService;
+        private DbGenericService<Meal,int> _mealDbService;
+        private DbGenericService<FoodMeal,int> _foodMealDbService;
         public List<FoodLogDay> FoodLogDays { get; set; }
-        private DbGenericService<FoodLogDay> _dbService;
+        public List<Meal> Meals { get; set; }
+        public List<FoodMeal> FoodMeals { get; set; }
 
-        public FoodLogService(DbGenericService<FoodLogDay> dbService)
+        public FoodLogService(DbGenericService<FoodLogDay, int> foodLogDbService, DbGenericService<Meal, int> mealDbService, DbGenericService<FoodMeal, int> foodMealDbService)
         {
-            FoodLogDays = new List<FoodLogDay>();
-            _dbService = dbService;
-            FoodLogDays = _dbService.GetObjectsAsync().Result.ToList();
+            _foodLogDbService = foodLogDbService;
+            _mealDbService = mealDbService;
+            _foodMealDbService = foodMealDbService;
+            FoodMeals = _foodMealDbService.GetObjectsAsync().Result.ToList();
+            Meals = _mealDbService.GetObjectsAsync().Result.ToList();
+            FoodLogDays = _foodLogDbService.GetObjectsAsync().Result.ToList();
         }
 
-        public async Task<FoodLogDay> AddFoodLogDayAsync(FoodLogDay foodLogDay)
+        public async Task AddFoodLogDayAsync(FoodLogDay foodLogDay)
         {
-            foodLogDay.Id = nextId++;
             FoodLogDays.Add(foodLogDay);
-            await _dbService.AddObjectAsync(foodLogDay);
-            //_dbService.SaveObjects(foodLogDay);
-            return foodLogDay;
+            Meals.AddRange(foodLogDay.Meals);
+            await _foodLogDbService.AddObjectAsync(foodLogDay);
+
+            // await _mealDbService.SaveObjectsAsync(Meals);
         }
 
         public async Task<FoodLogDay> GetFoodLogDayByIdAsync(int id)
@@ -32,51 +37,63 @@ namespace KostKompas.Services
             {
                 if (f.Id == id)
                 {
-                    await _dbService.GetObjectByIdAsync(id);
+                    await _foodLogDbService.GetObjectByIdAsync(id);
+                    f.Meals = _mealDbService.GetObjectsAsync().Result.Where(m => m.FoodLogDayId == f.Id).ToList();
+                    f.Meals.ForEach(m => m.FoodMeals = _foodMealDbService.GetObjectsAsync().Result.Where(fm => fm.MealId == m.Id).ToList());
                     return f;
                 }
             }
             throw new ArgumentException("Kunne ikke findes");
         }
 
+        public async Task<Meal> GetMealByIdAsync(int id)
+        {
+            return await _mealDbService.GetObjectByIdAsync(id);
+            //foreach (Meal m in Meals)
+            //{
+            //    if (m.Id == id)
+            //    {
+            //        return 
+            //    }
+            //}
+            throw new ArgumentException("Kunne ikke findes");
+        }
+        public async Task<Meal> GetMealByNameAsync(string name)
+        {
+            foreach (Meal m in Meals)
+            {
+                if (m.Name == name)
+                {
+                    return await _mealDbService.GetObjectByIdAsync(m.Id);
+                }
+            }
+            throw new ArgumentException("Kunne ikke findes");
+        }
+
         // Søg efter dato metode
-        public async Task<FoodLogDay> GetFoodLogDayByDateAsync(DateTime date)
+        public async Task<FoodLogDay> GetFoodLogDayByDateAsync(User user, DateTime date)
         {
             foreach (FoodLogDay f in FoodLogDays)
             {
-                if (f.Date == date)
-                    await _dbService.GetObjectByDateAsync(date);
-                return f;
+                if (f.Date == date && f.UserEmail == user.Email)
+                { 
+                    //await _foodLogDbService.GetObjectByIdAsync(f.Id);
+                    //f.Meals = Meals.Where(m => m.FoodLogDayId == f.Id).ToList();
+                    //f.Meals.ForEach(m => m.FoodMeals.AddRange(FoodMeals.Where(fm => fm.MealId == m.Id)));
+                    //return f;
+                    return await _foodLogDbService.GetObjectByIdAsync(f.Id);
+                }
             }
-            return await AddFoodLogDayAsync(new FoodLogDay(date));
+            return null;
         }
-        //public void LogFood(DateTime date, string mealName, Food food)
-        //{
-        //    FoodLogDay day = GetFoodLogDayByDate((DateTime)date);
-        //    if (day == null)
-        //    {
-        //        day = new FoodLogDay();
-        //        day.Date = date.Date;
-        //        FoodLogDays.Add(day);
-        //        return;
-        //    }
-        //    Meal meal = day.Meals.FirstOrDefault(m => m.Name == mealName);
-
-        //    if (meal != null)
-        //    {
-        //        meal.AddFood(food);
-        //    }
-        //}
+        
 
         // metode - tilføjer en fødevare til et bestemt måltid til en bestemt dag
-        public void LogFood(FoodLogDay foodLogDay, Meal meal, Food food)
+        public async Task LogFoodAsync(FoodMeal foodMeal)
         {
-            GetFoodLogDayByIdAsync(foodLogDay.Id).Result.Meals.Find(m => m.Name == meal.Name).AddFood(food);
-            //foodLogDay.Meals.Find(m => m.Name == meal.Name).AddFood(food);
-            //meal.AddFood(food);
-
+            FoodMeals.Add(foodMeal);
+            await _foodMealDbService.AddObjectAsync(foodMeal);
         }
+
     }
-
-
 }

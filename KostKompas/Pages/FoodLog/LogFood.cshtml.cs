@@ -46,10 +46,10 @@ namespace KostKompas.Pages.FoodLog
 
         // methods 
 
-        public async Task OnGetAsync(int id, string name)
+        public async Task OnGetAsync(int id)
         {
             FoodLogDay = await _foodLogService.GetFoodLogDayByIdAsync(id);
-            CurrentMeal = FoodLogDay.Meals.First(m => m.Name == name);
+            CurrentMeal = await _foodLogService.GetMealByIdAsync(id);
         }
         // gør, at vi kan få frem, at det er "Morgenmad", der hentydes til
 
@@ -66,26 +66,16 @@ namespace KostKompas.Pages.FoodLog
             Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
 
             // 2. Lav en "kopi" med brugerens gram
-            Models.Food foodToLog = new Models.Food
-            {
-                Id = selectedFood.Id,
-                Name = selectedFood.Name,
-                Kcal = selectedFood.Kcal,
-                Protein = selectedFood.Protein,
-                Fat = selectedFood.Fat,
-                Carbohydrate = selectedFood.Carbohydrate,
-                Fibre = selectedFood.Fibre,
-                WeightInGrams = WeightInGramsInput
-            };
-
+            
+            FoodMeal selectedFoodMeal = new FoodMeal(FoodId, CurrentMeal.Id, WeightInGramsInput);
+            
             // 3. Log maden i det rigtige måltid
-            _foodLogService.LogFood(FoodLogDay,CurrentMeal, foodToLog);
+            await _foodLogService.LogFoodAsync(selectedFoodMeal);
 
 
             // 4. Gå tilbage til madloggen
             return RedirectToPage("/FoodLog/GetFoodLogDay");
         }
-
 
     }
 

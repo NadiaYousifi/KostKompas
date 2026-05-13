@@ -9,13 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddDbContext<KostKompasDbContext>();
 builder.Services.AddSingleton<FoodService>();
 builder.Services.AddSingleton<UserService>();
-builder.Services.AddSingleton<FoodLogService, FoodLogService>();
-builder.Services.AddDbContext<KostKompasDbContext>();
-builder.Services.AddTransient<DbGenericService<Food>, DbGenericService<Food>>();
-builder.Services.AddTransient<DbGenericService<User>, DbGenericService<User>>();
-builder.Services.AddTransient<DbGenericService<FoodLogDay>, DbGenericService<FoodLogDay>>();
+builder.Services.AddScoped<FoodLogService, FoodLogService>();
+builder.Services.AddSingleton<DbGenericService<Food, int>, DbGenericService<Food, int>>();
+builder.Services.AddSingleton<DbGenericService<User, string>, DbGenericService<User, string>>();
+builder.Services.AddScoped<DbGenericService<Meal, int>, DbGenericService<Meal, int>>();
+builder.Services.AddScoped<DbGenericService<FoodMeal, int>, DbGenericService<FoodMeal, int>>();
+builder.Services.AddScoped<DbGenericService<FoodLogDay, int>, DbGenericService<FoodLogDay, int>>();
 
 builder.Services.Configure<CookiePolicyOptions>(options => {
     // This lambda determines whether user consent for non-essential cookies is needed for a given request.

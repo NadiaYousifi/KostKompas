@@ -24,11 +24,11 @@ namespace KostKompas.Migrations
 
             modelBuilder.Entity("KostKompas.Models.Food", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<double>("Carbohydrate")
                         .HasColumnType("float");
@@ -39,14 +39,8 @@ namespace KostKompas.Migrations
                     b.Property<double>("Fibre")
                         .HasColumnType("float");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<double>("Kcal")
                         .HasColumnType("float");
-
-                    b.Property<int?>("MealId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -55,17 +49,13 @@ namespace KostKompas.Migrations
                     b.Property<double>("Protein")
                         .HasColumnType("float");
 
-                    b.Property<int>("UserId1")
-                        .HasColumnType("int");
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<double>("WeightInGrams")
-                        .HasColumnType("float");
+                    b.HasKey("Id");
 
-                    b.HasKey("UserId");
-
-                    b.HasIndex("MealId");
-
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserEmail");
 
                     b.ToTable("Foods");
                 });
@@ -81,19 +71,41 @@ namespace KostKompas.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MealId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MealId");
-
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserEmail");
 
                     b.ToTable("FoodLogDays");
+                });
+
+            modelBuilder.Entity("KostKompas.Models.FoodMeal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("FoodId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MealId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("WeightInGrams")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoodId");
+
+                    b.HasIndex("MealId");
+
+                    b.ToTable("FoodMeals");
                 });
 
             modelBuilder.Entity("KostKompas.Models.Meal", b =>
@@ -104,7 +116,7 @@ namespace KostKompas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("FoodLogDayId")
+                    b.Property<int>("FoodLogDayId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -120,24 +132,23 @@ namespace KostKompas.Migrations
 
             modelBuilder.Entity("KostKompas.Models.User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("CarbohydrateGoal")
                         .HasColumnType("float");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("FatGoal")
                         .HasColumnType("float");
 
                     b.Property<double>("FibreGoal")
                         .HasColumnType("float");
+
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<double>("KcalGoal")
                         .HasColumnType("float");
@@ -153,20 +164,16 @@ namespace KostKompas.Migrations
                     b.Property<double>("ProteinGoal")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
+                    b.HasKey("Email");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("KostKompas.Models.Food", b =>
                 {
-                    b.HasOne("KostKompas.Models.Meal", null)
-                        .WithMany("Foods")
-                        .HasForeignKey("MealId");
-
                     b.HasOne("KostKompas.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -175,28 +182,39 @@ namespace KostKompas.Migrations
 
             modelBuilder.Entity("KostKompas.Models.FoodLogDay", b =>
                 {
-                    b.HasOne("KostKompas.Models.Meal", "Meal")
+                    b.HasOne("KostKompas.Models.User", "User")
                         .WithMany()
+                        .HasForeignKey("UserEmail")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("KostKompas.Models.FoodMeal", b =>
+                {
+                    b.HasOne("KostKompas.Models.Food", "Food")
+                        .WithMany()
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KostKompas.Models.Meal", null)
+                        .WithMany("FoodMeals")
                         .HasForeignKey("MealId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KostKompas.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Meal");
-
-                    b.Navigation("User");
+                    b.Navigation("Food");
                 });
 
             modelBuilder.Entity("KostKompas.Models.Meal", b =>
                 {
                     b.HasOne("KostKompas.Models.FoodLogDay", null)
                         .WithMany("Meals")
-                        .HasForeignKey("FoodLogDayId");
+                        .HasForeignKey("FoodLogDayId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("KostKompas.Models.FoodLogDay", b =>
@@ -206,7 +224,7 @@ namespace KostKompas.Migrations
 
             modelBuilder.Entity("KostKompas.Models.Meal", b =>
                 {
-                    b.Navigation("Foods");
+                    b.Navigation("FoodMeals");
                 });
 #pragma warning restore 612, 618
         }

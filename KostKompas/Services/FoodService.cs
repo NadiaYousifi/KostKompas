@@ -6,22 +6,20 @@ namespace KostKompas.Services
     public class FoodService 
     {
         private List<Food> _foods;
-        private DbGenericService<Food> _dbService;
+        private DbGenericService<Food, int> _dbService;
 
-        public FoodService(DbGenericService<Food> dbService)
+        public FoodService(DbGenericService<Food, int> dbService)
         {
             _foods = MockFoods.GetMockFoods();
             _dbService = dbService;
-            _dbService.SaveObjects(_foods);
+            _dbService.SaveObjectsAsync(_foods);
             //_foods = _dbService.GetObjectsAsync().Result.ToList();
         }
-
 
         public async Task AddFoodAsync(Food food)
         {
             _foods.Add(food);
             await _dbService.AddObjectAsync(food);
-            //_dbService.SaveObjects(_foods);
         }
 
         public async Task<List<Food>> GetFoodsAsync()
@@ -29,7 +27,6 @@ namespace KostKompas.Services
             await _dbService.GetObjectsAsync();
             return _foods;
         }
-
 
         public async Task UpdateFoodAsync(Food food)
         {
@@ -48,7 +45,6 @@ namespace KostKompas.Services
                     }
                 }
                 await _dbService.UpdateObjectAsync(food);
-                //_dbService.SaveObjects(_foods);
             }
         }
 
@@ -83,7 +79,6 @@ namespace KostKompas.Services
             {
                 _foods.Remove(foodToBeDeleted);
                 await _dbService.DeleteObjectAsync(foodToBeDeleted);
-                //_dbService.SaveObjects(_foods);
             }
             return foodToBeDeleted;
         }

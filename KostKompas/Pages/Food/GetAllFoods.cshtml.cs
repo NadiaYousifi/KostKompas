@@ -22,5 +22,6 @@ namespace KostKompas.Pages.Food
         {
             Foods = await _foodService.GetFoodsAsync();
         }
+
     }
 }

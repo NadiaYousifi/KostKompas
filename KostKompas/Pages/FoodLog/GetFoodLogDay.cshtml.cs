@@ -8,24 +8,38 @@ namespace KostKompas.Pages.FoodLog
     {
         // properties 
         private FoodLogService _foodLogService;
+        private UserService _userService;
 
-        [BindProperty] public Models.FoodLogDay FoodLogDay { get; set; }
+        [BindProperty] 
+        public Models.FoodLogDay FoodLogDay { get; set; }
+        [BindProperty]
+        public Models.User User { get; set; }
 
         // constructor
-        public GetFoodLogDayModel(FoodLogService foodLogService) //dependency injection
+        public GetFoodLogDayModel(FoodLogService foodLogService, UserService userService) //dependency injection
         {
             _foodLogService = foodLogService;
+            _userService = userService;
         }
 
         // OnGet metode
         public async Task<IActionResult> OnGetAsync()
         {
-            FoodLogDay = await _foodLogService.GetFoodLogDayByDateAsync(DateTime.Today);
+            string email = HttpContext.User.Identity.Name;
+            User = await _userService.GetUserByEmailAsync(email) ?? throw new Exception("User not found");
+            FoodLogDay = await _foodLogService.GetFoodLogDayByDateAsync(User, DateTime.Today);
             if (FoodLogDay == null)
             {
-                return RedirectToPage("/NotFound");
+                FoodLogDay = new()
+                {
+                    UserEmail = email
+                };
+                await _foodLogService.AddFoodLogDayAsync(FoodLogDay);
+                FoodLogDay = await _foodLogService.GetFoodLogDayByDateAsync(User, DateTime.Today);
+
             }
             return Page();
         }
+
     }
 }

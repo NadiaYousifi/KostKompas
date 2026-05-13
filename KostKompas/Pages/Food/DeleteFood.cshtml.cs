@@ -29,7 +29,7 @@ namespace KostKompas.Pages.Food
         public async Task<IActionResult> OnPostAsync()
         {
             Models.Food deletedFood = await _foodService.GetFoodByIdAsync(Food.Id);
-            _foodService.DeleteFoodAsync(Food.Id);
+            await _foodService.DeleteFoodAsync(Food.Id);
             if(deletedFood == null)
             {
                 return Page();

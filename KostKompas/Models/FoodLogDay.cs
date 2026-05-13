@@ -1,19 +1,21 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KostKompas.Models
 {
     public class FoodLogDay
     {
         // properties
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } = -1;
         [Required(ErrorMessage = "Der skal angives en dato")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime Date { get; set; }
         [Required(ErrorMessage = "Der skal angives et Id")]
-        public int UserId { get; set; }
+        public string UserEmail { get; set; }
         public User User { get; set; }
-        public int MealId { get; set; }
-        public Meal Meal { get; set; }
-
         public List<Meal> Meals { get; set; }
 
         // default constructor
@@ -23,12 +25,12 @@ namespace KostKompas.Models
 
             Meals = new List<Meal>
             {
-                new Meal(1, "Morgenmad"),
-                new Meal(2, "Formiddag"),
-                new Meal(3, "Frokost"),
-                new Meal(4, "Eftermiddag"),
-                new Meal(5, "Aftensmad"),
-                new Meal(6, "Sen Aften"),
+                new Meal("Morgenmad", Id),
+                new Meal("Formiddag", Id),
+                new Meal("Frokost", Id),
+                new Meal("Eftermiddag", Id),
+                new Meal("Aftensmad", Id),
+                new Meal("Sen Aften", Id),
             };
         }
         public FoodLogDay(DateTime date)
@@ -37,18 +39,18 @@ namespace KostKompas.Models
 
             Meals = new List<Meal>
             {
-                new Meal(1, "Morgenmad"),
-                new Meal(2, "Formiddag"),
-                new Meal(3, "Frokost"),
-                new Meal(4, "Eftermiddag"),
-                new Meal(5, "Aftensmad"),
-                new Meal(6, "Sen Aften"),
+                new Meal("Morgenmad", Id),
+                new Meal("Formiddag", Id),
+                new Meal("Frokost", Id),
+                new Meal("Eftermiddag", Id),
+                new Meal("Aftensmad", Id),
+                new Meal("Sen Aften", Id),
             };
         }
 
         public double TotalKcal
         {
-            get { return Meals.Sum(m => m.TotalKcal); }
+            get {return Meals.Sum(m => m.TotalKcal); }
         }
 
         public double TotalProtein

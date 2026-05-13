@@ -13,6 +13,7 @@ namespace KostKompas.EFDbContext
         public DbSet<Food> Foods { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Meal> Meals { get; set; }
+        public DbSet<FoodMeal> FoodMeals { get; set; }
         public DbSet<FoodLogDay> FoodLogDays { get; set; }
 
     }

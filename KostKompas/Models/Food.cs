@@ -8,8 +8,8 @@ namespace KostKompas.Models
         public int Id { get; set; }
         [Key]
         [Required(ErrorMessage = "Der skal angives et Id til bruger")]
-        public int UserId { get; set; }
-        public User User { get; set; }
+        //public int UserId { get; set; }
+        public User? User { get; set; }
         [Required(ErrorMessage = "Der skal angives et navn")]
         public string Name { get; set; }
         [Required(ErrorMessage = "Der skal angives Kcal")]
@@ -22,12 +22,10 @@ namespace KostKompas.Models
         public double Carbohydrate  { get; set; }
         [Required(ErrorMessage = "Der skal angives fibre")]
         public double Fibre { get; set; }
-        public double WeightInGrams { get; set; } = 100;
 
         // constructor 
-        public Food(int id, string name, double kcal, double protein, double fat, double carbohydrate, double fibre)
+        public Food(string name, double kcal, double protein, double fat, double carbohydrate, double fibre)
         {
-            Id = id;
             Name = name;
             Kcal = kcal;
             Protein = protein;
@@ -46,9 +44,9 @@ namespace KostKompas.Models
         }
 
         // method
-        public override string ToString()
+        public override string ToString()  
         {
-            return $"Name: {Name}, Kcal {Kcal}, Protein: {Protein}, Fat: {Fat}, CarboHydrate: {Carbohydrate}, Fibre: {Fibre}, WeightInGrams: {WeightInGrams}";
+            return $"Name: {Name}, Kcal: {Kcal}, Protein: {Protein}, Fat: {Fat}, Carbohydrate: {Carbohydrate}, Fibre: {Fibre}";
         }  
         
 
