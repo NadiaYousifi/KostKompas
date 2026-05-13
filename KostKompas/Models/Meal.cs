@@ -54,6 +54,12 @@ namespace KostKompas.Models
         }
 
 
+        //// Methods
+        //public void AddFood(Food food)
+        //{
+        //    FoodMeals.Add(food);
+        //}
+
     }
 }
 

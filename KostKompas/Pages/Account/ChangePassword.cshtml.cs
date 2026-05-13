@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace KostKompas.Pages.Account
 {
+
     public class ChangePasswordModel : PageModel
     {
         private UserService _userService;
@@ -27,6 +28,29 @@ namespace KostKompas.Pages.Account
         public void OnGet()
         {
         }
+
+        //public IActionResult OnPost()
+        //{
+        //    var user = _userService.GetUserById(1);
+
+        //    if (user.Password != OldPassword)
+        //    {
+        //        ModelState.AddModelError("", "Forkert nuværende adgangskode");
+        //        return Page();
+        //    }
+
+        //    if (NewPassword != RepeatPassword)
+        //    {
+        //        ModelState.AddModelError("", "Passwords matcher ikke");
+        //        return Page();
+        //    }
+
+        //    user.Password = NewPassword;
+        //    _userService.UpdateUser(user);
+
+        //    return RedirectToPage("/Account/MyAccount");
+        //}
+
         public async Task<IActionResult> OnPostAsync()
         {
             string email = HttpContext.User.Identity.Name;
@@ -56,3 +80,6 @@ namespace KostKompas.Pages.Account
         }
     }
 }
+
+
+  

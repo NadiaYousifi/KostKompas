@@ -25,10 +25,17 @@ namespace KostKompas.Pages.Food
         {
             Food = await _foodService.GetFoodByIdAsync(id);
             if (Food == null)
-                return RedirectToPage("/NotFound"); //NotFound er ikke defineret endnu
+            {
+                return RedirectToPage("/NotFound");
+            }
 
             return Page();
         }
+
+
+
+
+
 
         // metode OnPost
         public async Task<IActionResult> OnPostAsync()

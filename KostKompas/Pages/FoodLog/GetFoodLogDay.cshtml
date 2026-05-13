@@ -2,11 +2,18 @@
 @model KostKompas.Pages.FoodLog.GetFoodLogDayModel
 @{
 }
-<h1>@Model.User.Name @Model.FoodLogDay.Date</h1>
-<table>
+
+
+
+@* <table> //------- DETTE ER BLEVET UDKOMMENTERET EFTER STYLING AF LOUISE!!!!!!----------------------------------- DET VAR DET RIGTIGE DER VAR!!! -----
     <tr>
         <th>Energifordeling</th>
+
+    <tr>
+        <td><strong>Mål for dagen 1800 kcal</strong></td>
     </tr>
+
+ 
     <tr>
         <td>Energi:</td>
         <td>@Model.FoodLogDay.TotalKcal.ToString("0.0") kcal</td>
@@ -69,8 +76,13 @@
             </div>
         </div>
     }
-</div>
-@* 
+</div> *@
+
+
+
+
+
+@* ///VAR ALLEREDE FJERNET, SÅ DET SKAL IKKE AFKOMMENTERES!!!!!! ----------------------------------------------------------
 <table class="table table-bordered table-hover table-striped table-opacity" width="60%">
   
     <tr>
@@ -123,3 +135,112 @@
 
 </table>
  *@
+
+
+ 
+ @*    ViewData["Title"] = "Madlog"; *@
+
+@* 
+<section class="foodlog-page">
+
+    <div class="foodlog-header">
+        <div>
+            <p class="eyebrow">Madlog</p>
+            <h1>Dagens overblik</h1>
+            <p class="foodlog-date">@Model.FoodLogDay.Date.ToString("dddd d. MMMM yyyy")</p>
+        </div>
+
+        <div class="daily-goal-card">
+            <span>Mål for dagen</span>
+            <strong>1800 kcal</strong>
+        </div>
+    </div>
+
+    <div class="nutrition-grid">
+        <div class="nutrition-card main">
+            <span>Energi</span>
+            <strong>@Model.FoodLogDay.TotalKcal.ToString("0.0")</strong>
+            <p>kcal registreret</p>
+        </div>
+
+        <div class="nutrition-card">
+            <span>Protein</span>
+            <strong>@Model.FoodLogDay.TotalProtein.ToString("0.0") g</strong>
+        </div>
+
+        <div class="nutrition-card">
+            <span>Kulhydrat</span>
+            <strong>@Model.FoodLogDay.TotalCarbohydrate.ToString("0.0") g</strong>
+        </div>
+
+        <div class="nutrition-card">
+            <span>Fedt</span>
+            <strong>@Model.FoodLogDay.TotalFat.ToString("0.0") g</strong>
+        </div>
+
+        <div class="nutrition-card">
+            <span>Kostfibre</span>
+            <strong>@Model.FoodLogDay.TotalFibre.ToString("0.0") g</strong>
+        </div>
+    </div>
+
+    <div class="meals-list">
+        @foreach (Models.Meal m in Model.FoodLogDay.Meals)
+        {
+            <div class="meal-card">
+                <div class="meal-card-header">
+                    <div>
+                        <h2>@m.Name</h2>
+                        <p>@m.TotalKcal.ToString("0.0") kcal</p>
+                    </div>
+
+                    <a class="btn-add-food"
+                       asp-page="/FoodLog/LogFood"
+                       asp-route-id="@Model.FoodLogDay.Id"
+                       asp-route-name="@m.Name">
+                        + Tilføj
+                    </a>
+                </div>
+
+                @if (m.Foods.Any())
+                {
+                    <div class="food-table-wrapper">
+                        <table class="food-table">
+                            <thead>
+                                <tr>
+                                    <th>Fødevare</th>
+                                    <th>Vægt</th>
+                                    <th>Energi</th>
+                                    <th>Fedt</th>
+                                    <th>Kulhydrat</th>
+                                    <th>Kostfibre</th>
+                                    <th>Protein</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @foreach (Models.Food f in m.Foods)
+                                {
+                                    <tr>
+                                        <td>@f.Name</td>
+                                        <td>@f.WeightInGrams.ToString("0.0") g</td>
+                                        <td>@((f.WeightInGrams / 100 * f.Kcal).ToString("0.0")) kcal</td>
+                                        <td>@((f.WeightInGrams / 100 * f.Fat).ToString("0.0")) g</td>
+                                        <td>@((f.WeightInGrams / 100 * f.Carbohydrate).ToString("0.0")) g</td>
+                                        <td>@((f.WeightInGrams / 100 * f.Fibre).ToString("0.0")) g</td>
+                                        <td>@((f.WeightInGrams / 100 * f.Protein).ToString("0.0")) g</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="empty-meal-text">Ingen fødevarer tilføjet endnu.</p>
+                }
+            </div>
+        }
+    </div>
+
+</section> *@

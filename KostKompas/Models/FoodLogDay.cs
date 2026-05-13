@@ -19,6 +19,8 @@ namespace KostKompas.Models
 
         public List<Meal> Meals { get; set; }
 
+     
+
         // default constructor
         public FoodLogDay()
         {
@@ -64,7 +66,7 @@ namespace KostKompas.Models
         }
 
 
-        // tilbage af mål
+        //// tilbage af mål
         //public double KcalLeft
         //{
         //    get { return KcalGoal - TotalKcal; }

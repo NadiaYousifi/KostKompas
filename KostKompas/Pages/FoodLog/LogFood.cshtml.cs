@@ -52,19 +52,46 @@ namespace KostKompas.Pages.FoodLog
         }
         // gør, at vi kan få frem, at det er "Morgenmad", der hentydes til
 
+
+
         // NameSearch 
-        public IActionResult OnPostNameSearch()
+        //public IActionResult OnPostNameSearch()
+        //{
+        //    Foods = _foodService.NameSearch(SearchString).ToList();
+        //    return Page();
+        //}
+
+        public async Task<IActionResult> OnPostNameSearchAsync()
         {
-            Foods = _foodService.NameSearch(SearchString).ToList();
+            Foods = await _foodService.NameSearchAsync(SearchString);
             return Page();
         }
 
-        public async Task <IActionResult> OnPostAsync()
+
+        // OnPost metode
+        public async Task<IActionResult> OnPostAsync()
         {
             // 1. Find den valgte food
             //Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
 
             // 2. Lav en "kopi" med brugerens gram
+            //Models.Food foodToLog = new Models.Food
+            //{
+            //    Id = selectedFood.Id,
+            //    Name = selectedFood.Name,
+            //    Kcal = selectedFood.Kcal,
+            //    Protein = selectedFood.Protein,
+            //    Fat = selectedFood.Fat,
+            //    Carbohydrate = selectedFood.Carbohydrate,
+            //    Fibre = selectedFood.Fibre,
+            //    WeightInGrams = WeightInGramsInput
+            //};
+            Models.FoodMeal selectedFoodMeal = new FoodMeal()
+            {
+                Food_id = selectedFood.Id,
+                Food = selectedFood,
+                Meal_id = CurrentMeal.Id,
+                WeightInGrams = WeightInGramsInput
 
             FoodMeal selectedFoodMeal = new FoodMeal(FoodId, CurrentMeal.Id, WeightInGramsInput);
 

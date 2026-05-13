@@ -6,9 +6,15 @@ namespace KostKompas.Pages.Account
 {
     public class MyAccountModel : PageModel
     {
+        // indtance fields
         private UserService _userService;
+
+        // property 
+        [BindProperty]
         public Models.User User { get; set; }
 
+
+        // constructor 
         public MyAccountModel(UserService userService)
         {
             _userService = userService;
@@ -26,3 +32,4 @@ namespace KostKompas.Pages.Account
         }
     }
 }
+    
