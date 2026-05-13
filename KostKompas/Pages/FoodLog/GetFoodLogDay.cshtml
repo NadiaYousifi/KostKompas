@@ -1,11 +1,13 @@
 ﻿@page
+@using System.Globalization
 @model KostKompas.Pages.FoodLog.GetFoodLogDayModel
 @{
 }
 
 
-
-@* <table> //------- DETTE ER BLEVET UDKOMMENTERET EFTER STYLING AF LOUISE!!!!!!----------------------------------- DET VAR DET RIGTIGE DER VAR!!! -----
+@* ------- DETTE ER BLEVET UDKOMMENTERET EFTER STYLING AF LOUISE!!!!!!----------------------------------- DET VAR DET RIGTIGE DER VAR!!! ----- *@
+@*
+<table> 
     <tr>
         <th>Energifordeling</th>
 
@@ -76,78 +78,16 @@
             </div>
         </div>
     }
-</div> *@
+</div> 
+*@
 
-
-
-
-
-@* ///VAR ALLEREDE FJERNET, SÅ DET SKAL IKKE AFKOMMENTERES!!!!!! ----------------------------------------------------------
-<table class="table table-bordered table-hover table-striped table-opacity" width="60%">
-  
-    <tr>
-        <td>Morgenmad</td>
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-
-       
-    </tr>
-
-    <tr>
-        <td>Formiddag</td>
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-
-    
-    </tr>
-
-    <tr>
-        <td>Frokost</td>
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-
-       
-    </tr>
-
-    <tr>
-        <td>Eftermiddag</td>
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-
-        
-    </tr>
-
-    <tr>
-        <td>Aftensmad</td>
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-
-       
-    </tr>
-
-    <tr>
-        <td>Sen aften</td> 
-        <td> <a href="/FoodLog/LogFood" class="btn btn-success">Tilføj</a></td>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Mogenmad" class="btn btn-success">Tilføj</a>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Formiddag" class="btn btn-success">Tilføj</a>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Frokost" class="btn btn-success">Tilføj</a>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Eftermiddag" class="btn btn-success">Tilføj</a>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Aftensmad" class="btn btn-success">Tilføj</a>
-        <a asp-page="/FoodLog/LogFood" asp-route-mealName="Sen aften" class="btn btn-success">Tilføj</a>
-       
-
-    </tr>
-
-</table>
- *@
-
-
- 
- @*    ViewData["Title"] = "Madlog"; *@
-
-@* 
 <section class="foodlog-page">
 
     <div class="foodlog-header">
         <div>
             <p class="eyebrow">Madlog</p>
             <h1>Dagens overblik</h1>
-            <p class="foodlog-date">@Model.FoodLogDay.Date.ToString("dddd d. MMMM yyyy")</p>
+            <p class="foodlog-date">@Model.FoodLogDay.Date.ToString("dddd d. MMMM",new CultureInfo("da-DK"))</p>
         </div>
 
         <div class="daily-goal-card">
@@ -202,7 +142,7 @@
                     </a>
                 </div>
 
-                @if (m.Foods.Any())
+                @if (m.FoodMeals.Any())
                 {
                     <div class="food-table-wrapper">
                         <table class="food-table">
@@ -219,16 +159,16 @@
                             </thead>
 
                             <tbody>
-                                @foreach (Models.Food f in m.Foods)
+                                @foreach (Models.FoodMeal fm in m.FoodMeals)
                                 {
                                     <tr>
-                                        <td>@f.Name</td>
-                                        <td>@f.WeightInGrams.ToString("0.0") g</td>
-                                        <td>@((f.WeightInGrams / 100 * f.Kcal).ToString("0.0")) kcal</td>
-                                        <td>@((f.WeightInGrams / 100 * f.Fat).ToString("0.0")) g</td>
-                                        <td>@((f.WeightInGrams / 100 * f.Carbohydrate).ToString("0.0")) g</td>
-                                        <td>@((f.WeightInGrams / 100 * f.Fibre).ToString("0.0")) g</td>
-                                        <td>@((f.WeightInGrams / 100 * f.Protein).ToString("0.0")) g</td>
+                                        <td>@fm.Food.Name</td>
+                                        <td>@fm.WeightInGrams.ToString("0.0") g</td>
+                                        <td>@fm.TotalKcal.ToString("0.0")) kcal</td>
+                                        <td>@fm.TotalFat.ToString("0.0")) g</td>
+                                        <td>@fm.TotalCarbohydrate.ToString("0.0")) g</td>
+                                        <td>@fm.TotalFibre.ToString("0.0")) g</td>
+                                        <td>@fm.TotalProtein.ToString("0.0")) g</td>
                                     </tr>
                                 }
                             </tbody>
@@ -243,4 +183,4 @@
         }
     </div>
 
-</section> *@
+</section> 

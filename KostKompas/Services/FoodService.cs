@@ -17,9 +17,9 @@ namespace KostKompas.Services
         public FoodService(DbGenericService<Food, int> dbService)
         {
             _dbService = dbService;
-            //_foods = MockFoods.GetMockFoods();
-            //_dbService.SaveObjectsAsync(_foods);
-            _foods = _dbService.GetObjectsAsync().Result.ToList();
+            _foods = MockFoods.GetMockFoods();
+            _dbService.SaveObjectsAsync(_foods);
+            //_foods = _dbService.GetObjectsAsync().Result.ToList();
         }
 
 
@@ -130,14 +130,17 @@ namespace KostKompas.Services
         // NameSearch med db
         public async Task<List<Food>> NameSearchAsync(string searchString)
         {
-            if (string.IsNullOrEmpty(searchString))
-            {
-                return await _context.Foods.ToListAsync();
-            }
+            using (var context = new KostKompasDbContext())
+           {     
+                if (string.IsNullOrEmpty(searchString))
+                {
+                    return await context.Foods.ToListAsync();
+                }
 
-            return await _context.Foods
-                .Where(food => food.Name.Contains(searchString))
-                .ToListAsync();
+                return await context.Foods
+                    .Where(food => food.Name.Contains(searchString))
+                    .ToListAsync();
+            }
         }
 
     }

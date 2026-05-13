@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace KostKompas.Models
 {
@@ -7,7 +8,9 @@ namespace KostKompas.Models
         // properties 
         [Key]
         public int Id { get; set; }
-        public User? User { get; set; }
+        [DefaultValue(null)]
+        public string? UserEmail { get; set; }
+        public User User { get; set; }
         [Required(ErrorMessage = "Der skal angives et navn")]
 
         public string Name { get; set; }

@@ -38,7 +38,7 @@ namespace KostKompas.Pages.User
             {
                 return Page();
             }
-            User.Password = passwordHasher.HashPassword(null, User.Password);
+            User.Password = _passwordHasher.HashPassword(null, User.Password);
             await _userService.AddUserAsync(User);
             return RedirectToPage("GetAllUsers");
         }

@@ -24,7 +24,11 @@ namespace KostKompas.Migrations
                     ProteinGoal = table.Column<double>(type: "float", nullable: false),
                     CarbohydrateGoal = table.Column<double>(type: "float", nullable: false),
                     FatGoal = table.Column<double>(type: "float", nullable: false),
-                    FibreGoal = table.Column<double>(type: "float", nullable: false)
+                    FibreGoal = table.Column<double>(type: "float", nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Weight = table.Column<double>(type: "float", nullable: false),
+                    Height = table.Column<double>(type: "float", nullable: false),
+                    Age = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

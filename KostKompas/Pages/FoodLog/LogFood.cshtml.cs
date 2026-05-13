@@ -86,12 +86,6 @@ namespace KostKompas.Pages.FoodLog
             //    Fibre = selectedFood.Fibre,
             //    WeightInGrams = WeightInGramsInput
             //};
-            Models.FoodMeal selectedFoodMeal = new FoodMeal()
-            {
-                Food_id = selectedFood.Id,
-                Food = selectedFood,
-                Meal_id = CurrentMeal.Id,
-                WeightInGrams = WeightInGramsInput
 
             FoodMeal selectedFoodMeal = new FoodMeal(FoodId, CurrentMeal.Id, WeightInGramsInput);
 
