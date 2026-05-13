@@ -1,4 +1,4 @@
-﻿@page "{id:int}/{name}"
+﻿@page "{id:int}"
 @model KostKompas.Pages.FoodLog.LogFoodModel
 @{
 }
@@ -16,10 +16,9 @@
 
  
 
-<h2>Tilføj mad til @Model.CurrentMeal.Name @DateOnly.FromDateTime(Model.FoodLogDay.Date)</h2>
+<h2>Tilføj mad til @Model.CurrentMeal.Name</h2> 
 
 <form method="post">
-    @* <input type="hidden" asp-for="CurrentMeal.Name" /> *@
 
     <label>Vælg fødevare</label>
     <select asp-for="FoodId" class="form-control">

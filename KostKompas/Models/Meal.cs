@@ -2,17 +2,15 @@
 
 namespace KostKompas.Models
 {
-
-
-
     public class Meal
     {
-
         // Properties
+        [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "Der skal angives et navn")]
         public string Name { get; set; }
-
+        [Required]
+        public int FoodLogDayId { get; set; }
         public List<FoodMeal> FoodMeals { get; set; }
 
         public double TotalKcal
@@ -42,10 +40,10 @@ namespace KostKompas.Models
 
 
         // Constructors
-        public Meal(int id, string name)
+        public Meal(string name, int foodLogDayId)
         {
-            Id = id;
             Name = name;
+            FoodLogDayId = foodLogDayId;
             FoodMeals = new List<FoodMeal>(); // gemmer listen til constructoren, når der laves et nyt meal
         }
 

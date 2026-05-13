@@ -25,11 +25,17 @@ namespace KostKompas.Pages.FoodLog
         public async Task<IActionResult> OnGetAsync()
         {
             string email = HttpContext.User.Identity.Name;
-            User = _userService.GetUsersAsync().Result.FirstOrDefault(u => u.Email == email);
-            FoodLogDay = await _foodLogService.GetFoodLogDayByDateAsync( User ,DateTime.Today);
+            User = await _userService.GetUserByEmailAsync(email) ?? throw new Exception("User not found");
+            FoodLogDay = await _foodLogService.GetFoodLogDayByDateAsync(User, DateTime.Today);
             if (FoodLogDay == null)
             {
-                return RedirectToPage("/NotFound");
+                FoodLogDay = new() 
+                { 
+                    UserEmail = email
+                };
+                await _foodLogService.AddFoodLogDayAsync(FoodLogDay);
+                FoodLogDay = await _foodLogService.GetFoodLogDayByDateAsync( User , DateTime.Today);
+                
             }
             return Page();
         }

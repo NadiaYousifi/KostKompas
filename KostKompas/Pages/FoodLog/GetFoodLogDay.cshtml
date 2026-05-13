@@ -41,7 +41,7 @@
         <div class="accordion-item">
             <h2 class="accordion-header">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@("collapse_"+m.Id)" aria-expanded="true" aria-controls="@("collapse_"+m.Id)">
-                    @m.Name
+                    @m.Id @m.Name
                 </button>
             </h2>
             <div id="@("collapse_" + m.Id)" class="accordion-collapse collapse" data-bs-parent="#MealsAccordion">
@@ -70,7 +70,7 @@
                         }
                     </table>
                     <p>
-                        <a class="btn btn-primary" asp-page="/FoodLog/LogFood" asp-route-id="@Model.FoodLogDay.Id" asp-route-name="@m.Name"> Tilføj Fødevare </a>
+                        <a class="btn btn-primary" asp-page="/FoodLog/LogFood" asp-route-id ="@m.Id"> Tilføj Fødevare </a>
                     </p>
                 </div>
             </div>

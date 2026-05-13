@@ -7,10 +7,7 @@ namespace KostKompas.Models
         // properties 
         [Key]
         public int Id { get; set; }
-        [Key]
-        [Required(ErrorMessage = "Der skal angives et Id til bruger")]
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
         [Required(ErrorMessage = "Der skal angives et navn")]
 
         public string Name { get; set; }
@@ -47,7 +44,6 @@ namespace KostKompas.Models
         //default constructor 
         public Food()
         {
-
         }
 
         // method

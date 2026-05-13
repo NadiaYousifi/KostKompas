@@ -1,15 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KostKompas.Models
 {
     public class FoodLogDay
     {
         // properties
-        public int Id { get; set; }
-        [Required(ErrorMessage = "Der skal angives en dato")]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; } 
+        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime Date { get; set; }
-        [Required(ErrorMessage = "Der skal angives et Id")]
-        public int UserId { get; set; }
+        [Required]
+        public string UserEmail { get; set; }
         public User User { get; set; }
 
         public List<Meal> Meals { get; set; }
@@ -20,29 +25,27 @@ namespace KostKompas.Models
         public FoodLogDay()
         {
             Date = DateTime.Today;
-
             Meals = new List<Meal>
             {
-                new Meal(1, "Morgenmad"),
-                new Meal(2, "Formiddag"),
-                new Meal(3, "Frokost"),
-                new Meal(4, "Eftermiddag"),
-                new Meal(5, "Aftensmad"),
-                new Meal(6, "Sen Aften"),
+                new Meal("Morgenmad", Id),
+                new Meal("Formiddag", Id),
+                new Meal( "Frokost", Id),
+                new Meal( "Eftermiddag", Id),
+                new Meal( "Aftensmad", Id),
+                new Meal( "Sen Aften", Id)
             };
         }
         public FoodLogDay(DateTime date)
         {
             Date = date;
-
             Meals = new List<Meal>
             {
-                new Meal(1, "Morgenmad"),
-                new Meal(2, "Formiddag"),
-                new Meal(3, "Frokost"),
-                new Meal(4, "Eftermiddag"),
-                new Meal(5, "Aftensmad"),
-                new Meal(6, "Sen Aften"),
+                new Meal("Morgenmad", Id),
+                new Meal("Formiddag", Id),
+                new Meal( "Frokost", Id),
+                new Meal( "Eftermiddag", Id),
+                new Meal( "Aftensmad", Id),
+                new Meal( "Sen Aften", Id)
             };
         }
 

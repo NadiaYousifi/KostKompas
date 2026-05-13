@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KostKompas.Models
 {
@@ -25,11 +26,12 @@ namespace KostKompas.Models
         public const double FemaleAgeConstant = 4.676;
 
         // properties 
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required(ErrorMessage = "Der skal angives et navn")]
         public string Name { get; set; }
-
-        [Required]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Der skal angives en password")]
