@@ -1,4 +1,7 @@
-﻿using KostKompas.Models;
+﻿using KostKompas.EFDbContext;
+using KostKompas.Models;
+using Microsoft.AspNetCore.DataProtection.XmlEncryption;
+using Microsoft.EntityFrameworkCore;
 
 namespace KostKompas.Services
 {
@@ -9,15 +12,19 @@ namespace KostKompas.Services
         private DbGenericService<FoodLogDay, int> _foodLogDbService;
         private DbGenericService<Meal, int> _mealDbService;
         private DbGenericService<FoodMeal, int> _foodMealDbService;
+        private DbGenericService<Food, int> _foodDbService;
         public List<FoodLogDay> FoodLogDays { get; set; } 
         public List<Meal> Meals { get; set; }
         public List<FoodMeal> FoodMeals { get; set; }
+        public List<Food> Foods { get; set; }
 
-        public FoodLogService(DbGenericService<FoodLogDay, int> foodLogDbService, DbGenericService<Meal, int> mealDbService, DbGenericService<FoodMeal, int> foodMealDbService)
+        public FoodLogService(DbGenericService<FoodLogDay, int> foodLogDbService, DbGenericService<Meal, int> mealDbService, DbGenericService<FoodMeal, int> foodMealDbService, DbGenericService<Food, int> foodDbService)
         {
             _foodLogDbService = foodLogDbService;
             _mealDbService = mealDbService;
             _foodMealDbService = foodMealDbService;
+            _foodDbService = foodDbService;
+            Foods = _foodDbService.GetObjectsAsync().Result.ToList();
             FoodMeals = _foodMealDbService.GetObjectsAsync().Result.ToList();
             Meals = _mealDbService.GetObjectsAsync().Result.ToList();
             FoodLogDays = _foodLogDbService.GetObjectsAsync().Result.ToList();
@@ -26,23 +33,33 @@ namespace KostKompas.Services
         public async Task AddFoodLogDayAsync(FoodLogDay foodLogDay)
         {
             FoodLogDays.Add(foodLogDay);
-            Meals.AddRange(foodLogDay.Meals);
             await _foodLogDbService.AddObjectAsync(foodLogDay);
-            // await _mealDbService.SaveObjectsAsync(Meals);
         }
 
         public async Task<FoodLogDay> GetFoodLogDayByIdAsync(int id)
         {
-            foreach (FoodLogDay f in FoodLogDays)
+            FoodLogDay foodLogDay;
+            using (var context = new KostKompasDbContext())
             {
-                if (f.Id == id)
-                {
-                    await _foodLogDbService.GetObjectByIdAsync(id);
-                    f.Meals = _mealDbService.GetObjectsAsync().Result.Where(m => m.FoodLogDayId == f.Id ).ToList();
-                    f.Meals.ForEach(m => m.FoodMeals = _foodMealDbService.GetObjectsAsync().Result.Where(fm => fm.MealId == m.Id).ToList());
-                    return f;
-                }
+                foodLogDay = context.FoodLogDays
+                    .Include(fdl => fdl.Meals)
+                    .ThenInclude(m => m.FoodMeals)
+                    .ThenInclude(fm => fm.Food)
+                    .AsNoTracking()
+                    .FirstOrDefault(fdl => fdl.Id == id);
             }
+            return foodLogDay;
+                //foreach (FoodLogDay f in FoodLogDays)
+                //{
+                //    if (f.Id == id)
+                //    {
+                //        await _foodLogDbService.GetObjectByIdAsync(id);
+                //        f.Meals = _mealDbService.GetObjectsAsync().Result.Where(m => m.FoodLogDayId == f.Id).ToList();
+                //        f.Meals.ForEach(m => m.FoodMeals = _foodMealDbService.GetObjectsAsync().Result.Where(fm => fm.MealId == m.Id).ToList());
+                //        f.Meals.ForEach(m => m.FoodMeals.ForEach(async fm => fm.Food = await _foodDbService.GetObjectByIdAsync(fm.FoodId)));
+                //        return f;
+                //    }
+                //}
             throw new ArgumentException("Kunne ikke findes");
         }
         public async Task<Meal> GetMealByIdAsync(int id)
@@ -57,33 +74,33 @@ namespace KostKompas.Services
             //}
             throw new ArgumentException("Kunne ikke findes");
         }
-        public async Task<Meal> GetMealByNameAsync(string name)
-        {
-            foreach (Meal m in Meals)
-            {
-                if (m.Name == name)
-                {
-                    return await _mealDbService.GetObjectByIdAsync(m.Id);
-                }
-            }
-            throw new ArgumentException("Kunne ikke findes");
-        }
+
 
         // Søg efter dato metode
         public async Task<FoodLogDay> GetFoodLogDayByDateAsync(User user, DateTime date)
         {
-            foreach (FoodLogDay f in FoodLogDays)
+            FoodLogDay foodLogDay;
+            using (var context = new KostKompasDbContext())
             {
-                if (f.Date == date && f.UserEmail == user.Email)
-                    {                    
-                    //await _foodLogDbService.GetObjectByIdAsync(f.Id);
-                    //f.Meals = Meals.Where(m => m.FoodLogDayId == f.Id).ToList();
-                    //f.Meals.ForEach(m => m.FoodMeals.AddRange(FoodMeals.Where(fm => fm.MealId == m.Id)));
-                    //return f;
-                    return await _foodLogDbService.GetObjectByIdAsync(f.Id);
-                }
+                foodLogDay = context.FoodLogDays
+                    .Include(fdl => fdl.Meals)
+                    .ThenInclude(m => m.FoodMeals)
+                    .ThenInclude(fm => fm.Food)
+                    .AsNoTracking()
+                    .FirstOrDefault(fdl => fdl.Date == date && fdl.UserEmail == user.Email);
             }
-            return null;
+                //foreach (FoodLogDay f in FoodLogDays)
+                //{
+                //    if (f.Date == date && f.UserEmail == user.Email)
+                //        {
+                //        await _foodLogDbService.GetObjectByIdAsync(f.Id);
+                //        f.Meals = Meals.Where(m => m.FoodLogDayId == f.Id).ToList();
+                //        f.Meals.ForEach(m => m.FoodMeals.AddRange(FoodMeals.Where(fm => fm.MealId == m.Id)));
+                //        f.Meals.ForEach(m => m.FoodMeals.ForEach(async fm => fm.Food = await _foodDbService.GetObjectByIdAsync(fm.FoodId)));
+                //        return f;
+                //    }
+                //}
+                return foodLogDay;
         } 
         // metode - tilføjer en fødevare til et bestemt måltid til en bestemt dag
         public async Task LogFoodAsync(FoodMeal foodMeal)

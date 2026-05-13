@@ -9,21 +9,27 @@ namespace KostKompas.Pages.Food
 
         // instance fields
         private FoodService _foodService;
+        private UserService _userService;
 
         // property
         [BindProperty]
         public Models.Food Food { get; set; }
 
+        [BindProperty]
+        public Models.User User { get; set; }
+
 
         // constructor
-        public CreateFoodModel(FoodService foodService)
+        public CreateFoodModel(FoodService foodService, UserService userService)
         {
             _foodService = foodService;
+            _userService = userService;
         }
 
         // metode OnGet
-        public IActionResult OnGet()
+        public async Task<IActionResult> OnGet()
         {
+            User = await _userService.GetUserByEmailAsync(HttpContext.User.Identity.Name);
             return Page(); // genopfrisk siden
         }
 
@@ -32,6 +38,8 @@ namespace KostKompas.Pages.Food
         // metode OnPost
         public async Task<IActionResult> OnPostAsync()
         {
+            User = await _userService.GetUserByEmailAsync(HttpContext.User.Identity.Name);
+            
             if (!ModelState.IsValid) // tjekker om staten brydes. Passer datatyperne sammen (int først, derefter string = invalid)
             {
                 return Page();

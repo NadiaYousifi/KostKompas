@@ -22,20 +22,11 @@ namespace KostKompas.Models
         // default constructor
         public FoodLogDay()
         {
-            Date = DateTime.Today;
-            Meals = new List<Meal>
-            {
-                new Meal("Morgenmad", Id),
-                new Meal("Formiddag", Id),
-                new Meal( "Frokost", Id),
-                new Meal( "Eftermiddag", Id),
-                new Meal( "Aftensmad", Id),
-                new Meal( "Sen Aften", Id)
-            };
         }
-        public FoodLogDay(DateTime date)
+        public FoodLogDay(DateTime date, string userEmail)
         {
             Date = date;
+            UserEmail = userEmail;
             Meals = new List<Meal>
             {
                 new Meal("Morgenmad", Id),

@@ -70,7 +70,7 @@ namespace KostKompas.Pages.FoodLog
 
             // 3. Log maden i det rigtige måltid
             await _foodLogService.LogFoodAsync(selectedFoodMeal);
-
+            
 
             // 4. Gå tilbage til madloggen
             return RedirectToPage("/FoodLog/GetFoodLogDay");
