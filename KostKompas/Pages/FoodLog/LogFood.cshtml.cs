@@ -15,7 +15,7 @@ namespace KostKompas.Pages.FoodLog
         private FoodService _foodService;
         private FoodLogService _foodLogService;
 
-    // gemmer adgangen til foodservice (der har listen) og selve madloggen, hvor vi logger maden (foodlogservice)
+        // gemmer adgangen til foodservice (der har listen) og selve madloggen, hvor vi logger maden (foodlogservice)
 
         public List<Models.Food> Foods { get; set; }
         // listen bruges på LogFoodAsync, så fødevarerne vises
@@ -35,6 +35,9 @@ namespace KostKompas.Pages.FoodLog
         public double WeightInGramsInput { get; set; }
 
         [BindProperty] public Meal CurrentMeal { get; set; }
+
+        [BindProperty]
+        public FoodLogDay FoodLogDay { get; set; }
 
         // constructor
         public LogFoodModel(FoodService FoodService, FoodLogService FoodLogService)
@@ -61,47 +64,55 @@ namespace KostKompas.Pages.FoodLog
         //    return Page();
         //}
 
-        public async Task<IActionResult> OnPostNameSearchAsync()
+        //public async Task<IActionResult> OnPostNameSearchAsync()
+        //{
+        //    Foods = await _foodService.NameSearchAsync(SearchString);
+        //    return Page();
+        //}
+
+        // NameSearch metode 
+        public IActionResult OnPostNameSearch()
         {
-            Foods = await _foodService.NameSearchAsync(SearchString);
+            Foods = _foodService.NameSearch(SearchString).ToList();
             return Page();
         }
 
 
+
+
+
         // OnPost metode
+        //public async Task<IActionResult> OnPostAsync()
+        //{
+        //    // 1. Find den valgte food
+        //    //Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
+
+        //    // 2. Lav en "kopi" med brugerens gram
+
+        //    FoodMeal selectedFoodMeal = new FoodMeal(FoodId, CurrentMeal.Id, WeightInGramsInput);
+
+        //    // 3. Log maden i det rigtige måltid
+        //    await _foodLogService.LogFoodAsync(selectedFoodMeal);
+
+
+        //    // 4. Gå tilbage til madloggen
+        //    return RedirectToPage("/FoodLog/GetFoodLogDay");
+        //}
+
+
         public async Task<IActionResult> OnPostAsync()
         {
-            // 1. Find den valgte food
-            //Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
+            FoodMeal selectedFoodMeal = new FoodMeal(
+                FoodId,
+                CurrentMeal.Id,
+                WeightInGramsInput
+            );
 
-            // 2. Lav en "kopi" med brugerens gram
-            //Models.Food foodToLog = new Models.Food
-            //{
-            //    Id = selectedFood.Id,
-            //    Name = selectedFood.Name,
-            //    Kcal = selectedFood.Kcal,
-            //    Protein = selectedFood.Protein,
-            //    Fat = selectedFood.Fat,
-            //    Carbohydrate = selectedFood.Carbohydrate,
-            //    Fibre = selectedFood.Fibre,
-            //    WeightInGrams = WeightInGramsInput
-            //};
-            Models.FoodMeal selectedFoodMeal = new FoodMeal()
-            {
-                Food_id = selectedFood.Id,
-                Food = selectedFood,
-                Meal_id = CurrentMeal.Id,
-                WeightInGrams = WeightInGramsInput
-
-            FoodMeal selectedFoodMeal = new FoodMeal(FoodId, CurrentMeal.Id, WeightInGramsInput);
-
-            // 3. Log maden i det rigtige måltid
             await _foodLogService.LogFoodAsync(selectedFoodMeal);
 
-
-            // 4. Gå tilbage til madloggen
             return RedirectToPage("/FoodLog/GetFoodLogDay");
         }
     }
-
 }
+
+

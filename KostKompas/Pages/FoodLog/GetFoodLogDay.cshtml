@@ -76,7 +76,7 @@
             </div>
         </div>
     }
-</div> *@
+</div>  *@
 
 
 
@@ -134,13 +134,13 @@
     </tr>
 
 </table>
- *@
 
+*@
 
  
- @*    ViewData["Title"] = "Madlog"; *@
+   @*   ViewData["Title"] = "Madlog"; *@
 
-@* 
+ 
 <section class="foodlog-page">
 
     <div class="foodlog-header">
@@ -202,7 +202,7 @@
                     </a>
                 </div>
 
-                @if (m.Foods.Any())
+                @if (m.FoodMeals.Any())
                 {
                     <div class="food-table-wrapper">
                         <table class="food-table">
@@ -219,16 +219,16 @@
                             </thead>
 
                             <tbody>
-                                @foreach (Models.Food f in m.Foods)
+                                @foreach (Models.FoodMeal fm  in m.FoodMeals)
                                 {
                                     <tr>
-                                        <td>@f.Name</td>
-                                        <td>@f.WeightInGrams.ToString("0.0") g</td>
-                                        <td>@((f.WeightInGrams / 100 * f.Kcal).ToString("0.0")) kcal</td>
-                                        <td>@((f.WeightInGrams / 100 * f.Fat).ToString("0.0")) g</td>
-                                        <td>@((f.WeightInGrams / 100 * f.Carbohydrate).ToString("0.0")) g</td>
-                                        <td>@((f.WeightInGrams / 100 * f.Fibre).ToString("0.0")) g</td>
-                                        <td>@((f.WeightInGrams / 100 * f.Protein).ToString("0.0")) g</td>
+                                        <td>@fm.Food.Name</td>
+                                        <td>@fm.WeightInGrams.ToString("0.0") g</td>
+                                        <td>@((fm.Food.Kcal / 100 * fm.Food.Kcal).ToString("0.0")) kcal</td>
+                                        <td>@((fm.Food.Fat / 100 * fm.Food.Fat).ToString("0.0")) g</td>
+                                        <td>@((fm.Food.Carbohydrate / 100 * fm.Food.Carbohydrate).ToString("0.0")) g</td>
+                                        <td>@((fm.Food.Fibre / 100 * fm.Food.Fibre).ToString("0.0")) g</td>
+                                        <td>@((fm.Food.Protein / 100 * fm.Food.Protein).ToString("0.0")) g</td>
                                     </tr>
                                 }
                             </tbody>
@@ -243,4 +243,4 @@
         }
     </div>
 
-</section> *@
+</section>

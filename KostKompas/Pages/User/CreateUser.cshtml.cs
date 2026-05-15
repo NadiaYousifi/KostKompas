@@ -34,11 +34,11 @@ namespace KostKompas.Pages.User
         // metode OnPost
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
                 return Page();
             }
-            User.Password = passwordHasher.HashPassword(null, User.Password);
+            User.Password = _passwordHasher.HashPassword(null, User.Password);
             await _userService.AddUserAsync(User);
             return RedirectToPage("GetAllUsers");
         }

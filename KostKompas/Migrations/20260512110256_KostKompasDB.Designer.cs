@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KostKompas.Migrations
 {
     [DbContext(typeof(KostKompasDbContext))]
-    [Migration("20260512075922_KostKompasDbv1")]
-    partial class KostKompasDbv1
+    [Migration("20260512110256_KostKompasDB")]
+    partial class KostKompasDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.9")
+                .HasAnnotation("ProductVersion", "7.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -137,6 +137,9 @@ namespace KostKompas.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
                     b.Property<double>("CarbohydrateGoal")
                         .HasColumnType("float");
 
@@ -144,6 +147,13 @@ namespace KostKompas.Migrations
                         .HasColumnType("float");
 
                     b.Property<double>("FibreGoal")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Height")
                         .HasColumnType("float");
 
                     b.Property<int>("Id")
@@ -164,6 +174,9 @@ namespace KostKompas.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("ProteinGoal")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Weight")
                         .HasColumnType("float");
 
                     b.HasKey("Email");

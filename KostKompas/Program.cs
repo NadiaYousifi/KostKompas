@@ -24,6 +24,7 @@ builder.Services.AddSingleton<DbGenericService<User, string>, DbGenericService<U
 builder.Services.AddScoped<DbGenericService<FoodLogDay, int>, DbGenericService<FoodLogDay, int>>();
 builder.Services.AddScoped<DbGenericService<Meal, int>, DbGenericService<Meal, int>>();
 builder.Services.AddScoped<DbGenericService<FoodMeal, int>, DbGenericService<FoodMeal, int>>();
+builder.Services.AddSingleton<ChatService>();
 
 
 builder.Services.Configure<CookiePolicyOptions>(options => {

@@ -17,9 +17,9 @@ namespace KostKompas.Services
         public FoodService(DbGenericService<Food, int> dbService)
         {
             _dbService = dbService;
-            //_foods = MockFoods.GetMockFoods();
-            //_dbService.SaveObjectsAsync(_foods);
-            _foods = _dbService.GetObjectsAsync().Result.ToList();
+            _foods = MockFoods.GetMockFoods();
+            _dbService.SaveObjectsAsync(_foods);
+            //_foods = _dbService.GetObjectsAsync().Result.ToList();
         }
 
 
@@ -116,29 +116,30 @@ namespace KostKompas.Services
 
 
 
-        ////NameSearch 
-        //public IEnumerable<Food> NameSearch(string searchString)
+        //NameSearch 
+        public IEnumerable<Food> NameSearch(string searchString)
 
-        //{
-        //    if (string.IsNullOrEmpty(searchString)) return _foods;
-
-        //    List<Food> nameSearch = _foods.FindAll(food => food.Name == searchString);
-
-        //    return nameSearch;
-        //}
-
-        // NameSearch med db
-        public async Task<List<Food>> NameSearchAsync(string searchString)
         {
-            if (string.IsNullOrEmpty(searchString))
-            {
-                return await _context.Foods.ToListAsync();
-            }
+            if (string.IsNullOrEmpty(searchString)) return _foods;
 
-            return await _context.Foods
-                .Where(food => food.Name.Contains(searchString))
-                .ToListAsync();
+            List<Food> nameSearch = _foods.FindAll(food => food.Name == searchString);
+
+            return nameSearch;
         }
 
+        ////NameSearch med db
+        //public async Task<List<Food>> NameSearchAsync(string searchString)
+        //{
+        //    if (string.IsNullOrEmpty(searchString))
+        //    {
+        //        return await _foods.Foods.ToListAsync();
+        //    }
+
+        //    return await _foods
+        //        .Where(food => food.Name.Contains(searchString))
+        //        .ToListAsync();
+        //}
+
+        }
     }
-}
+

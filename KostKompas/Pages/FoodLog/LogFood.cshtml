@@ -2,7 +2,7 @@
 @model KostKompas.Pages.FoodLog.LogFoodModel
 @{
 }
-
+@* 
 <table>
     <tr>
         <th></th>
@@ -11,12 +11,12 @@
         <input asp-for="SearchString" class="form-control mr-1" placeholder="Enter search term" />
         <input type="submit" asp-page-handler="NameSearch" value="Search" class="btn btn-primary" />
     </form>
-</table>
-    @* <td> <a href="/FoodLog/LoggedInFood" class="btn btn-success">Tilføj</a></td> *@
+@* @* @* @* @* @* @* </table> 
+    <td> <a href="/FoodLog/LoggedInFood" class="btn btn-success">Tilføj</a></td> *@
 
  
 
-<h2>Tilføj mad til @Model.CurrentMeal.Name</h2> 
+@* <h2>Tilføj mad til @Model.CurrentMeal.Name</h2> 
 
 <form method="post">
 
@@ -32,4 +32,105 @@
     <input asp-for="WeightInGramsInput" type="number" step="0.1" class="form-control" />
 
     <button type="submit" class="btn btn-success mt-2">Tilføj</button>
+
+
+
+</form> *@
+
+
+
+@* <section class="add-food-page">
+    <div class="add-food-card">
+
+        <div class="add-food-header">
+            <p class="eyebrow">Madlog</p>
+            <h1>Tilføj fødevare</h1>
+            <p>Tilføj mad til <strong>@Model.CurrentMeal.Name</strong></p>
+        </div>
+
+        <form method="post" class="add-food-form">
+
+            <label>Vælg fødevare</label>
+            <select asp-for="FoodId" class="form-control-custom">
+                @foreach (var food in Model.Foods)
+                {
+                    <option value="@food.Id">@food.Name</option>
+                }
+            </select>
+
+            <label>Gram</label>
+            <input asp-for="WeightInGramsInput" type="number" step="0.1" class="form-control-custom" />
+
+            <button type="submit" class="btn-primary-custom add-food-submit">+ Tilføj</button>
+
+        </form>
+
+    </div>
+</section> *@
+
+<form method="post" class="add-food-form">
+
+    <input type="hidden" asp-for="CurrentMeal.Id" />
+
+    <label>Vælg fødevare</label>
+    <select asp-for="FoodId" class="form-control-custom">
+        @foreach (var food in Model.Foods)
+        {
+            <option value="@food.Id">@food.Name</option>
+        }
+    </select>
+
+    <label>Gram</label>
+    <input asp-for="WeightInGramsInput" type="number" step="0.1" class="form-control-custom" />
+
+    <button type="submit" class="btn-primary-custom add-food-submit">+ Tilføj</button>
 </form>
+
+
+
+
+
+
+@*
+
+<section class="add-food-page">
+
+    <div class="add-food-card">
+        <div class="add-food-header">
+            <p class="eyebrow">Madlog</p>
+            <h1>Tilføj fødevare</h1>
+            <p>Tilføj mad til <strong>@Model.CurrentMeal?.Name</strong></p>
+        </div>
+
+        <form method="post" class="add-food-form"> 
+
+            <input type="hidden" asp-for="FoodLogDay.Id" />
+            <input type="hidden" asp-for="CurrentMeal.Id" />
+            <input type="hidden" asp-for="CurrentMeal.Name" />
+
+            <div class="form-group-custom">
+                <label asp-for="FoodId">Vælg fødevare</label>
+                <select asp-for="FoodId" class="form-control-custom">
+                    @foreach (var food in Model.Foods)
+                    {
+                        <option value="@food.Id">@food.Name</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group-custom">
+                <label asp-for="WeightInGramsInput">Gram</label>
+                <input asp-for="WeightInGramsInput" class="form-control-custom" placeholder="Fx 100" />
+            </div>
+
+            <div class="add-food-actions">
+                <a asp-page="/FoodLog/GetFoodLogDay" class="btn-secondary-custom">Tilbage</a>
+                <button type="submit" class="btn-primary-custom">+ Tilføj</button>
+            </div>
+
+        </form>
+    </div>
+
+</section>
+*@
+

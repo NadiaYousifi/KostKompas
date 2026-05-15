@@ -11,8 +11,8 @@ namespace KostKompas.Services
         public UserService(DbGenericService<User, string> dbService)
         {
             _dbService = dbService;
-            //_users = MockUsers.GetMockUsers();
-            //_dbService.SaveObjectsAsync(_users);
+            _users = MockUsers.GetMockUsers();
+            _dbService.SaveObjectsAsync(_users);
             _users = _dbService.GetObjectsAsync().Result.ToList();
         }
 

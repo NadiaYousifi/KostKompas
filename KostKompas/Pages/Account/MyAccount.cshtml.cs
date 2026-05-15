@@ -20,10 +20,10 @@ namespace KostKompas.Pages.Account
             _userService = userService;
         }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync()  // skal være async, da vi skal hente data fra databasen
         {
-            string email = HttpContext.User.Identity.Name;
-            User = _userService.GetUsersAsync().Result.FirstOrDefault(u=> u.Email == email);
+            string email = HttpContext.User.Identity.Name; // Hent email fra den loggede ind bruger
+            User = _userService.GetUsersAsync().Result.FirstOrDefault(u=> u.Email == email); // Hent brugerdata baseret på email
         }
         public async Task<IActionResult> OnPostAsync()
         {
