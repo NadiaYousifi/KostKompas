@@ -136,8 +136,7 @@
 
                     <a class="btn-add-food"
                        asp-page="/FoodLog/LogFood"
-                       asp-route-id="@Model.FoodLogDay.Id"
-                       asp-route-name="@m.Name">
+                       asp-route-id="@m.Id">
                         + Tilføj
                     </a>
                 </div>
@@ -164,11 +163,11 @@
                                     <tr>
                                         <td>@fm.Food.Name</td>
                                         <td>@fm.WeightInGrams.ToString("0.0") g</td>
-                                        <td>@fm.TotalKcal.ToString("0.0")) kcal</td>
-                                        <td>@fm.TotalFat.ToString("0.0")) g</td>
-                                        <td>@fm.TotalCarbohydrate.ToString("0.0")) g</td>
-                                        <td>@fm.TotalFibre.ToString("0.0")) g</td>
-                                        <td>@fm.TotalProtein.ToString("0.0")) g</td>
+                                        <td>@fm.TotalKcal.ToString("0.0") kcal</td>
+                                        <td>@fm.TotalFat.ToString("0.0") g</td>
+                                        <td>@fm.TotalCarbohydrate.ToString("0.0") g</td>
+                                        <td>@fm.TotalFibre.ToString("0.0") g</td>
+                                        <td>@fm.TotalProtein.ToString("0.0") g</td>
                                     </tr>
                                 }
                             </tbody>

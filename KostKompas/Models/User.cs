@@ -83,7 +83,7 @@ namespace KostKompas.Models
         // defaul constructor
         public User()
         {
-
+            
         }
 
         // method 

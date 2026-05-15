@@ -13,7 +13,7 @@
     </form>
 </table>
      <td> <a href="/FoodLog/LoggedInFood" class="btn btn-success">Tilføj</a></td> *@
-
+@* 
  
 
 <h2>Tilføj mad til @Model.CurrentMeal.Name</h2> 
@@ -32,4 +32,22 @@
     <input asp-for="WeightInGramsInput" type="number" step="0.1" class="form-control" />
 
     <button type="submit" class="btn btn-success mt-2">Tilføj</button>
+</form> *@
+
+<form method="post" class="add-food-form">
+
+    <input type="hidden" asp-for="CurrentMeal.Id" />
+
+    <label>Vælg fødevare</label>
+    <select asp-for="FoodId" class="form-control-custom">
+        @foreach (var food in Model.Foods)
+        {
+            <option value="@food.Id">@food.Name</option>
+        }
+    </select>
+
+    <label>Gram</label>
+    <input asp-for="WeightInGramsInput" type="number" step="0.1" class="form-control-custom" />
+
+    <button type="submit" class="btn-primary-custom add-food-submit">+ Tilføj</button>
 </form>
