@@ -26,39 +26,31 @@ namespace KostKompas.Pages.Chat
         }
 
         // Methods
-        public void OnGet() // OnGet-metoden kaldes, når siden indlæses,
-                            // og den henter de eksisterende chatbeskeder ved at kalde GetMessages-metoden på
-                            // ChatService og gemmer dem i Messages-listen, som derefter kan vises på siden
+        public void OnGet() // OnGet-metoden kaldes, når siden indlæses. Den henter chatbeskederne for den nuværende bruger ved at kalde GetMessagesForUser-metoden på ChatService og gemmer dem i Messages-listen, som derefter kan vises på siden
         {
-            Messages = _chatService.GetMessages(); // Henter chatbeskederne fra ChatService
-                                                   // og gemmer dem i Messages-listen
+            Messages = _chatService.GetMessagesForUser(User.Identity.Name); // Henter chatbeskederne for den nuværende bruger ved at kalde GetMessagesForUser-metoden på ChatService,
         }
 
-        public IActionResult OnPost() // OnPost-metoden kaldes, når brugeren sender en ny besked.
-                                      // Den tjekker først, om den nye besked ikke er tom eller kun indeholder whitespace.
+        // metode OnPost
+        public IActionResult OnPost() // OnPost-metoden kaldes, når brugeren sender en ny besked. Den tjekker først, om den nye besked ikke er tom eller kun indeholder whitespace. Hvis det er tilfældet, oprettes en ny ChatMessage-objekt med oplysningerne om afsender, modtager, tekst og om det er fra brugeren. Derefter sendes beskeden ved at kalde SendMessage-metoden på ChatService. Til sidst omdirigeres brugeren tilbage til siden for at se den opdaterede chat
         {
-            if (!string.IsNullOrWhiteSpace(NewMessage)) // Hvis den nye besked er gyldig (ikke tom eller kun whitespace),
-                                                        // oprettes en ny ChatMessage-objekt med afsenderens email,
-                                                        // beskedens tekst og en flag, der angiver, at beskeden kommer fra brugeren.
+            if (!string.IsNullOrWhiteSpace(NewMessage)) // Tjekker, om den nye besked ikke er tom eller kun indeholder whitespace. Hvis det er tilfældet, oprettes en ny ChatMessage-objekt med oplysningerne om afsender, modtager, tekst og om det er fra brugeren. Derefter sendes beskeden ved at kalde SendMessage-metoden på ChatService. Til sidst omdirigeres brugeren tilbage til siden for at se den opdaterede chat
             {
-                ChatMessage message = new ChatMessage // Opretter en ny ChatMessage-objekt
+                ChatMessage message = new ChatMessage // Opretter en ny ChatMessage-objekt med oplysningerne om afsender, modtager, tekst og om det er fra brugeren. Derefter sendes beskeden ved at kalde SendMessage-metoden på ChatService. Til sidst omdirigeres brugeren tilbage til siden for at se den opdaterede chat
                 {
-                    SenderEmail = User.Identity.Name, // Sætter afsenderens email til den nuværende brugers email
-                                                      // (hentet fra User.Identity.Name)
-
-                    Text = NewMessage, // Sætter beskedens tekst til den nye besked, som brugeren har indtastet
-                    IsFromUser = true // Sætter flaget IsFromUser til true, hvilket indikerer,
-                                      // at beskeden kommer fra brugeren
+                    SenderEmail = User.Identity.Name, // Sætter afsenderens email til den nuværende brugers email, som hentes fra User.Identity.Name
+                    ReceiverEmail = "admin@gmail.com", // Sætter modtagerens email til "
+                    Text = NewMessage, // Sætter tekstindholdet i beskeden til den nye besked, som brugeren har indtastet og som er bundet til NewMessage-egenskaben
+                    IsFromUser = true // Sætter IsFromUser-egenskaben til true, hvilket indikerer, at beskeden er sendt af brugeren (i modsætning til en besked, der kunne være sendt af en administrator eller systemet)
                 };
 
-                _chatService.SendMessage(message); // Sender den nye besked ved at kalde SendMessage-metoden på ChatService,
-                                                   // som håndterer logikken for at gemme og distribuere beskeden til andre brugere
+                _chatService.SendMessage(message); // Sender beskeden ved at kalde SendMessage-metoden på ChatService og passer den oprettede ChatMessage-objekt som argument. Dette vil håndtere logikken for at gemme beskeden og eventuelt sende den til modtageren
             }
 
-            return RedirectToPage(); // Efter at have sendt beskeden, omdirigeres brugeren tilbage til samme side (Index),
-                                     // hvilket får siden til at genindlæses og vise den opdaterede liste af chatbeskeder,
-                                     // inklusive den nye besked, der lige er sendt
+            return RedirectToPage(); // Omdirigerer brugeren tilbage til den samme side (Index-siden) for at se den opdaterede chat, efter at beskeden er sendt. Dette sikrer, at siden genindlæses og viser den nye besked i chatten
         }
+
+
     }
 }
 
