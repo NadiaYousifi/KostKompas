@@ -16,6 +16,7 @@ builder.Services.AddDbContext<KostKompasDbContext>();
 builder.Services.AddSingleton<FoodService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddScoped<FoodLogService, FoodLogService>();
+builder.Services.AddSingleton<ChatService>();
 builder.Services.AddSingleton<DbGenericService<Food, int>, DbGenericService<Food, int>>();
 builder.Services.AddSingleton<DbGenericService<User, string>, DbGenericService<User, string>>();
 builder.Services.AddScoped<DbGenericService<FoodLogDay, int>, DbGenericService<FoodLogDay, int>>();

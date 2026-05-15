@@ -3,10 +3,7 @@
 @{
 }
 <form method="post">
-    <div class="form-group">
-        <label asp-for="Food.Id" class="control-lable"></label>
-        <input asp-for="Food.Id" class="form-control" readonly="@(true)" />
-    </div>
+    <input type="hidden" asp-for="Food.Id"/>
     <div class="form-group">
         <label asp-for="Food.Name" class="control-lable"></label>
         <input asp-for="Food.Name" class="form-control" />

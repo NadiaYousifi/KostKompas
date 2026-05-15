@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace KostKompas.Migrations
 {
     [DbContext(typeof(KostKompasDbContext))]
-    [Migration("20260513104737_KostKompasDbv1")]
+    [Migration("20260515080603_KostKompasDbv1")]
     partial class KostKompasDbv1
     {
         /// <inheritdoc />

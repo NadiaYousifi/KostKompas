@@ -17,9 +17,9 @@ namespace KostKompas.Services
         public FoodService(DbGenericService<Food, int> dbService)
         {
             _dbService = dbService;
-            _foods = MockFoods.GetMockFoods();
-            _dbService.SaveObjectsAsync(_foods);
-            //_foods = _dbService.GetObjectsAsync().Result.ToList();
+            //_foods = MockFoods.GetMockFoods();
+            //_dbService.SaveObjectsAsync(_foods);
+            _foods = _dbService.GetObjectsAsync().Result.ToList();
         }
 
 
@@ -46,7 +46,7 @@ namespace KostKompas.Services
                     {
                         f.Name = food.Name;
                         f.Kcal = food.Kcal;
-                        f.Protein = food.Kcal;
+                        f.Protein = food.Protein;
                         f.Fat = food.Fat;
                         f.Carbohydrate = food.Carbohydrate;
                         f.Fibre = food.Fibre;

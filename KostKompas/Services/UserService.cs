@@ -40,8 +40,11 @@ namespace KostKompas.Services
                     {
                         u.Name = user.Name;
                         u.Email = user.Email;
-                        u.Password = user.Password;
-                        
+                        u.Age = user.Age;
+                        u.Gender = user.Gender;
+                        u.Weight = user.Weight;
+                        u.Height = user.Height;
+
                     }
                 }
                 await _dbService.UpdateObjectAsync(user);

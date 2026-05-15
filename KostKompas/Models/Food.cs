@@ -8,9 +8,8 @@ namespace KostKompas.Models
         // properties 
         [Key]
         public int Id { get; set; }
-        [DefaultValue(null)]
         public string? UserEmail { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
         [Required(ErrorMessage = "Der skal angives et navn")]
 
         public string Name { get; set; }

@@ -4,11 +4,8 @@
 }
 
 <form method="post">
-    <div class="form-group">
-        <label asp-for="User.Id" class="control-lable"></label>
-        <input asp-for="User.Id" class="form-control" readonly="@(true)" />
-        @*  // der må ikke ændres på værdien med readonly *@
-    </div>
+    <input type="hidden" asp-for="User.Id" />
+    <input type="hidden" asp-for="User.Password" />
 
     <div class="form-group">
         <label asp-for="User.Name"></label>
@@ -21,15 +18,27 @@
         <input asp-for="User.Email" class="form-control" />
         <span asp-validation-for="User.Email" class="text-danger"></span>
     </div>
+
     <div class="form-group">
-        <label asp-for="User.Password" class="control-lable"></label>
-        <input asp-for="User.Password" class="form-control" />
-        <span asp-validation-for="User.Password" class="text-danger"></span>
-        <div class="form-group">
-        </div>
+        <label asp-for="User.Age"></label>
+        <input asp-for="User.Age" class="form-control" />
+        <span asp-validation-for="User.Age" class="text-danger"></span>
     </div>
-
-
+    <div class="form-group">
+        <label asp-for="User.Gender"></label>
+        <input asp-for="User.Gender" class="form-control" />
+        <span asp-validation-for="User.Gender" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="User.Height"></label>
+        <input asp-for="User.Height" class="form-control" />
+        <span asp-validation-for="User.Height" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="User.Weight"></label>
+        <input asp-for="User.Weight" class="form-control" />
+        <span asp-validation-for="User.Weight" class="text-danger"></span>
+    </div>
 
     <div class="form-group">
         <input type="submit" value="Opdater" class="btn btn-primary" />

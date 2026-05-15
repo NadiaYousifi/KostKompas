@@ -6,7 +6,6 @@ namespace KostKompas.Models
     public class User
     {
 
-
         // instance fields
         // konstanter 
         public const double MaleBaseConstant = 66.5;
