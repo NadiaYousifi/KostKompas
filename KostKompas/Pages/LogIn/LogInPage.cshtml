@@ -2,7 +2,7 @@
 @model KostKompas.Pages.LogIn.LogInPageModel
 @{
 }
-<div class="container">
+@* <div class="container">
     <div>
         @Model.Message
     </div>
@@ -23,4 +23,44 @@
             <button class="btn btn-outline-light">Log in</button>
         </div>
     </form>
-</div>
+</div> *@
+
+@*Styling af login siden*@
+
+<section class="login-page">
+    <div class="login-card">
+        <p class="eyebrow">Velkommen tilbage</p>
+        <h1>Log ind</h1>
+        <p class="login-text">
+            Log ind for at få adgang til din madlog, dine fødevarer og dine personlige oplysninger.
+        </p>
+
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="login-error">
+                @Model.Message
+            </div>
+        }
+
+        <form method="post" class="login-form">
+            <div class="form-group-custom">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" class="form-control-custom" placeholder="Skriv din email" />
+            </div>
+
+            <div class="form-group-custom">
+                <label asp-for="Password">Adgangskode</label>
+                <input asp-for="Password" class="form-control-custom" placeholder="Skriv din adgangskode" />
+            </div>
+
+            <button type="submit" class="btn-primary-custom login-button">
+                Log ind
+            </button>
+        </form>
+
+        <p class="login-link-text">
+            Har du ikke en bruger?
+            <a asp-page="/User/CreateUser">Opret bruger</a>
+        </p>
+    </div>
+</section>

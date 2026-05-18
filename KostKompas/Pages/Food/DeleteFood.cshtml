@@ -2,7 +2,7 @@
 @model KostKompas.Pages.Food.DeleteFoodModel
 @{
 }
-<h1>Slet Fødevare</h1>
+@* <h1>Slet Fødevare</h1>
 <div class="alert alert-danger">
     <h5>Vil du slette Fødevaren - @Model.Food.Name</h5>
     <form method="post">
@@ -12,5 +12,32 @@
 </div>
 <div>
     <a asp-page="/Food/GetAllFoods">Back to List</a>
-</div>
+</div> *@
 
+@*Styling af Slet Fødevare*@
+
+
+<section class="delete-page">
+    <div class="delete-card">
+
+        <p class="eyebrow">FØDEVARER</p>
+
+        <h1>Slet fødevare</h1>
+
+        <p class="delete-text">
+            Er du sikker på, at du vil slette fødevaren
+            <strong>@Model.Food.Name</strong>?
+        </p>
+
+        <form method="post" class="delete-actions">
+            <button type="submit" class="btn-danger-custom">
+                Ja, slet
+            </button>
+
+            <a asp-page="/Food/GetAllFoods" class="btn-secondary-custom">
+                Nej, gå tilbage
+            </a>
+        </form>
+
+    </div>
+</section>

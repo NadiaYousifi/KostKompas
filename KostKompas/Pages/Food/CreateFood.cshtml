@@ -3,7 +3,7 @@
 @{
 }
 
-<h1>Opret Fødevare </h1>
+@* <h1>Opret Fødevare </h1>
 
 <form method="post">
 
@@ -47,4 +47,76 @@
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
 
-</form>
+</form> *@
+
+@*Styling af Opret Fødevarer*@
+
+<section class="create-food-page">
+
+    <div class="create-food-card">
+
+        <p class="eyebrow">FØDEVARER</p>
+
+        <h1>Opret fødevare</h1>
+
+        <p class="create-food-text">
+            Tilføj en ny fødevare med energiindhold og næringsstoffer.
+        </p>
+
+        <form method="post" class="create-food-form">
+
+            <div class="form-group-custom">
+                <label asp-for="Food.Name">Navn</label>
+                <input asp-for="Food.Name" class="form-control-custom" placeholder="Fx Kylling" />
+                <span asp-validation-for="Food.Name" class="validation-error"></span>
+            </div>
+
+            <div class="form-group-custom">
+                <label asp-for="Food.Kcal">Kalorier (kcal)</label>
+                <input asp-for="Food.Kcal" class="form-control-custom" />
+                <span asp-validation-for="Food.Kcal" class="validation-error"></span>
+            </div>
+
+            <div class="form-group-custom">
+                <label asp-for="Food.Protein">Protein (g)</label>
+                <input asp-for="Food.Protein" class="form-control-custom" />
+                <span asp-validation-for="Food.Protein" class="validation-error"></span>
+            </div>
+
+            <div class="form-group-custom">
+                <label asp-for="Food.Fat">Fedt (g)</label>
+                <input asp-for="Food.Fat" class="form-control-custom" />
+                <span asp-validation-for="Food.Fat" class="validation-error"></span>
+            </div>
+
+            <div class="form-group-custom">
+                <label asp-for="Food.Carbohydrate">Kulhydrater (g)</label>
+                <input asp-for="Food.Carbohydrate" class="form-control-custom" />
+                <span asp-validation-for="Food.Carbohydrate" class="validation-error"></span>
+            </div>
+
+            <div class="form-group-custom">
+                <label asp-for="Food.Fibre">Kostfibre (g)</label>
+                <input asp-for="Food.Fibre" class="form-control-custom" />
+                <span asp-validation-for="Food.Fibre" class="validation-error"></span>
+            </div>
+
+            <div class="button-group">
+
+                <a asp-page="GetAllFoods"
+                   class="btn-secondary-custom">
+                    Tilbage
+                </a>
+
+                <button type="submit"
+                        class="btn-primary-custom">
+                    Gem fødevare
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
