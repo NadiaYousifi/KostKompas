@@ -3,30 +3,31 @@
 @{
 }
 
+<section class="form-card">
+    <p class="eyebrow">Profil</p>
+    <h1 class="page-title">Min konto</h1>
 
-<h1>Min konto</h1>
+    <form method="post" class="profile-form">
 
-<form method="post">
+        <div class="form-group-custom">
+            <label>Navn</label>
+            <input asp-for="User.Name" class="form-control-custom" />
+        </div>
 
+        <div class="form-group-custom">
+            <label>Email</label>
+            <input asp-for="User.Email" class="form-control-custom" />
+        </div>
 
-    <div>
-        <label>Navn</label>
-        <input asp-for="User.Name" class="form-control" />
-    </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-green-custom">
+                Gem ændringer
+            </button>
 
-    <div>
-        <label>Email</label>
-        <input asp-for="User.Email" class="form-control" />
-    </div>
+            <a asp-page="/Account/ChangePassword" class="btn-secondary-custom">
+                Skift adgangskode
+            </a>
+        </div>
 
-    <button type="submit" class="btn btn-success mt-3">
-        Gem ændringer
-    </button>
-
-</form>
-
-<br />
-
-<a asp-page="/Account/ChangePassword" class="btn btn-secondary">
-    Skift adgangskode
-</a>
+    </form>
+</section>

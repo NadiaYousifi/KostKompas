@@ -2,44 +2,56 @@
 @model KostKompas.Pages.Food.GetAllFoodsModel
 @{
 }
+<section class="page-card">
+    <div class="page-header-row">
+        <div>
+            <p class="eyebrow">Madlog</p>
+            <h1 class="page-title">Fødevarer</h1>
+        </div>
 
-<h1>Fødevarer</h1>
+        <a class="btn-primary-custom" asp-page="CreateFood">+ Tilføj fødevare</a>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Navn</th>
-            <th>Kcal</th>
-            <th>Protein</th>
-            <th>Fedt</th>
-            <th>Kulhydrater</th>
-            <th>Kostfibre</th>
-        </tr>
-    </thead>
-    <tbody>
+    <div class="table-wrapper">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Navn</th>
+                    <th>Kcal</th>
+                    <th>Protein</th>
+                    <th>Fedt</th>
+                    <th>Kulhydrater</th>
+                    <th>Kostfibre</th>
+                    <th></th>
+                </tr>
+            </thead>
 
-        @foreach (Models.Food food in Model.Foods)
-        {
-            <tr>
-                <td>@food.Id</td>
-                <td>@food.Name</td>
-                <td>@food.Kcal</td>
-                <td>@food.Protein</td>
-                <td>@food.Fat</td>
-                <td>@food.Carbohydrate</td>
-                <td>@food.Fibre</td>
+            <tbody>
+                @foreach (Models.Food food in Model.Foods)
+                {
+                    <tr>
+                        <td>@food.Id</td>
+                        <td>@food.Name</td>
+                        <td>@food.Kcal</td>
+                        <td>@food.Protein</td>
+                        <td>@food.Fat</td>
+                        <td>@food.Carbohydrate</td>
+                        <td>@food.Fibre</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a class="btn-icon-edit" asp-page="EditFood" asp-route-id="@food.Id">
+                                    <i class="fa fa-edit"></i>
+                                </a>
 
-                <td>
-                    <a class="btn btn-primary btn-sm" type="button" data-toggle="tooltip" title="Edit" asp-page="EditFood" asp-route-id="@food.Id"><i class="fa fa-edit"></i></a>
-                    <a class="btn btn-danger btn-sm " type="button" data-toggle="tooltip" data-placement="top" title="Delete" asp-page="DeleteFood" asp-route-id="@food.Id"><i class="fa fa-trash"></i></a>
-
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-<p>
-    <a class="btn btn-primary" asp-page="CreateFood"> Tilføj en ny fødevare </a>
-</p>
+                                <a class="btn-icon-delete" asp-page="DeleteFood" asp-route-id="@food.Id">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -62,7 +62,7 @@ namespace KostKompas.Pages.Account
 
             if (result != PasswordVerificationResult.Success)
             {
-                ModelState.AddModelError("", "Forkert nuværende adgangskode"); // Er den metode pensum?
+                ModelState.AddModelError("", "Forkert nuværende adgangskode");
                 return Page();
             }
 
