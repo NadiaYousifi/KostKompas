@@ -30,3 +30,36 @@
 <a asp-page="/Account/ChangePassword" class="btn btn-secondary">
     Skift adgangskode
 </a>
+
+
+@*Styling af Min Konto*@
+
+
+<section class="form-card">
+    <p class="eyebrow">Profil</p>
+    <h1 class="page-title">Min konto</h1>
+
+    <form method="post" class="profile-form">
+
+        <div class="form-group-custom">
+            <label>Navn</label>
+            <input asp-for="User.Name" class="form-control-custom" />
+        </div>
+
+        <div class="form-group-custom">
+            <label>Email</label>
+            <input asp-for="User.Email" class="form-control-custom" />
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-green-custom">
+                Gem ændringer
+            </button>
+
+            <a asp-page="/Account/ChangePassword" class="btn-secondary-custom">
+                Skift adgangskode
+            </a>
+        </div>
+
+    </form>
+</section>

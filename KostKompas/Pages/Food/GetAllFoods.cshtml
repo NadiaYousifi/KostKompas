@@ -43,3 +43,61 @@
 <p>
     <a class="btn btn-primary" asp-page="CreateFood"> Tilføj en ny fødevare </a>
 </p>
+
+
+@*Styling af Fødevarer*@
+
+
+<section class="page-card">
+    <div class="page-header-row">
+        <div>
+            <p class="eyebrow">Madlog</p>
+            <h1 class="page-title">Fødevarer</h1>
+        </div>
+
+        <a class="btn-primary-custom" asp-page="CreateFood">+ Tilføj fødevare</a>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Navn</th>
+                    <th>Kcal</th>
+                    <th>Protein</th>
+                    <th>Fedt</th>
+                    <th>Kulhydrater</th>
+                    <th>Kostfibre</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (Models.Food food in Model.Foods)
+                {
+                    <tr>
+                        <td>@food.Id</td>
+                        <td>@food.Name</td>
+                        <td>@food.Kcal</td>
+                        <td>@food.Protein</td>
+                        <td>@food.Fat</td>
+                        <td>@food.Carbohydrate</td>
+                        <td>@food.Fibre</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a class="btn-icon-edit" asp-page="EditFood" asp-route-id="@food.Id">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+
+                                <a class="btn-icon-delete" asp-page="DeleteFood" asp-route-id="@food.Id">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

@@ -489,3 +489,159 @@ footer {
     border: none;
     margin-top: 18px;
 }
+
+/*Styling af Brugere, Min Konto og Fødevarer*/
+/* Fælles styling til tabeller og konto-sider */
+
+.page-card,
+.form-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 30px;
+    padding: 38px;
+    box-shadow: 0 14px 36px rgba(47, 47, 47, 0.10);
+    margin: 55px 0 80px;
+}
+
+.form-card {
+    max-width: 850px;
+}
+
+.page-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.page-title {
+    font-size: 3rem;
+    font-weight: 850;
+    color: var(--text);
+    margin: 0;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.styled-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+    .styled-table th {
+        color: var(--text);
+        font-weight: 800;
+        padding: 12px 14px;
+        white-space: nowrap;
+    }
+
+    .styled-table td {
+        background: var(--beige);
+        padding: 15px 14px;
+        vertical-align: middle;
+    }
+
+    .styled-table tbody tr td:first-child {
+        border-radius: 16px 0 0 16px;
+    }
+
+    .styled-table tbody tr td:last-child {
+        border-radius: 0 16px 16px 0;
+    }
+
+.password-cell {
+    max-width: 520px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--muted);
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.btn-icon-edit,
+.btn-icon-delete {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-icon-edit {
+    background: var(--green);
+}
+
+    .btn-icon-edit:hover {
+        background: var(--dark-green);
+        color: white;
+    }
+
+.btn-icon-delete {
+    background: #D6453D;
+}
+
+    .btn-icon-delete:hover {
+        background: #b93631;
+        color: white;
+    }
+
+.profile-form {
+    display: grid;
+    gap: 20px;
+}
+
+.form-group-custom label {
+    display: block;
+    font-weight: 750;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 12px;
+}
+
+.btn-green-custom {
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 13px 24px;
+    font-weight: 750;
+    text-decoration: none;
+}
+
+    .btn-green-custom:hover {
+        background: var(--dark-green);
+        color: white;
+    }
+
+.validation-summary {
+    color: #D6453D;
+    font-weight: 600;
+}
+
+@media (max-width: 800px) {
+    .page-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .page-title {
+        font-size: 2.3rem;
+    }
+}

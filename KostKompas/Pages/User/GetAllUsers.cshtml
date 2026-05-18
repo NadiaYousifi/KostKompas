@@ -35,3 +35,55 @@
 <p>
     <a class="btn btn-primary" asp-page="/User/CreateUser"> Opret Bruger </a>
 </p>
+
+
+@*Styling af Brugere*@
+
+
+<section class="page-card">
+    <div class="page-header-row">
+        <div>
+            <p class="eyebrow">Admin</p>
+            <h1 class="page-title">Brugere</h1>
+        </div>
+
+        <a class="btn-primary-custom" asp-page="/User/CreateUser">+ Opret bruger</a>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Navn</th>
+                    <th>Email</th>
+                    <th>Kodeord</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (Models.User user in Model.Users)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.Name</td>
+                        <td>@user.Email</td>
+                        <td class="password-cell">@user.Password</td>
+                        <td>
+                            <div class="action-buttons">
+                                <a class="btn-icon-edit" asp-page="EditUser" asp-route-id="@user.Id">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+
+                                <a class="btn-icon-delete" asp-page="DeleteUser" asp-route-id="@user.Id">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
