@@ -2,14 +2,27 @@
 @model KostKompas.Pages.User.DeleteUserModel
 @{
 }
-<h1>Slet Bruger</h1>
-<div class="alert alert-danger">
-    <h5>Vil du slette Brugeren - @Model.User.Name</h5>
-    <form method="post">
-        <button type="submit" class="btn btn-success">Ja</button>
-        <a class="btn btn-danger" asp-page="/User/GetAllUsers">Nej</a>
-    </form>
-</div>
-<div>
-    <a asp-page="/User/GetAllUsers">Back to List</a>
-</div>
+<section class="delete-page">
+    <div class="delete-card">
+
+        <p class="eyebrow">BRUGERE</p>
+
+        <h1>Slet Bruger</h1>
+
+        <p class="delete-text">
+            Er du sikker på, at du vil slette Brugeren
+            <strong>@Model.User.Name</strong>?
+        </p>
+
+        <form method="post" class="delete-actions">
+            <button type="submit" class="btn-danger-custom">
+                Ja, slet
+            </button>
+
+            <a asp-page="/User/GetAllUsers" class="btn-secondary-custom">
+                Nej, gå tilbage
+            </a>
+        </form>
+
+    </div>
+</section>

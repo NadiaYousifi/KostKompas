@@ -2,45 +2,65 @@
 @model KostKompas.Pages.Food.EditFoodModel
 @{
 }
-<form method="post">
-    <input type="hidden" asp-for="Food.Id"/>
-    <div class="form-group">
-        <label asp-for="Food.Name" class="control-lable"></label>
-        <input asp-for="Food.Name" class="form-control" />
-        <span asp-validation-for="Food.Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Food.Kcal" class="control-lable"></label>
-        <input asp-for="Food.Kcal" class="form-control" />
-        <span asp-validation-for="Food.Kcal" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Food.Protein" class="control-lable"></label>
-        <input asp-for="Food.Protein" class="form-control" />
-        <span asp-validation-for="Food.Protein" class="text-danger"></span>
-        <div class="form-group">
+<section class="create-food-page">
 
-            <label asp-for="Food.Fat" class="control-lable"></label>
-            <input asp-for="Food.Fat" class="form-control" />
-            <span asp-validation-for="Food.Fat" class="text-danger"></span>
-            <div class="form-group">
+    <div class="create-food-card">
 
-                <label asp-for="Food.Carbohydrate" class="control-lable"></label>
-                <input asp-for="Food.Carbohydrate" class="form-control" />
+        <p class="eyebrow">FØDEVARER</p>
+        <h1>Rediger fødevare</h1>
+
+        <p class="create-food-text">
+            Rediger en eksisterende fødevare med energiindhold og næringsstoffer.
+        </p>
+
+        <form method="post" class="create-food-form">
+            <input type="hidden" asp-for="Food.Id"/>
+            <div class="form-group-custom">
+                <label asp-for="Food.Name"></label>
+                <input asp-for="Food.Name" class="form-control-custom" />
+                <span asp-validation-for="Food.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group-custom">
+                <label asp-for="Food.Kcal">Kalorier (kcal)</label>
+                <input asp-for="Food.Kcal" class="form-control-custom" />
+                <span asp-validation-for="Food.Kcal" class="text-danger"></span>
+            </div>
+            <div class="form-group-custom">
+                <label asp-for="Food.Protein">Protein (g)</label>
+                <input asp-for="Food.Protein" class="form-control-custom" />
+                <span asp-validation-for="Food.Protein" class="validation-error"></span>
+            </div>
+            <div class="form-group-custom">
+                <label asp-for="Food.Fat">Fedt (g)</label>
+                <input asp-for="Food.Fat" class="form-control-custom" />
+                <span asp-validation-for="Food.Fat" class="text-danger"></span>
+            </div>
+            <div class="form-group-custom">
+                <label asp-for="Food.Carbohydrate">Kulhydrater (g)</label>
+                <input asp-for="Food.Carbohydrate" class="form-control-custom" />
                 <span asp-validation-for="Food.Carbohydrate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Food.Fibre" class="control-lable"></label>
-                <input asp-for="Food.Fibre" class="form-control" />
+            <div class="form-group-custom">
+                <label asp-for="Food.Fibre">Kostfibre (g)</label>
+                <input asp-for="Food.Fibre" class="form-control-custom" />
                 <span asp-validation-for="Food.Fibre" class="text-danger"></span>
             </div>
-        </div>
+
+            <div class="button-group">
+
+                <a asp-page="GetAllFoods"
+                    class="btn-secondary-custom">
+                    Tilbage
+                </a>
+
+                <button type="submit" class="btn-primary-custom">
+                    Gem fødevare
+                </button>
+
+            </div>
+
+        </form>
+
     </div>
 
-    <div class="form-group">
-        <input type="submit" value="Opdater" class="btn btn-primary" />
-    </div>
-</form>
-<div>
-    <a asp-page="GetAllFoods">Tilbage</a>
-</div>
+</section>

@@ -2,7 +2,7 @@
 @model KostKompas.Pages.User.EditUserModel
 @{
 }
-
+@* 
 <form method="post">
     <input type="hidden" asp-for="User.Id" />
     <input type="hidden" asp-for="User.Password" />
@@ -47,3 +47,113 @@
 <div>
     <a asp-page="GetAllUsers">Tilbage</a>
 </div>
+ *@
+<section class="create-user-page">
+
+    <div class="create-user-card">
+
+        <p class="eyebrow">KONTO</p>
+
+        <h1>Rediger bruger</h1>
+
+        <p class="create-user-text">
+            Rediger en eksisterende bruger og indtast personlige oplysninger til beregning af energibehov.
+        </p>
+
+        <form method="post" class="create-user-form">
+            <input type="hidden" asp-for="User.Id" />
+            <input type="hidden" asp-for="User.Password" />
+
+            <div class="form-group-custom">
+                <label asp-for="User.Name">Navn</label>
+                <input asp-for="User.Name"
+                       class="form-control-custom"
+                       placeholder="Skriv navn" />
+
+                <span asp-validation-for="User.Name"
+                      class="validation-error"></span>
+            </div>
+
+
+            <div class="form-group-custom">
+                <label asp-for="User.Email">Email</label>
+
+                <input asp-for="User.Email"
+                       class="form-control-custom"
+                       placeholder="Skriv email" />
+
+                <span asp-validation-for="User.Email"
+                      class="validation-error"></span>
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group-custom">
+                    <label asp-for="User.Age">Alder</label>
+
+                    <input asp-for="User.Age"
+                           class="form-control-custom" />
+                </div>
+
+
+                <div class="form-group-custom">
+                    <label asp-for="User.Gender">Køn</label>
+
+                    <select asp-for="User.Gender"
+                            class="form-control-custom">
+
+                        <option value="">Vælg</option>
+                        <option value="Kvinde">Kvinde</option>
+                        <option value="Mand">Mand</option>
+
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group-custom">
+
+                    <label asp-for="User.Height">Højde (cm)</label>
+
+                    <input asp-for="User.Height"
+                           class="form-control-custom" />
+
+                </div>
+
+
+                <div class="form-group-custom">
+
+                    <label asp-for="User.Weight">Vægt (kg)</label>
+
+                    <input asp-for="User.Weight"
+                           class="form-control-custom" />
+
+                </div>
+
+            </div>
+
+
+            <div class="button-group">
+
+                <a asp-page="GetAllUsers"
+                   class="btn-secondary-custom">
+                    Tilbage
+                </a>
+
+                <button type="submit"
+                        class="btn-primary-custom">
+
+                    Gem bruger
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</section>
