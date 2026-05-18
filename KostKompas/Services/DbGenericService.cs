@@ -4,7 +4,7 @@ using KostKompas.EFDbContext;
 
 namespace KostKompas.Services
 {
-    public class DbGenericService<T, V> : IService<T, V> where T : class
+    public class DbGenericService<T> : IService<T> where T : class
     {
         public async Task<IEnumerable<T>> GetObjectsAsync()
         {
@@ -55,7 +55,7 @@ namespace KostKompas.Services
             }
         }
 
-        public async Task<T> GetObjectByIdAsync(V pk)
+        public async Task<T> GetObjectByIdAsync(int pk)
         {
             using (var context = new KostKompasDbContext())
             {

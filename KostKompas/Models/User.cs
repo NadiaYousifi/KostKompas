@@ -25,12 +25,10 @@ namespace KostKompas.Models
         public const double FemaleAgeConstant = 4.676;
 
         // properties 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [Required(ErrorMessage = "Der skal angives et navn")]
         public string Name { get; set; }
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Required(ErrorMessage = "Der skal angives en Email")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Der skal angives en password")]

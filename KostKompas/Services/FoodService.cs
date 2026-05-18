@@ -12,9 +12,9 @@ namespace KostKompas.Services
 
         // instance fields 
         private List<Food> _foods;
-        private DbGenericService<Food, int> _dbService;
+        private DbGenericService<Food> _dbService;
 
-        public FoodService(DbGenericService<Food, int> dbService)
+        public FoodService(DbGenericService<Food> dbService)
         {
             _dbService = dbService;
             //_foods = MockFoods.GetMockFoods();

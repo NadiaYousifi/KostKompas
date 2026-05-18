@@ -23,7 +23,7 @@ namespace KostKompas.Pages.Account
         public async Task OnGetAsync()
         {
             string email = HttpContext.User.Identity.Name;
-            User = _userService.GetUsersAsync().Result.FirstOrDefault(u=> u.Email == email);
+            User = await _userService.GetUserByEmailAsync(email);
         }
         public async Task<IActionResult> OnPostAsync()
         {

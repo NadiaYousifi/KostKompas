@@ -38,7 +38,7 @@ namespace KostKompas.Pages.Food
         {
             Models.User user = await _userService.GetUserByEmailAsync(HttpContext.User.Identity.Name);
             if (user.Email != "admin@gmail.com")
-                Food.UserEmail = user.Email;
+                Food.UserId = user.Id;
             if (!ModelState.IsValid) // tjekker om staten brydes. Passer datatyperne sammen (int først, derefter string = invalid)
             {
                 return Page();

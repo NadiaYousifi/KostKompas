@@ -10,16 +10,16 @@ namespace KostKompas.Services
     public class FoodLogService
     {
         // Field
-        private DbGenericService<FoodLogDay, int> _foodLogDbService;
-        private DbGenericService<Meal, int> _mealDbService;
-        private DbGenericService<FoodMeal, int> _foodMealDbService;
-        private DbGenericService<Food, int> _foodDbService;
+        private DbGenericService<FoodLogDay> _foodLogDbService;
+        private DbGenericService<Meal> _mealDbService;
+        private DbGenericService<FoodMeal> _foodMealDbService;
+        private DbGenericService<Food> _foodDbService;
         public List<FoodLogDay> FoodLogDays { get; set; } 
         public List<Meal> Meals { get; set; }
         public List<FoodMeal> FoodMeals { get; set; }
         public List<Food> Foods { get; set; }
 
-        public FoodLogService(DbGenericService<FoodLogDay, int> foodLogDbService, DbGenericService<Meal, int> mealDbService, DbGenericService<FoodMeal, int> foodMealDbService, DbGenericService<Food, int> foodDbService)
+        public FoodLogService(DbGenericService<FoodLogDay> foodLogDbService, DbGenericService<Meal> mealDbService, DbGenericService<FoodMeal> foodMealDbService, DbGenericService<Food> foodDbService)
         {
             _foodLogDbService = foodLogDbService;
             _mealDbService = mealDbService;
@@ -88,7 +88,7 @@ namespace KostKompas.Services
                     .ThenInclude(m => m.FoodMeals)
                     .ThenInclude(fm => fm.Food)
                     .AsNoTracking()
-                    .FirstOrDefault(fdl => fdl.Date == date && fdl.UserEmail == user.Email);
+                    .FirstOrDefault(fdl => fdl.Date == date && fdl.UserId == user.Id);
             }
                 //foreach (FoodLogDay f in FoodLogDays)
                 //{

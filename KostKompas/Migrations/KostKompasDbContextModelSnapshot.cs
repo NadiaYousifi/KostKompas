@@ -49,12 +49,12 @@ namespace KostKompas.Migrations
                     b.Property<double>("Protein")
                         .HasColumnType("float");
 
-                    b.Property<string>("UserEmail")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserEmail");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Foods");
                 });
@@ -70,13 +70,12 @@ namespace KostKompas.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserEmail");
+                    b.HasIndex("UserId");
 
                     b.ToTable("FoodLogDays");
                 });
@@ -131,14 +130,21 @@ namespace KostKompas.Migrations
 
             modelBuilder.Entity("KostKompas.Models.User", b =>
                 {
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
                     b.Property<double>("CarbohydrateGoal")
                         .HasColumnType("float");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("FatGoal")
                         .HasColumnType("float");
@@ -152,12 +158,6 @@ namespace KostKompas.Migrations
 
                     b.Property<double>("Height")
                         .HasColumnType("float");
-
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<double>("KcalGoal")
                         .HasColumnType("float");
@@ -176,7 +176,7 @@ namespace KostKompas.Migrations
                     b.Property<double>("Weight")
                         .HasColumnType("float");
 
-                    b.HasKey("Email");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
                 });
@@ -185,7 +185,7 @@ namespace KostKompas.Migrations
                 {
                     b.HasOne("KostKompas.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserEmail");
+                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });
@@ -194,7 +194,7 @@ namespace KostKompas.Migrations
                 {
                     b.HasOne("KostKompas.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserEmail")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

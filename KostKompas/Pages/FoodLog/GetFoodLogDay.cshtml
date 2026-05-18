@@ -4,83 +4,6 @@
 @{
 }
 
-
-@* ------- DETTE ER BLEVET UDKOMMENTERET EFTER STYLING AF LOUISE!!!!!!----------------------------------- DET VAR DET RIGTIGE DER VAR!!! ----- *@
-@*
-<table> 
-    <tr>
-        <th>Energifordeling</th>
-
-    <tr>
-        <td><strong>Mål for dagen 1800 kcal</strong></td>
-    </tr>
-
- 
-    <tr>
-        <td>Energi:</td>
-        <td>@Model.FoodLogDay.TotalKcal.ToString("0.0") kcal</td>
-    </tr>
-    <tr>
-        <td>Fedt</td>
-        <td>@Model.FoodLogDay.TotalFat.ToString("0.0") g</td>
-    </tr>
-    <tr>
-        <td>Kulhydrat</td>
-        <td>@Model.FoodLogDay.TotalCarbohydrate.ToString("0.0") g</td>
-    </tr>
-    <tr>
-        <td>Kostfibre</td>
-        <td>@Model.FoodLogDay.TotalFibre.ToString("0.0") g</td>
-    </tr>
-    <tr>
-        <td>Protein</td>
-        <td>@Model.FoodLogDay.TotalProtein.ToString("0.0") g</td>
-    </tr>
-</table>
-<div class="accordion" id="MealsAccordion">
-    @foreach (Models.Meal m in Model.FoodLogDay.Meals)
-    {
-        <div class="accordion-item">
-            <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@("collapse_"+m.Id)" aria-expanded="true" aria-controls="@("collapse_"+m.Id)">
-                    @m.Id @m.Name
-                </button>
-            </h2>
-            <div id="@("collapse_" + m.Id)" class="accordion-collapse collapse" data-bs-parent="#MealsAccordion">
-                <div class="accordion-body">
-                    <table class="table table-bordered table-hover table-striped table-opacity" width="60%">
-                        <tr>
-                            <th>Fødevare</th>
-                            <th>Vægt</th>
-                            <th>Energi</th>
-                            <th>Fedt</th>
-                            <th>Kulhydrat</th>
-                            <th>Kostfibre</th>
-                            <th>Protein</th>
-                        </tr>
-                        @foreach(Models.FoodMeal fm in m.FoodMeals)
-                        {
-                            <tr>
-                                <td>@fm.Food.Name</td>
-                                <td>@fm.WeightInGrams.ToString("0.0")</td>
-                                <td>@fm.TotalKcal.ToString("0")</td>
-                                <td>@fm.TotalFat.ToString("0.0")</td>
-                                <td>@fm.TotalCarbohydrate.ToString("0.0")</td>
-                                <td>@fm.TotalFibre.ToString("0.0")</td>
-                                <td>@fm.TotalProtein.ToString("0.0")</td>
-                            </tr>
-                        }
-                    </table>
-                    <p>
-                        <a class="btn btn-primary" asp-page="/FoodLog/LogFood" asp-route-id ="@m.Id"> Tilføj Fødevare </a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    }
-</div> 
-*@
-
 <section class="foodlog-page">
 
     <div class="foodlog-header">
@@ -99,7 +22,7 @@
     <div class="nutrition-grid">
         <div class="nutrition-card main">
             <span>Energi</span>
-            <strong>@Model.FoodLogDay.TotalKcal.ToString("0.0")</strong>
+            <strong>@Model.FoodLogDay.TotalKcal.ToString("0")</strong>
             <p>kcal registreret</p>
         </div>
 
@@ -131,7 +54,7 @@
                 <div class="meal-card-header">
                     <div>
                         <h2>@m.Name</h2>
-                        <p>@m.TotalKcal.ToString("0.0") kcal</p>
+                        <p>@m.TotalKcal.ToString("0") kcal</p>
                     </div>
 
                     <a class="btn-add-food"

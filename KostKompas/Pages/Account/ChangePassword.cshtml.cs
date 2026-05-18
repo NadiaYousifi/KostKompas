@@ -54,7 +54,7 @@ namespace KostKompas.Pages.Account
         public async Task<IActionResult> OnPostAsync()
         {
             string email = HttpContext.User.Identity.Name;
-            var user = _userService.GetUsersAsync().Result.FirstOrDefault(u => u.Email == email);
+            Models.User user = await _userService.GetUserByEmailAsync(email);
 
             var passwordHasher = new PasswordHasher<string>();
 
@@ -62,7 +62,7 @@ namespace KostKompas.Pages.Account
 
             if (result != PasswordVerificationResult.Success)
             {
-                ModelState.AddModelError("", "Forkert nuværende adgangskode");
+                ModelState.AddModelError("", "Forkert nuværende adgangskode"); // Er den metode pensum?
                 return Page();
             }
 

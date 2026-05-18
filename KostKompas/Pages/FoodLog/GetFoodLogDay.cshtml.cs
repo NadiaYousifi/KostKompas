@@ -29,7 +29,7 @@ namespace KostKompas.Pages.FoodLog
             FoodLogDay = await _foodLogService.GetFoodLogDayByDateAsync(User, DateTime.Today);
             if (FoodLogDay == null)
             {
-                FoodLogDay = new(DateTime.Today, email);
+                FoodLogDay = new(DateTime.Today, User.Id);
                 await _foodLogService.AddFoodLogDayAsync(FoodLogDay);
                 FoodLogDay = await _foodLogService.GetFoodLogDayByDateAsync( User , DateTime.Today);
             }

@@ -15,10 +15,10 @@ namespace KostKompas.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KcalGoal = table.Column<double>(type: "float", nullable: false),
                     ProteinGoal = table.Column<double>(type: "float", nullable: false),
@@ -32,7 +32,7 @@ namespace KostKompas.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Email);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,16 +42,16 @@ namespace KostKompas.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserEmail = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FoodLogDays", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FoodLogDays_Users_UserEmail",
-                        column: x => x.UserEmail,
+                        name: "FK_FoodLogDays_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Email",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -61,7 +61,7 @@ namespace KostKompas.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserEmail = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Kcal = table.Column<double>(type: "float", nullable: false),
                     Protein = table.Column<double>(type: "float", nullable: false),
@@ -73,10 +73,10 @@ namespace KostKompas.Migrations
                 {
                     table.PrimaryKey("PK_Foods", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Foods_Users_UserEmail",
-                        column: x => x.UserEmail,
+                        name: "FK_Foods_Users_UserId",
+                        column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Email");
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -127,9 +127,9 @@ namespace KostKompas.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FoodLogDays_UserEmail",
+                name: "IX_FoodLogDays_UserId",
                 table: "FoodLogDays",
-                column: "UserEmail");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FoodMeals_FoodId",
@@ -142,9 +142,9 @@ namespace KostKompas.Migrations
                 column: "MealId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Foods_UserEmail",
+                name: "IX_Foods_UserId",
                 table: "Foods",
-                column: "UserEmail");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Meals_FoodLogDayId",

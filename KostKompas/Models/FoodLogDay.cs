@@ -14,7 +14,7 @@ namespace KostKompas.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime Date { get; set; }
         [Required]
-        public string UserEmail { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
 
         public List<Meal> Meals { get; set; }
@@ -25,10 +25,10 @@ namespace KostKompas.Models
         public FoodLogDay()
         {
         }
-        public FoodLogDay(DateTime date, string userEmail)
+        public FoodLogDay(DateTime date, int userId)
         {
             Date = date;
-            UserEmail = userEmail;
+            UserId = userId;
             Meals = new List<Meal>
             {
                 new Meal("Morgenmad", Id),

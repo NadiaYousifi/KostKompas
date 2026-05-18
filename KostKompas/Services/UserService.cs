@@ -6,9 +6,9 @@ namespace KostKompas.Services
     public class UserService
     {
         private List<User> _users;
-        private DbGenericService<User, string> _dbService;
+        private DbGenericService<User> _dbService;
 
-        public UserService(DbGenericService<User, string> dbService)
+        public UserService(DbGenericService<User> dbService)
         {
             _dbService = dbService;
             //_users = MockUsers.GetMockUsers();
@@ -54,14 +54,14 @@ namespace KostKompas.Services
 
         public async Task<User?> GetUserByIdAsync(int id)
         {
-            foreach (User u in _users)
-            {
-                if (u.Id == id)
-                {
-                    await _dbService.GetObjectByIdAsync(u.Email);
-                    return u;
-                }
-            }
+            //foreach (User u in _users)
+            //{
+            //    if (u.Id == id)
+            //    {
+            //        return u;
+            //    }
+            //}
+            return await _dbService.GetObjectByIdAsync(id);
             throw new ArgumentException("Invalid Id");
         }
         public async Task<User?> GetUserByEmailAsync(string email)
@@ -70,7 +70,7 @@ namespace KostKompas.Services
             {
                 if (u.Email == email)
                 {
-                    await _dbService.GetObjectByIdAsync(u.Email);
+                    await _dbService.GetObjectByIdAsync(u.Id);
                     return u;
                 }
             }
