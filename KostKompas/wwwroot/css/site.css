@@ -74,9 +74,9 @@ body {
     max-width: 1180px;
 }
 
-footer {
+/*footer {
     display: none;
-}
+}*/
 
 .hero-section {
     display: grid;
@@ -645,3 +645,16 @@ footer {
         font-size: 2.3rem;
     }
 }
+
+.custom-footer {
+    margin-top: 50px;
+    padding: 20px;
+    text-align: center;
+    color: var(--muted);
+    border-top: 1px solid var(--mint-dark);
+}
+
+    .custom-footer i {
+        color: var(--dark-green);
+        margin-right: 5px;
+    }

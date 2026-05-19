@@ -22,7 +22,6 @@ namespace KostKompas.Services
             _foods = _dbService.GetObjectsAsync().Result.ToList();
         }
 
-
         public async Task AddFoodAsync(Food food)
         {
             _foods.Add(food);
