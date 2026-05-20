@@ -6,9 +6,9 @@ namespace KostKompas.Services
     public class UserService
     {
         private List<User> _users;
-        private DbGenericService<User> _dbService;
+        private IService<User> _dbService;
 
-        public UserService(DbGenericService<User> dbService)
+        public UserService(IService<User> dbService)
         {
             _dbService = dbService;
             //_users = MockUsers.GetMockUsers();
@@ -54,13 +54,6 @@ namespace KostKompas.Services
 
         public async Task<User?> GetUserByIdAsync(int id)
         {
-            //foreach (User u in _users)
-            //{
-            //    if (u.Id == id)
-            //    {
-            //        return u;
-            //    }
-            //}
             return await _dbService.GetObjectByIdAsync(id);
             throw new ArgumentException("Invalid Id");
         }
@@ -94,7 +87,6 @@ namespace KostKompas.Services
             {
                 _users.Remove(userToBeDeleted);
                 await _dbService.DeleteObjectAsync(userToBeDeleted);
-                //_foodLogDbService.SaveObjects(_users);
             }
             return userToBeDeleted;
         }

@@ -9,12 +9,11 @@ namespace KostKompas.Services
 {
     public class FoodService 
     {
-
         // instance fields 
         private List<Food> _foods;
-        private DbGenericService<Food> _dbService;
+        private IService<Food> _dbService;
 
-        public FoodService(DbGenericService<Food> dbService)
+        public FoodService(IService<Food> dbService)
         {
             _dbService = dbService;
             //_foods = MockFoods.GetMockFoods();
@@ -70,27 +69,6 @@ namespace KostKompas.Services
         }
 
 
-
-        //public Food? DeleteFood(int? foodId)
-        //{
-        //    Food? foodToBeDeleted = null;
-        //    foreach (Food f in _foods)
-        //    {
-        //        if (f.Id == foodId)
-        //        {
-        //            foodToBeDeleted = f;
-        //            Console.WriteLine(f.Name);
-        //            break;
-        //        }
-
-        //    }
-        //        if (foodToBeDeleted != null)
-        //        {
-        //            _foods.Remove(foodToBeDeleted);
-        //        }
-        //    return foodToBeDeleted;
-        //}
-
         public async Task<Food?> DeleteFoodAsync(int? foodId)
         {
             Food? foodToBeDeleted = null;
@@ -99,7 +77,6 @@ namespace KostKompas.Services
                 if (f.Id == foodId)
                 {
                     foodToBeDeleted = f;
-                    Console.WriteLine(f.Name);
                     break;
                 }
 
@@ -112,26 +89,10 @@ namespace KostKompas.Services
             return foodToBeDeleted;
         }
 
-
-
-
-
-        ////NameSearch 
-        //public IEnumerable<Food> NameSearch(string searchString)
-
-        //{
-        //    if (string.IsNullOrEmpty(searchString)) return _foods;
-
-        //    List<Food> nameSearch = _foods.FindAll(food => food.Name == searchString);
-
-        //    return nameSearch;
-        //}
-
-        // NameSearch med db
         public async Task<List<Food>> NameSearchAsync(string searchString)
         {
             using (var context = new KostKompasDbContext())
-           {     
+            {     
                 if (string.IsNullOrEmpty(searchString))
                 {
                     return await context.Foods.ToListAsync();
@@ -142,6 +103,5 @@ namespace KostKompas.Services
                     .ToListAsync();
             }
         }
-
     }
 }

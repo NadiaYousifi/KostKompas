@@ -10,6 +10,7 @@ namespace KostKompas.EFDbContext
         {
             //options.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=KostKompasEfDb; Integrated Security=True; Connect Timeout=30; Encrypt=False");
             options.UseSqlServer(@"Data Source=mssql14.unoeuro.com;User ID=simpelwebdev_dk;Password=nGaDAz63h4R2kmHEBdcy;Initial Catalog=simpelwebdev_dk_db_KostKompas;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False;Command Timeout=30");
+
         }
 
 

@@ -22,6 +22,7 @@ body {
 }*/
 
 /*STYLING TIL FORSIDEN*/
+@import url('site.css');
 :root {
     --green: #6FAF5F;
     --dark-green: #4E8F4A;

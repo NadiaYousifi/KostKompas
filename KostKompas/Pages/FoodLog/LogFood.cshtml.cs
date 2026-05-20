@@ -71,29 +71,13 @@ namespace KostKompas.Pages.FoodLog
         // OnPost metode
         public async Task<IActionResult> OnPostAsync()
         {
-            // 1. Find den valgte food
-            //Models.Food selectedFood = await _foodService.GetFoodByIdAsync(FoodId);
-
-            // 2. Lav en "kopi" med brugerens gram
-            //Models.Food foodToLog = new Models.Food
-            //{
-            //    Id = selectedFood.Id,
-            //    Name = selectedFood.Name,
-            //    Kcal = selectedFood.Kcal,
-            //    Protein = selectedFood.Protein,
-            //    Fat = selectedFood.Fat,
-            //    Carbohydrate = selectedFood.Carbohydrate,
-            //    Fibre = selectedFood.Fibre,
-            //    WeightInGrams = WeightInGramsInput
-            //};
 
             FoodMeal selectedFoodMeal = new FoodMeal(FoodId, CurrentMeal.Id, WeightInGramsInput);
 
-            // 3. Log maden i det rigtige måltid
             await _foodLogService.LogFoodAsync(selectedFoodMeal);
             
 
-            // 4. Gå tilbage til madloggen
+            //  Gå tilbage til madloggen
             return RedirectToPage("/FoodLog/GetFoodLogDay");
         }
     }

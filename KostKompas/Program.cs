@@ -17,11 +17,11 @@ builder.Services.AddSingleton<FoodService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddScoped<FoodLogService, FoodLogService>();
 builder.Services.AddSingleton<ChatService>();
-builder.Services.AddSingleton<DbGenericService<Food>, DbGenericService<Food>>();
-builder.Services.AddSingleton<DbGenericService<User>, DbGenericService<User>>();
-builder.Services.AddScoped<DbGenericService<FoodLogDay>, DbGenericService<FoodLogDay>>();
-builder.Services.AddScoped<DbGenericService<Meal>, DbGenericService<Meal>>();
-builder.Services.AddScoped<DbGenericService<FoodMeal>, DbGenericService<FoodMeal>>();
+builder.Services.AddSingleton<IService<Food>, DbGenericService<Food>>();
+builder.Services.AddSingleton<IService<User>, DbGenericService<User>>();
+builder.Services.AddScoped<IService<FoodLogDay>, DbGenericService<FoodLogDay>>();
+builder.Services.AddScoped<IService<Meal>, DbGenericService<Meal>>();
+builder.Services.AddScoped<IService<FoodMeal>, DbGenericService<FoodMeal>>();
 
 
 builder.Services.Configure<CookiePolicyOptions>(options => {

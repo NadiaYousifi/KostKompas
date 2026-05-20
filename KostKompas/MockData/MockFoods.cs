@@ -21,5 +21,10 @@ namespace KostKompas.MockData
         {
             return foods;
         }
+        public static void GenerateTestIds()
+        {
+            int nextId = 0;
+            foods.ForEach(f => f.Id = nextId++);
+        }
     }
 }

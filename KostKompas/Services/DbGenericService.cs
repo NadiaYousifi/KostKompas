@@ -1,6 +1,5 @@
 ﻿using KostKompas.EFDbContext;
 using Microsoft.EntityFrameworkCore;
-using KostKompas.EFDbContext;
 
 namespace KostKompas.Services
 {
@@ -33,7 +32,7 @@ namespace KostKompas.Services
                     context.SaveChanges();
                 }
 
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
         }
 
@@ -62,6 +61,5 @@ namespace KostKompas.Services
                 return await context.Set<T>().FindAsync(pk);
             }
         }
-
     }
 }
