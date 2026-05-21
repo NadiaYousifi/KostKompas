@@ -22,13 +22,12 @@ namespace KostKompas.Services
             _users.Add(user);
             await _dbService.AddObjectAsync(user); 
         }
-
+        
         public async Task<List<User>> GetUsersAsync()
         {
             await _dbService.GetObjectsAsync();
             return _users;
         }
-
 
         public async Task UpdateUserAsync(User user)
         {
@@ -55,8 +54,9 @@ namespace KostKompas.Services
         public async Task<User?> GetUserByIdAsync(int id)
         {
             return await _dbService.GetObjectByIdAsync(id);
-            throw new ArgumentException("Invalid Id");
+            throw new ArgumentException("Invalid Id");  
         }
+
         public async Task<User?> GetUserByEmailAsync(string email)
         {
             foreach (User u in _users)
@@ -67,9 +67,8 @@ namespace KostKompas.Services
                     return u;
                 }
             }
-            throw new ArgumentException("Invalid Id");
+            throw new ArgumentException("Invalid email");
         }
-
 
         public async Task<User> DeleteUserAsync(int? userId)
         {
