@@ -884,3 +884,46 @@ body {
         color: var(--dark-green);
         margin-right: 5px;
     }
+
+/* Tilføj fødevare til madlog */
+
+.log-food-page {
+    display: flex;
+    justify-content: center;
+    padding: 50px 0 80px;
+}
+
+.log-food-card {
+    width: 100%;
+    max-width: 950px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 32px;
+    padding: 45px;
+    box-shadow: 0 14px 35px rgba(47, 47, 47, 0.10);
+}
+
+    .log-food-card h1 {
+        font-size: 3rem;
+        font-weight: 850;
+        color: var(--text);
+        margin: 0;
+    }
+
+.log-food-text {
+    color: var(--muted);
+    font-size: 1.1rem;
+    margin: 14px 0 32px;
+}
+
+.log-food-form {
+    display: grid;
+    gap: 26px;
+}
+
+.log-food-actions {
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid var(--beige-dark);
+    padding-top: 28px;
+    margin-top: 10px;
+}
