@@ -8,7 +8,7 @@ namespace KostKompasTest
     public sealed class FoodServiceTest
     {
         //Dummy DBservice
-        private IService<Food> _foodDb;
+        private IDBService<Food> _foodDb;
         private FoodService _foodService;
         private List<Food> _foods;
         public FoodServiceTest() 

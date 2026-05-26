@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KostKompas.Services
 {
-    public class DbGenericService<T> : IService<T> where T : class
+    public class DbGenericService<T> : IDBService<T> where T : class
     {
         public async Task<IEnumerable<T>> GetObjectsAsync()
         {

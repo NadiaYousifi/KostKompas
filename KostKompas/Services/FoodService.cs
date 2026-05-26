@@ -11,9 +11,9 @@ namespace KostKompas.Services
     {
         // instance fields 
         private List<Food> _foods;
-        private IService<Food> _dbService;
+        private IDBService<Food> _dbService;
 
-        public FoodService(IService<Food> dbService)
+        public FoodService(IDBService<Food> dbService)
         {
             _dbService = dbService;
             //_foods = MockFoods.GetMockFoods();

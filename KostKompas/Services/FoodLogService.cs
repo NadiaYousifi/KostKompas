@@ -9,14 +9,14 @@ namespace KostKompas.Services
     public class FoodLogService
     {
         // Field
-        private IService<FoodLogDay> _foodLogDbService;
-        private IService<Meal> _mealDbService;
-        private IService<FoodMeal> _foodMealDbService;
+        private IDBService<FoodLogDay> _foodLogDbService;
+        private IDBService<Meal> _mealDbService;
+        private IDBService<FoodMeal> _foodMealDbService;
         public List<FoodLogDay> FoodLogDays { get; set; } 
         public List<Meal> Meals { get; set; }
         public List<FoodMeal> FoodMeals { get; set; }
 
-        public FoodLogService(IService<FoodLogDay> foodLogDbService, IService<Meal> mealDbService, IService<FoodMeal> foodMealDbService)
+        public FoodLogService(IDBService<FoodLogDay> foodLogDbService, IDBService<Meal> mealDbService, IDBService<FoodMeal> foodMealDbService)
         {
             _foodLogDbService = foodLogDbService;
             _mealDbService = mealDbService;
@@ -38,38 +38,6 @@ namespace KostKompas.Services
             await _foodLogDbService.AddObjectAsync(foodLogDay);
         }
 
-        /// <summary>
-        /// Finder en Madlog-dag baseret på dens unikke ID. Metoden søger i databasen efter en FoodLogDay, der matcher det angivne ID, og inkluderer tilhørende måltider og fødevarer i resultatet.
-        /// </summary>
-        /// <param name="id">ID'et på den Madlog-dag, der skal hentes.</param>
-        /// <returns>En opgave, der repræsenterer den asynkrone operation, der returnerer den fundne Madlog-dag.</returns>
-        /// <exception cref="ArgumentException">Hvis den ønskede Madlog-dag ikke findes, kastes en ArgumentException med beskeden "Kunne ikke findes".</exception>
-        public async Task<FoodLogDay> GetFoodLogDayByIdAsync(int id)
-        {
-            FoodLogDay foodLogDay;
-            using (var context = new KostKompasDbContext())
-            {
-                foodLogDay = context.FoodLogDays
-                    .Include(fdl => fdl.Meals)
-                    .ThenInclude(m => m.FoodMeals)
-                    .ThenInclude(fm => fm.Food)
-                    .AsNoTracking()
-                    .FirstOrDefault(fdl => fdl.Id == id);
-            }
-            return foodLogDay;
-                //foreach (FoodLogDay f in FoodLogDays)
-                //{
-                //    if (f.Id == id)
-                //    {
-                //        await _foodLogDbService.GetObjectByIdAsync(id);
-                //        f.Meals = _mealDbService.GetObjectsAsync().Result.Where(m => m.FoodLogDayId == f.Id).ToList();
-                //        f.Meals.ForEach(m => m.FoodMeals = _foodMealDbService.GetObjectsAsync().Result.Where(fm => fm.MealId == m.Id).ToList());
-                //        f.Meals.ForEach(m => m.FoodMeals.ForEach(async fm => fm.Food = await _foodDbService.GetObjectByIdAsync(fm.FoodId)));
-                //        return f;
-                //    }
-                //}
-            throw new ArgumentException("Kunne ikke findes");
-        }
 
         /// <summary>
         /// Finder et måltid baseret på dets unikke ID. Metoden søger i databasen efter en Meal, der matcher det angivne ID, og inkluderer tilhørende fødevarer i resultatet.

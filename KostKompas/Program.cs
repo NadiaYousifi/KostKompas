@@ -6,9 +6,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 
 var builder = WebApplication.CreateBuilder(args);
-//builder.Services.AddDbContext<KostKompasDbContext>(options =>
-//    options.UseSqlServer(
-//        builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -17,11 +14,11 @@ builder.Services.AddSingleton<FoodService>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddScoped<FoodLogService, FoodLogService>();
 builder.Services.AddSingleton<ChatService>();
-builder.Services.AddSingleton<IService<Food>, DbGenericService<Food>>();
-builder.Services.AddSingleton<IService<User>, DbGenericService<User>>();
-builder.Services.AddScoped<IService<FoodLogDay>, DbGenericService<FoodLogDay>>();
-builder.Services.AddScoped<IService<Meal>, DbGenericService<Meal>>();
-builder.Services.AddScoped<IService<FoodMeal>, DbGenericService<FoodMeal>>();
+builder.Services.AddSingleton<IDBService<Food>, DbGenericService<Food>>();
+builder.Services.AddSingleton<IDBService<User>, DbGenericService<User>>();
+builder.Services.AddScoped<IDBService<FoodLogDay>, DbGenericService<FoodLogDay>>();
+builder.Services.AddScoped<IDBService<Meal>, DbGenericService<Meal>>();
+builder.Services.AddScoped<IDBService<FoodMeal>, DbGenericService<FoodMeal>>();
 
 
 builder.Services.Configure<CookiePolicyOptions>(options => {

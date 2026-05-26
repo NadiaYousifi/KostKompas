@@ -6,9 +6,9 @@ namespace KostKompas.Services
     public class UserService
     {
         private List<User> _users;
-        private IService<User> _dbService;
+        private IDBService<User> _dbService;
 
-        public UserService(IService<User> dbService)
+        public UserService(IDBService<User> dbService)
         {
             _dbService = dbService;
             //_users = MockUsers.GetMockUsers();

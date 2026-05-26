@@ -1,7 +1,5 @@
 ﻿using KostKompas.Models;
 
-
-
 namespace KostKompas.Services
 {
     public class ChatService
@@ -26,38 +24,7 @@ namespace KostKompas.Services
             });
         }
 
-        // Metode
-        //public List<ChatMessage> GetMessages() // Denne metode returnerer alle beskeder sorteret efter tidspunktet, de blev sendt
-        //{
-        //    return messages.OrderBy(m => m.SentAt).ToList(); // Beskederne sorteres i stigende rækkefølge baseret på SentAt, så de ældste beskeder kommer først
-        //}
-
-        //public void SendMessage(ChatMessage message) // Denne metode bruges til at sende en ny besked. Den tager en ChatMessage som parameter
-        //{
-        //    message.Id = messages.Count + 1; // Id'et for den nye besked sættes til antallet af eksisterende beskeder plus 1, så hver besked får et unikt id
-        //    message.SentAt = DateTime.Now; // SentAt sættes til det aktuelle tidspunkt, så beskeden vises som en ny besked
-
-        //messages.Add(message); // Den nye besked tilføjes til listen over beskeder
-        //}
-
-
-        //// metode ny for GetMessages 
-        //public List<ChatMessage> GetMessagesForUser(string userEmail) // Denne metode returnerer alle beskeder, hvor den angivne email enten er afsender eller modtager, sorteret efter tidspunktet de blev sendt
-        //{
-        //    List<ChatMessage> userMessages = new List<ChatMessage>(); // En midlertidig liste til at gemme beskeder, der er relevante for den angivne email
-
-        //    foreach (ChatMessage message in messages) // Gennemgår alle beskeder i den overordnede liste
-        //    {
-        //        if (message.SenderEmail == userEmail || message.ReceiverEmail == userEmail) // Hvis beskeden enten er sendt af eller modtaget af den angivne email, tilføjes den til userMessages-listen
-        //        {
-        //            userMessages.Add(message); // Tilføjer beskeden til userMessages-listen, hvis den er relevant for den angivne email
-        //        }
-        //    }
-
-        //    return userMessages.OrderBy(m => m.SentAt).ToList();
-        //}
-
-        // NY metode for GetMessages 
+        // metode for GetMessages 
         public List<ChatMessage> GetMessagesForUser(string userEmail) // Denne metode returnerer alle beskeder, hvor den angivne email enten er afsender eller modtager, eller hvor afsenderen er
         {
             List<ChatMessage> userMessages = new List<ChatMessage>(); // En midlertidig liste til at gemme beskeder, der er relevante for den angivne email
@@ -91,8 +58,5 @@ namespace KostKompas.Services
             message.SentAt = DateTime.Now; // SentAt sættes til det aktuelle tidspunkt, så beskeden vises som en ny besked
             messages.Add(message); // Den nye besked tilføjes til listen over beskeder
         }
-
-
     }
 }
-

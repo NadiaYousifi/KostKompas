@@ -3,7 +3,7 @@ using KostKompas.Services;
 
 namespace KostKompas.MockData
 {
-    public class MockDbService<T> : IService<T> where T : class
+    public class MockDbService<T> : IDBService<T> where T : class
     {
         public List<T> _mockData { get; set; }
         public MockDbService(List<T> mockData) 

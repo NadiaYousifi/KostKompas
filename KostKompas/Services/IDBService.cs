@@ -1,6 +1,6 @@
 ﻿namespace KostKompas.Services
 {
-    public interface IService<T>
+    public interface IDBService<T>
     {
         Task<IEnumerable<T>> GetObjectsAsync();
         Task AddObjectAsync(T obj);
