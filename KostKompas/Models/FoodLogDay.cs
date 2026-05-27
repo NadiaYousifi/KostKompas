@@ -6,8 +6,6 @@ namespace KostKompas.Models
     public class FoodLogDay
     {
         // properties
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; } 
         [Required]
         [DataType(DataType.Date)]

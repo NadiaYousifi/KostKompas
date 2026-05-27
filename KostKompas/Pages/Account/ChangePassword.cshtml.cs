@@ -29,28 +29,6 @@ namespace KostKompas.Pages.Account
         {
         }
 
-        //public IActionResult OnPost()
-        //{
-        //    var user = _userService.GetUserById(1);
-
-        //    if (user.Password != OldPassword)
-        //    {
-        //        ModelState.AddModelError("", "Forkert nuværende adgangskode");
-        //        return Page();
-        //    }
-
-        //    if (NewPassword != RepeatPassword)
-        //    {
-        //        ModelState.AddModelError("", "Passwords matcher ikke");
-        //        return Page();
-        //    }
-
-        //    user.Password = NewPassword;
-        //    _userService.UpdateUser(user);
-
-        //    return RedirectToPage("/Account/MyAccount");
-        //}
-
         public async Task<IActionResult> OnPostAsync()
         {
             string email = HttpContext.User.Identity.Name;

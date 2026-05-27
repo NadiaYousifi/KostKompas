@@ -52,7 +52,7 @@ namespace KostKompasTest
             _foodService.AddFoodAsync(testFood);
 
             // Assert
-            Assert.Contains(testFood, _foods);
+            Assert.Contains(testFood, _foodService.GetFoodsAsync().Result);
         }
 
         [TestMethod]

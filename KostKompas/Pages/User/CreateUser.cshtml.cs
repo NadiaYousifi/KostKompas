@@ -42,6 +42,5 @@ namespace KostKompas.Pages.User
             await _userService.AddUserAsync(User);
             return RedirectToPage("GetAllUsers");
         }
-
     }
 }

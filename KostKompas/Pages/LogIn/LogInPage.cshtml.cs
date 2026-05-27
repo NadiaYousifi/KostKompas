@@ -12,7 +12,6 @@ namespace KostKompas.Pages.LogIn
 {
     public class LogInPageModel : PageModel
     {
-        //public static User LoggedInUser { get; set; } = null;
 
         private UserService _userService;
 

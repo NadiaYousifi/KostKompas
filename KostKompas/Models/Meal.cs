@@ -15,27 +15,27 @@ namespace KostKompas.Models
 
         public double TotalKcal
         {
-            get { return FoodMeals.Sum(f => ((f.WeightInGrams / 100) * f.Food.Kcal)); }
+            get { return FoodMeals.Sum(fm => fm.TotalKcal); }
         }
 
         public double TotalProtein
         {
-            get { return FoodMeals.Sum(f => ((f.WeightInGrams / 100) * f.Food.Protein)); }
+            get { return FoodMeals.Sum(fm => fm.TotalProtein); }
         }
 
         public double TotalFat
         {
-            get { return FoodMeals.Sum(f => ((f.WeightInGrams / 100) * f.Food.Fat)); }
+            get { return FoodMeals.Sum(fm => fm.TotalFat); }
         }
 
         public double TotalCarbohydrate
         {
-            get { return FoodMeals.Sum(f => ((f.WeightInGrams / 100) * f.Food.Carbohydrate)); }
+            get { return FoodMeals.Sum(fm => fm.TotalCarbohydrate); }
         }
 
         public double TotalFibre
         {
-            get { return FoodMeals.Sum(f => ((f.WeightInGrams / 100) * f.Food.Fibre)); }
+            get { return FoodMeals.Sum(fm => fm.TotalFibre); }
         }
 
 
@@ -52,14 +52,6 @@ namespace KostKompas.Models
         {
             FoodMeals = new List<FoodMeal>(); // vi har en liste fordi vi gerne vil kunne oprette en ny liste
         }
-
-
-        //// Methods
-        //public void AddFood(Food food)
-        //{
-        //    FoodMeals.Add(food);
-        //}
-
     }
 }
 
